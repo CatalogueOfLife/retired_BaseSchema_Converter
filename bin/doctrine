@@ -1,0 +1,5 @@
+#!/usr/bin/php
+<?php
+define('BASEPATH', '.');
+chdir(dirname(__FILE__));
+require_once 'doctrine.php';

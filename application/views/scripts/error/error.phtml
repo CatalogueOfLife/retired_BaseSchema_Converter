@@ -1,0 +1,33 @@
+<?php
+/**
+ * Base Schema Converter
+ *
+ * error.phtml
+ * Error template
+ *
+ */
+?>
+<?php echo $this->doctype();?>
+<html>
+<head>
+    <?php echo $this->headMeta(); ?>
+    <?php echo $this->headTitle(); ?>
+</head>
+<body>
+  <h1>An error occured</h1>
+  <h2>Application error</h2>
+      
+  <h3>Exception information:</h3>
+  <p>
+      <b>Message:</b> <?php echo $this->exception->getMessage(); ?>
+  </p>
+
+  <h3>Stack trace:</h3>
+  <pre><?php echo $this->exception->getTraceAsString(); ?>
+  </pre>
+
+  <h3>Request Parameters:</h3>
+  <pre><?php var_dump($this->request->getParams()); ?>
+  </pre>
+</body>
+</html>
