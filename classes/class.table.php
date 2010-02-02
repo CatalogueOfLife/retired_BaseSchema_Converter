@@ -82,35 +82,42 @@ class table
         VALUES
         ';
         $first = true;
-        foreach($this->content as $contentRow)
+        if(is_array($this->content))
         {
-            if($first == true)
+            foreach($this->content as $contentRow)
             {
-                $first = false;
-            }
-            else
-            {
-                $query .= ',
-                ';
-            }
-            $query .= '(
-                ';
-            $first_content = true;
-            foreach($contentRow as $key => $content)
-            {
-                if($first_content == true)
+                if($first == true)
                 {
-                    $first_content = false;
+                    $first = false;
                 }
                 else
                 {
                     $query .= ',
                     ';
                 }
-                $query .= (is_numeric($content) ? $content : ($content == '' && $this->getType($key) == 'int' ? 'NULL' : '"' . $content . '"'));
+                $query .= '(
+                    ';
+                $first_content = true;
+                foreach($contentRow as $key => $content)
+                {
+                    if($first_content == true)
+                    {
+                        $first_content = false;
+                    }
+                    else
+                    {
+                        $query .= ',
+                        ';
+                    }
+                    $query .= (is_numeric($content) ? $content : ($content == '' && $this->getType($key) == 'int' ? 'NULL' : '"' . $content . '"'));
+                }
+                $query .= '
+                )';
             }
-            $query .= '
-            )';
+        }
+        else
+        {
+            echo 'No array found<br />';
         }
         return $query;
     }
@@ -148,7 +155,8 @@ class table
     private function checkType($colum, $value)
     {
         $temp = explode('(',$colum['Type']);
-        if($temp[0] == 'int')
+        $type = $temp[0];
+        if($type == 'int')
         {
             if(is_numeric($value) || is_null($value))
             {
@@ -160,9 +168,13 @@ class table
                 return false;
             }
         }
-        if($temp[0] == 'varchar')
+        elseif($type == 'varchar' || $type == 'text')
         {
             return true;
+        }
+        elseif($type == 'date')
+        {
+            return true; //TODO: make a date check
         }
         else
         {
@@ -181,7 +193,7 @@ class table
     {
         $temp = explode('(',$colum['Type']);
         $temp = explode(')',$temp[1]);
-        if(strlen($value) <= $temp[0])
+        if(strlen($value) <= $temp[0] || $temp[0] == '')
         {
             return true;
         }

@@ -16,6 +16,8 @@ $output_database = new database(OUTPUT_DB_NAME, OUTPUT_DB_USERNAME, OUTPUT_DB_PA
 $databases = new table($output_database, 'source_databases');
 $resources = new table($output_database, 'resources');
 $specialists = new table($output_database, 'specialists');
+$resources_to_source_databases = new table($output_database, 'web_links_to_source_databases');
+
 //$specialist_colums = $specialists->getColums();
 
 //Getting Databases
@@ -34,16 +36,21 @@ $databases_input = $input_database->getMultipleSelectQuery('
         `databases`
 ');
 //Add specialist in propper colums
-$resources_to_source_databases = '';
+$source_database_urls = '';
 foreach($databases_input as $key => $value)
 {
-    $websites = explode('#',$value['web_site']);
+    $websites = explode('#',$value['url']);
     foreach($websites as $website)
     {
         if($website != '')
         {
-            $resources_to_source_databases[$value['id']] = $website;
-            $resources->addContent(array('url', $website));
+            $source_database_urls[$value['id']] = $website;
+            $resources->addContent(array(
+                'id' => NULL,
+                'url' => $website,
+                'link_text' => NULL,
+                'protocol' => 'website'
+            ));
         }
     }
     unset($value['url']);
@@ -53,18 +60,29 @@ foreach($databases_input as $key => $value)
 $output_database->setSingleQuery($databases->getInsertQuery());
 $output_database->setSingleQuery($resources->getInsertQuery());
 
-$resources_input = $input_database->getMultipleSelectQuery('
+$resources_input = $output_database->getMultipleSelectQuery('
     SELECT
         `id` AS \'id\',
         `url` AS \'url\'
     FROM
         `resources`
 ');
+
 foreach($resources_input as $value)
 {
-    var_dump($value);
-    echo '<br />';
+    foreach($source_database_urls as $database_id => $url)
+    {
+        if($value['url'] == $url)
+        {
+            $resources_to_source_databases->addContent(array(
+                'source_database_id' => $database_id,
+                'resource_id' => $value['id']
+            ));
+        }
+    }
 }
+$output_database->setSingleQuery($resources_to_source_databases->getInsertQuery());
+
 
 //Getting Specialists
 $specialists_input = $input_database->getMultipleSelectQuery('
@@ -80,9 +98,58 @@ foreach($specialists_input as $value)
 {
     $specialists->addContent($value);
 }
-echo $specialists->countContent();
+//echo $specialists->countContent();
 //Write Specialists
 $output_database->setSingleQuery($specialists->getInsertQuery());
+
+$begin_time = time();
+echo 'current timestamp:' . $begin_time . '<br />';
+$kingdoms = $input_database->getMultipleSelectQuery('
+    SELECT DISTINCT `kingdom` AS \'scientific_name_elements\' FROM `families`');
+echo 'kingdoms:' . count($kingdoms) . '<br />';
+flush();
+$phylums = $input_database->getMultipleSelectQuery('
+    SELECT DISTINCT `phylum` AS \'scientific_name_elements\' FROM `families`');
+echo 'phylums:' . count($phylums) . '<br />';
+flush();
+$classes = $input_database->getMultipleSelectQuery('
+    SELECT DISTINCT `class` AS \'scientific_name_elements\' FROM `families`');
+echo 'classes:' . count($classes) . '<br />';
+flush();
+$orders = $input_database->getMultipleSelectQuery('
+    SELECT DISTINCT `order` AS \'scientific_name_elements\' FROM `families`');
+echo 'orders:' . count($orders) . '<br />';
+flush();
+$families = $input_database->getMultipleSelectQuery('
+    SELECT DISTINCT `family` AS \'scientific_name_elements\' FROM `families`');
+echo 'families:' . count($families) . '<br />';
+flush();
+$superfamilies = $input_database->getMultipleSelectQuery('
+    SELECT DISTINCT `superfamily` AS \'scientific_name_elements\' FROM `families`');
+echo 'superfamilies:' . count($superfamilies) . '<br />';
+flush();
+$genera = $input_database->getMultipleSelectQuery('
+    SELECT DISTINCT `genus` AS \'scientific_name_elements\' FROM `scientific_names`');
+echo 'genera:' . count($genera) . '<br />';
+flush();
+$species = $input_database->getMultipleSelectQuery('
+    SELECT DISTINCT `species` AS \'scientific_name_elements\' FROM `scientific_names`');
+echo 'species:' . count($species) . '<br />';
+flush();
+$infraspecies = $input_database->getMultipleSelectQuery('
+    SELECT DISTINCT `infraspecies` AS \'scientific_name_elements\' FROM `scientific_names`');
+echo 'infraspecies:' . count($infraspecies) . '<br />';
+flush();
+$infraspecies_marker = $input_database->getMultipleSelectQuery('
+    SELECT DISTINCT `infraspecies_marker` AS \'scientific_name_elements\' FROM `scientific_names`');
+echo 'infraspecies_marker:' . count($infraspecies_marker) . '<br />';
+flush();
+$end_time = time();
+echo 'current timestamp:' . $end_time . '<br />';
+$time_taken = $end_time - $begin_time;
+echo 'time taken:' . $time_taken . '<br />';
+
+
 exit();
 
 /*
