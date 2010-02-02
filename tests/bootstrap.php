@@ -2,8 +2,8 @@
 /**
  * Base Schema Converter
  *
- * doctrine.php
- * Command line tool
+ * bootstrap.php
+ * Test bootstrapper
  *
  */
 // Define path to application directory
@@ -20,13 +20,6 @@ set_include_path(
         array($library, $library . '/orm', get_include_path())
     )
 );
-
-$doctrineFilePath = APPLICATION_PATH . DIRECTORY_SEPARATOR . '/doctrine';
-$dConfig = array('data_fixtures_path'  =>  $doctrineFilePath . '/fixtures',
-                'models_path'         =>  $doctrineFilePath . '/models',
-                'migrations_path'     =>  $doctrineFilePath . '/migrations',
-                'sql_path'            =>  $doctrineFilePath . '/sql',
-                'yaml_schema_path'    =>  $doctrineFilePath . '/schema');
 
 // Incude classes required for the initialitzation of the app
 require_once 'Doctrine.php';
@@ -48,11 +41,10 @@ $config->merge(
 );
 // Init application
 $application = new Zend_Application(APPLICATION_ENV, $config);
+$front = Zend_Controller_Front::getInstance();
+$front->throwExceptions(true);
+$front->returnResponse(true);
 // Store config
 Zend_Registry::set('config', $config);
-// Bootstrap
-$application->bootstrap();
-
-// doctrine command-line client
-$cli = new Doctrine_Cli($dConfig);
-$cli->run($_SERVER['argv']);
+// Run bootstrap
+$application->bootstrap()->run();
