@@ -1,13 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.3
+-- version 3.2.0.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 25, 2010 at 10:19 AM
+-- Generation Time: Mar 08, 2010 at 05:36 PM
 -- Server version: 5.1.37
--- PHP Version: 5.2.10-2ubuntu6.4
---
---Baseschema v0.6, 18-11-2009
+-- PHP Version: 5.2.11
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -18,35 +16,35 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `baseschema`
+-- Database: `4d4life`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `authorities`
+-- Table structure for table `authority`
 --
 
-CREATE TABLE IF NOT EXISTS `authorities` (
+CREATE TABLE `authority` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `authority` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=326935 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `common_names`
+-- Table structure for table `common_name`
 --
 
-CREATE TABLE IF NOT EXISTS `common_names` (
+CREATE TABLE `common_name` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `classification_id` int(10) NOT NULL,
+  `taxon_id` int(10) NOT NULL,
   `common_name` varchar(255) NOT NULL,
   `language_iso` char(3) DEFAULT NULL,
   `country_iso` char(3) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `INDEX_CLASSIFICATION_ID` (`classification_id`),
+  KEY `INDEX_CLASSIFICATION_ID` (`taxon_id`),
   KEY `INDEX_LANGUAGE_ISO` (`language_iso`),
   KEY `INDEX_COUNTRY_ISO` (`country_iso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -54,10 +52,10 @@ CREATE TABLE IF NOT EXISTS `common_names` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `countries`
+-- Table structure for table `country`
 --
 
-CREATE TABLE IF NOT EXISTS `countries` (
+CREATE TABLE `country` (
   `iso` char(3) NOT NULL,
   `country` varchar(100) NOT NULL,
   PRIMARY KEY (`iso`)
@@ -69,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `countries` (
 -- Table structure for table `distribution`
 --
 
-CREATE TABLE IF NOT EXISTS `distribution` (
+CREATE TABLE `distribution` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `region_code` varchar(10) NOT NULL DEFAULT '',
   `distribution_status_id` int(10) DEFAULT NULL,
@@ -82,10 +80,10 @@ CREATE TABLE IF NOT EXISTS `distribution` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `distribution_statuses`
+-- Table structure for table `distribution_status`
 --
 
-CREATE TABLE IF NOT EXISTS `distribution_statuses` (
+CREATE TABLE `distribution_status` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `distribution_status` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
@@ -94,10 +92,10 @@ CREATE TABLE IF NOT EXISTS `distribution_statuses` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `languages`
+-- Table structure for table `language`
 --
 
-CREATE TABLE IF NOT EXISTS `languages` (
+CREATE TABLE `language` (
   `iso` char(3) NOT NULL,
   `language` varchar(100) NOT NULL,
   PRIMARY KEY (`iso`)
@@ -106,10 +104,10 @@ CREATE TABLE IF NOT EXISTS `languages` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `name_statuses`
+-- Table structure for table `name_status`
 --
 
-CREATE TABLE IF NOT EXISTS `name_statuses` (
+CREATE TABLE `name_status` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
   `name_status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -118,26 +116,41 @@ CREATE TABLE IF NOT EXISTS `name_statuses` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `references`
+-- Table structure for table `protocol`
 --
 
-CREATE TABLE IF NOT EXISTS `references` (
+CREATE TABLE `protocol` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `authors` varchar(255) NOT NULL,
-  `year` varchar(25) NOT NULL,
-  `details` text NOT NULL,
-  `resource_id` int(10) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `INDEX_RESOURCE_ID` (`resource_id`)
+  `protocol` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `references_to_common_names`
+-- Table structure for table `reference`
 --
 
-CREATE TABLE IF NOT EXISTS `references_to_common_names` (
+CREATE TABLE `reference` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `authors` varchar(255) DEFAULT NULL,
+  `year` varchar(25) DEFAULT NULL,
+  `details` text,
+  `resource_id` int(10) DEFAULT NULL,
+  `database_id` int(10) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `INDEX_RESOURCE_ID` (`resource_id`),
+  KEY `INDEX_DATBASE_ID` (`database_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=492696 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reference_to_common_name`
+--
+
+CREATE TABLE `reference_to_common_name` (
   `reference_id` int(10) NOT NULL,
   `common_name_id` int(10) NOT NULL,
   PRIMARY KEY (`reference_id`,`common_name_id`),
@@ -147,10 +160,10 @@ CREATE TABLE IF NOT EXISTS `references_to_common_names` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `references_to_synonyms`
+-- Table structure for table `reference_to_synonym`
 --
 
-CREATE TABLE IF NOT EXISTS `references_to_synonyms` (
+CREATE TABLE `reference_to_synonym` (
   `reference_id` int(10) NOT NULL,
   `synonym_id` int(10) NOT NULL,
   PRIMARY KEY (`reference_id`,`synonym_id`),
@@ -160,10 +173,10 @@ CREATE TABLE IF NOT EXISTS `references_to_synonyms` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reference_to_taxa`
+-- Table structure for table `reference_to_taxon`
 --
 
-CREATE TABLE IF NOT EXISTS `reference_to_taxa` (
+CREATE TABLE `reference_to_taxon` (
   `reference_id` int(10) NOT NULL AUTO_INCREMENT,
   `taxon_id` int(10) NOT NULL,
   `taxascientific_name_element_id` int(10) DEFAULT NULL,
@@ -174,48 +187,62 @@ CREATE TABLE IF NOT EXISTS `reference_to_taxa` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `regions`
+-- Table structure for table `region`
 --
 
-CREATE TABLE IF NOT EXISTS `regions` (
+CREATE TABLE `region` (
   `region_code` varchar(10) NOT NULL,
-  `region` int(10) NOT NULL,
+  `region` varchar(255) NOT NULL,
   PRIMARY KEY (`region_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `resources`
+-- Table structure for table `resource`
 --
 
-CREATE TABLE IF NOT EXISTS `resources` (
+CREATE TABLE `resource` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `url` varchar(255) NOT NULL,
   `link_text` varchar(255) DEFAULT NULL,
-  `protocol` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `protocol` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `protocol` (`protocol`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=67 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `scientific_name_elements`
+-- Table structure for table `resource_to_source_database`
 --
 
-CREATE TABLE IF NOT EXISTS `scientific_name_elements` (
+CREATE TABLE `resource_to_source_database` (
+  `source_database_id` int(10) NOT NULL,
+  `resource_id` int(10) NOT NULL,
+  PRIMARY KEY (`source_database_id`,`resource_id`),
+  KEY `resource_id` (`resource_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scientific_name_element`
+--
+
+CREATE TABLE `scientific_name_element` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=549784 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `source_databases`
+-- Table structure for table `source_database`
 --
 
-CREATE TABLE IF NOT EXISTS `source_databases` (
+CREATE TABLE `source_database` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `abbreviated_name` varchar(50) DEFAULT NULL,
@@ -225,29 +252,29 @@ CREATE TABLE IF NOT EXISTS `source_databases` (
   `release_date` date DEFAULT NULL,
   `abstract` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=68 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `specialists`
+-- Table structure for table `specialist`
 --
 
-CREATE TABLE IF NOT EXISTS `specialists` (
+CREATE TABLE `specialist` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `database_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `INDEX_DATABASE_ID` (`database_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1194 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `synonyms`
+-- Table structure for table `synonym`
 --
 
-CREATE TABLE IF NOT EXISTS `synonyms` (
+CREATE TABLE `synonym` (
   `taxonomic_rank_id` int(10) NOT NULL,
   `scientific_name_element_id` int(10) NOT NULL,
   `synonym_details_id` int(10) NOT NULL,
@@ -259,10 +286,10 @@ CREATE TABLE IF NOT EXISTS `synonyms` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `synonym_details`
+-- Table structure for table `synonym_detail`
 --
 
-CREATE TABLE IF NOT EXISTS `synonym_details` (
+CREATE TABLE `synonym_detail` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `taxon_id` int(10) NOT NULL,
   `authority_id` int(10) DEFAULT NULL,
@@ -276,19 +303,19 @@ CREATE TABLE IF NOT EXISTS `synonym_details` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `taxa`
+-- Table structure for table `taxon`
 --
 
-CREATE TABLE IF NOT EXISTS `taxa` (
+CREATE TABLE `taxon` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `lsid` varchar(100) DEFAULT NULL,
   `taxonomic_rank_id` int(10) NOT NULL,
   `scientific_name_element_id` int(10) NOT NULL,
   `parent_id` int(10) DEFAULT NULL,
-  `authority_id` int(10) NOT NULL,
+  `authority_id` int(10) DEFAULT NULL,
   `name_status_id` int(1) NOT NULL,
   `specialist_id` int(10) DEFAULT NULL,
-  `source_database_id` int(10) NOT NULL,
+  `source_database_id` int(10) DEFAULT NULL,
   `url` int(10) DEFAULT NULL,
   `latest_taxonomic_scrutiny` date DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -299,29 +326,116 @@ CREATE TABLE IF NOT EXISTS `taxa` (
   KEY `INDEX_NAME_STATUS_ID` (`name_status_id`),
   KEY `INDEX_SPECIALIST_ID` (`specialist_id`),
   KEY `INDEX_SOURCE_DATABASE_ID` (`source_database_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1500001 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `taxononimc_ranks`
+-- Table structure for table `taxonomic_rank`
 --
 
-CREATE TABLE IF NOT EXISTS `taxononimc_ranks` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `taxonomic_rank` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `rank` varchar(50) NOT NULL,
+  `tdwg_link` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=130 ;
 
 --
--- Table structure for table `web_links_to_source_databases`
+-- Constraints for dumped tables
 --
 
-CREATE TABLE IF NOT EXISTS `web_links_to_source_databases` (
-  `source_database_id` int(10) NOT NULL,
-  `resource_id` int(10) NOT NULL,
-  PRIMARY KEY (`source_database_id`,`resource_id`),
-  KEY `resource_id` (`resource_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--
+-- Constraints for table `common_name`
+--
+ALTER TABLE `common_name`
+  ADD CONSTRAINT `common_name_ibfk_10` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `common_name_ibfk_8` FOREIGN KEY (`language_iso`) REFERENCES `language` (`iso`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `common_name_ibfk_9` FOREIGN KEY (`country_iso`) REFERENCES `country` (`iso`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `distribution`
+--
+ALTER TABLE `distribution`
+  ADD CONSTRAINT `distribution_ibfk_5` FOREIGN KEY (`region_code`) REFERENCES `region` (`region_code`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `distribution_ibfk_6` FOREIGN KEY (`distribution_status_id`) REFERENCES `distribution_status` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `distribution_status`
+--
+ALTER TABLE `distribution_status`
+  ADD CONSTRAINT `distribution_status_ibfk_1` FOREIGN KEY (`id`) REFERENCES `distribution` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `reference`
+--
+ALTER TABLE `reference`
+  ADD CONSTRAINT `reference_ibfk_1` FOREIGN KEY (`resource_id`) REFERENCES `resource` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `reference_ibfk_2` FOREIGN KEY (`database_id`) REFERENCES `source_database` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `reference_to_common_name`
+--
+ALTER TABLE `reference_to_common_name`
+  ADD CONSTRAINT `reference_to_common_name_ibfk_5` FOREIGN KEY (`reference_id`) REFERENCES `reference` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `reference_to_common_name_ibfk_6` FOREIGN KEY (`common_name_id`) REFERENCES `common_name` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `reference_to_synonym`
+--
+ALTER TABLE `reference_to_synonym`
+  ADD CONSTRAINT `reference_to_synonym_ibfk_5` FOREIGN KEY (`reference_id`) REFERENCES `reference` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `reference_to_synonym_ibfk_6` FOREIGN KEY (`synonym_id`) REFERENCES `synonym_detail` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `reference_to_taxon`
+--
+ALTER TABLE `reference_to_taxon`
+  ADD CONSTRAINT `reference_to_taxon_ibfk_5` FOREIGN KEY (`reference_id`) REFERENCES `reference` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `reference_to_taxon_ibfk_6` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `region`
+--
+ALTER TABLE `region`
+  ADD CONSTRAINT `region_ibfk_1` FOREIGN KEY (`region_code`) REFERENCES `distribution` (`region_code`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `resource_to_source_database`
+--
+ALTER TABLE `resource_to_source_database`
+  ADD CONSTRAINT `resource_to_source_database_ibfk_1` FOREIGN KEY (`source_database_id`) REFERENCES `source_database` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `resource_to_source_database_ibfk_2` FOREIGN KEY (`resource_id`) REFERENCES `resource` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `specialist`
+--
+ALTER TABLE `specialist`
+  ADD CONSTRAINT `specialist_ibfk_1` FOREIGN KEY (`database_id`) REFERENCES `source_database` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `synonym`
+--
+ALTER TABLE `synonym`
+  ADD CONSTRAINT `synonym_ibfk_10` FOREIGN KEY (`taxonomic_rank_id`) REFERENCES `taxon` (`taxonomic_rank_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `synonym_ibfk_8` FOREIGN KEY (`scientific_name_element_id`) REFERENCES `scientific_name_element` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `synonym_ibfk_9` FOREIGN KEY (`synonym_details_id`) REFERENCES `synonym_detail` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `synonym_detail`
+--
+ALTER TABLE `synonym_detail`
+  ADD CONSTRAINT `synonym_detail_ibfk_7` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `synonym_detail_ibfk_8` FOREIGN KEY (`authority_id`) REFERENCES `authority` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `synonym_detail_ibfk_9` FOREIGN KEY (`name_status_id`) REFERENCES `name_status` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `taxon`
+--
+ALTER TABLE `taxon`
+  ADD CONSTRAINT `taxon_ibfk_22` FOREIGN KEY (`taxonomic_rank_id`) REFERENCES `taxon` (`taxonomic_rank_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `taxon_ibfk_16` FOREIGN KEY (`scientific_name_element_id`) REFERENCES `scientific_name_element` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `taxon_ibfk_18` FOREIGN KEY (`authority_id`) REFERENCES `authority` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `taxon_ibfk_19` FOREIGN KEY (`name_status_id`) REFERENCES `name_status` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `taxon_ibfk_20` FOREIGN KEY (`specialist_id`) REFERENCES `specialist` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `taxon_ibfk_21` FOREIGN KEY (`source_database_id`) REFERENCES `source_database` (`id`) ON UPDATE CASCADE;
