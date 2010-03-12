@@ -24,9 +24,9 @@ DROP TABLE IF EXISTS `author_citation`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `author_citation` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `author_citation` varchar(255) NOT NULL,
+  `citation` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `author_citation` (`author_citation`)
+  KEY `citation` (`citation`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -40,13 +40,14 @@ DROP TABLE IF EXISTS `common_name`;
 CREATE TABLE `common_name` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `taxon_id` int(10) NOT NULL,
-  `common_name` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `language_iso` char(3) DEFAULT NULL,
   `country_iso` char(3) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `taxon_id` (`taxon_id`),
   KEY `language_iso` (`language_iso`),
   KEY `country_iso` (`country_iso`),
+  KEY `name` (`name`),
   CONSTRAINT `common_name_ibfk_10` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `common_name_ibfk_8` FOREIGN KEY (`language_iso`) REFERENCES `language` (`iso`) ON UPDATE CASCADE,
   CONSTRAINT `common_name_ibfk_9` FOREIGN KEY (`country_iso`) REFERENCES `country` (`iso`) ON UPDATE CASCADE
@@ -62,9 +63,9 @@ DROP TABLE IF EXISTS `country`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `country` (
   `iso` char(2) NOT NULL,
-  `country` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
   PRIMARY KEY (`iso`),
-  KEY `country` (`country`)
+  KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -89,6 +90,23 @@ CREATE TABLE `distribution` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `distribution_free_text`
+--
+
+DROP TABLE IF EXISTS `distribution_free_text`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `distribution_free_text` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `taxon_id` int(11) NOT NULL,
+  `free_text` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `taxon_id` (`taxon_id`),
+  CONSTRAINT `distribution_free_text_ibfk_1` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `distribution_status`
 --
 
@@ -97,9 +115,9 @@ DROP TABLE IF EXISTS `distribution_status`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `distribution_status` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `distribution_status` varchar(100) NOT NULL,
+  `status` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `distribution_status` (`distribution_status`)
+  KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -113,11 +131,12 @@ DROP TABLE IF EXISTS `habitat`;
 CREATE TABLE `habitat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `habitat_standard_id` int(11) NOT NULL,
-  `original_code` varchar(25) DEFAULT NULL,
-  `habitat` text NOT NULL,
+  `original_code` varchar(25) NOT NULL,
+  `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `standard_id` (`habitat_standard_id`),
   KEY `original_code` (`original_code`),
+  KEY `name` (`name`),
+  KEY `habitat_standard_id` (`habitat_standard_id`),
   CONSTRAINT `habitat_ibfk_1` FOREIGN KEY (`habitat_standard_id`) REFERENCES `habitat_standard` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -131,9 +150,10 @@ DROP TABLE IF EXISTS `habitat_standard`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `habitat_standard` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `habitat_standard` varchar(50) NOT NULL,
+  `standard` varchar(50) NOT NULL,
   `version` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `standard` (`standard`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -163,27 +183,9 @@ DROP TABLE IF EXISTS `language`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `language` (
   `iso` char(3) NOT NULL,
-  `language` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
   PRIMARY KEY (`iso`),
-  KEY `language` (`language`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `latest_taxonomic_scrutiny`
---
-
-DROP TABLE IF EXISTS `latest_taxonomic_scrutiny`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `latest_taxonomic_scrutiny` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `latest_taxonomic_scrutiny` date NOT NULL,
-  `specialist_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `specialist_id` (`specialist_id`),
-  KEY `latest_taxonomic_scrutiny` (`latest_taxonomic_scrutiny`),
-  CONSTRAINT `latest_taxonomic_scrutiny_ibfk_1` FOREIGN KEY (`specialist_id`) REFERENCES `specialist` (`id`) ON UPDATE CASCADE
+  KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -198,15 +200,14 @@ CREATE TABLE `reference` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `authors` varchar(255) NOT NULL,
   `year` varchar(25) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
   `details` text NOT NULL,
   `uri_id` int(10) DEFAULT NULL,
-  `source_database_id` int(10) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `uri_id` (`uri_id`),
-  KEY `source_database_id` (`source_database_id`),
-  CONSTRAINT `reference_ibfk_1` FOREIGN KEY (`uri_id`) REFERENCES `uri` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `reference_ibfk_2` FOREIGN KEY (`source_database_id`) REFERENCES `source_database` (`id`) ON UPDATE CASCADE
+  KEY `authors` (`authors`),
+  KEY `year` (`year`),
+  CONSTRAINT `reference_ibfk_1` FOREIGN KEY (`uri_id`) REFERENCES `uri` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -270,12 +271,13 @@ DROP TABLE IF EXISTS `region`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `region` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `standard_id` int(11) DEFAULT NULL,
-  `original_code` varchar(25) DEFAULT NULL,
-  `region` text NOT NULL,
+  `standard_id` int(11) NOT NULL,
+  `original_code` varchar(25) NOT NULL,
+  `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `standard_id` (`standard_id`),
   KEY `original_code` (`original_code`),
+  KEY `name` (`name`),
   CONSTRAINT `region_ibfk_1` FOREIGN KEY (`standard_id`) REFERENCES `region_standard` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=943 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -289,9 +291,10 @@ DROP TABLE IF EXISTS `region_standard`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `region_standard` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `region_standard` varchar(50) NOT NULL,
+  `standard` varchar(50) NOT NULL,
   `version` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `standard` (`standard`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -304,9 +307,27 @@ DROP TABLE IF EXISTS `scientific_name_element`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `scientific_name_element` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `scientific_name_element` varchar(100) NOT NULL,
+  `name_element` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `name` (`scientific_name_element`)
+  KEY `name_element` (`name_element`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `scrutiny`
+--
+
+DROP TABLE IF EXISTS `scrutiny`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `scrutiny` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `scrutiny_date` date NOT NULL,
+  `specialist_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `specialist_id` (`specialist_id`),
+  KEY `scrutiny_date` (`scrutiny_date`),
+  CONSTRAINT `scrutiny_ibfk_1` FOREIGN KEY (`specialist_id`) REFERENCES `specialist` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -328,7 +349,8 @@ CREATE TABLE `source_database` (
   `version` varchar(25) DEFAULT NULL,
   `release_date` date DEFAULT NULL,
   `abstract` text,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`,`abbreviated_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -342,7 +364,8 @@ DROP TABLE IF EXISTS `specialist`;
 CREATE TABLE `specialist` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -398,9 +421,9 @@ DROP TABLE IF EXISTS `synonym_name_status`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `synonym_name_status` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
-  `synonym_name_status` varchar(50) DEFAULT NULL,
+  `name_status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `synonym_name_status` (`synonym_name_status`)
+  KEY `name_status` (`name_status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -422,9 +445,9 @@ CREATE TABLE `taxon` (
   KEY `taxonomic_rank_id` (`taxonomic_rank_id`),
   KEY `scientific_name_element_id` (`scientific_name_element_id`),
   KEY `source_database_id` (`source_database_id`),
+  CONSTRAINT `taxon_ibfk_22` FOREIGN KEY (`taxonomic_rank_id`) REFERENCES `taxonomic_rank` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `taxon_ibfk_16` FOREIGN KEY (`scientific_name_element_id`) REFERENCES `scientific_name_element` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `taxon_ibfk_21` FOREIGN KEY (`source_database_id`) REFERENCES `source_database` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `taxon_ibfk_22` FOREIGN KEY (`taxonomic_rank_id`) REFERENCES `taxon` (`taxonomic_rank_id`) ON UPDATE CASCADE
+  CONSTRAINT `taxon_ibfk_21` FOREIGN KEY (`source_database_id`) REFERENCES `source_database` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -439,16 +462,16 @@ CREATE TABLE `taxon_detail` (
   `taxon_id` int(11) NOT NULL,
   `author_citation_id` int(10) NOT NULL,
   `taxon_name_status_id` int(1) NOT NULL,
-  `latest_taxonomic_scrutiny_id` int(11) DEFAULT NULL,
+  `scrutiny_id` int(11) DEFAULT NULL,
   `additional_data` text,
   PRIMARY KEY (`taxon_id`),
-  KEY `latest_taxonomic_scrutiny_id` (`latest_taxonomic_scrutiny_id`),
   KEY `authority_id` (`author_citation_id`),
   KEY `taxon_name_status_id` (`taxon_name_status_id`),
-  CONSTRAINT `taxon_detail_ibfk_6` FOREIGN KEY (`author_citation_id`) REFERENCES `author_citation` (`id`) ON UPDATE CASCADE,
+  KEY `scrutiny_id` (`scrutiny_id`),
   CONSTRAINT `taxon_detail_ibfk_1` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `taxon_detail_ibfk_4` FOREIGN KEY (`latest_taxonomic_scrutiny_id`) REFERENCES `latest_taxonomic_scrutiny` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `taxon_detail_ibfk_5` FOREIGN KEY (`taxon_name_status_id`) REFERENCES `taxon_name_status` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `taxon_detail_ibfk_5` FOREIGN KEY (`taxon_name_status_id`) REFERENCES `taxon_name_status` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `taxon_detail_ibfk_6` FOREIGN KEY (`author_citation_id`) REFERENCES `author_citation` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `taxon_detail_ibfk_7` FOREIGN KEY (`scrutiny_id`) REFERENCES `scrutiny` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -461,9 +484,9 @@ DROP TABLE IF EXISTS `taxon_name_status`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `taxon_name_status` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
-  `taxon_name_status` varchar(50) DEFAULT NULL,
+  `name_status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `taxon_name_status` (`taxon_name_status`)
+  KEY `name_status` (`name_status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -493,7 +516,7 @@ DROP TABLE IF EXISTS `uri`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `uri` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `uri` text NOT NULL,
+  `resource_identifier` text NOT NULL,
   `description` text,
   `uri_scheme_id` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
@@ -511,9 +534,10 @@ DROP TABLE IF EXISTS `uri_scheme`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `uri_scheme` (
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
-  `uri_scheme` varchar(255) NOT NULL,
+  `scheme` varchar(25) NOT NULL,
   `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `scheme` (`scheme`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -560,4 +584,4 @@ CREATE TABLE `uri_to_taxon` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-03-12 11:49:55
+-- Dump completed on 2010-03-12 15:53:00
