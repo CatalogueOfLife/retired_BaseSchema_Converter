@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.37, for apple-darwin8.11.0 (powerpc)
+-- MySQL dump 10.13  Distrib 5.1.37, for debian-linux-gnu (i486)
 --
--- Host: localhost    Database: 4d4life
+-- Host: localhost    Database: base_schema
 -- ------------------------------------------------------
--- Server version	5.1.37
+-- Server version	5.1.37-1ubuntu5.1-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -237,11 +237,11 @@ DROP TABLE IF EXISTS `reference_to_synonym`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `reference_to_synonym` (
   `reference_id` int(10) NOT NULL,
-  `synonym_id` int(10) NOT NULL,
-  PRIMARY KEY (`reference_id`,`synonym_id`),
-  KEY `synonym_id` (`synonym_id`),
-  CONSTRAINT `reference_to_synonym_ibfk_5` FOREIGN KEY (`reference_id`) REFERENCES `reference` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `reference_to_synonym_ibfk_6` FOREIGN KEY (`synonym_id`) REFERENCES `synonym_detail` (`id`) ON UPDATE CASCADE
+  `synonym_detail_id` int(10) NOT NULL,
+  PRIMARY KEY (`reference_id`,`synonym_detail_id`),
+  KEY `synonym_id` (`synonym_detail_id`),
+  CONSTRAINT `reference_to_synonym_ibfk_6` FOREIGN KEY (`synonym_detail_id`) REFERENCES `synonym_detail` (`id`),
+  CONSTRAINT `reference_to_synonym_ibfk_5` FOREIGN KEY (`reference_id`) REFERENCES `reference` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -271,14 +271,14 @@ DROP TABLE IF EXISTS `region`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `region` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `standard_id` int(11) NOT NULL,
+  `region_standard_id` int(11) NOT NULL,
   `original_code` varchar(25) NOT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `standard_id` (`standard_id`),
+  KEY `standard_id` (`region_standard_id`),
   KEY `original_code` (`original_code`),
   KEY `name` (`name`),
-  CONSTRAINT `region_ibfk_1` FOREIGN KEY (`standard_id`) REFERENCES `region_standard` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `region_ibfk_1` FOREIGN KEY (`region_standard_id`) REFERENCES `region_standard` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=943 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -322,7 +322,7 @@ DROP TABLE IF EXISTS `scrutiny`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `scrutiny` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `scrutiny_date` date NOT NULL,
+  `scrutiny_date` date DEFAULT NULL,
   `specialist_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `specialist_id` (`specialist_id`),
@@ -399,15 +399,15 @@ DROP TABLE IF EXISTS `synonym_detail`;
 CREATE TABLE `synonym_detail` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `taxon_id` int(10) NOT NULL,
-  `authority_id` int(10) DEFAULT NULL,
+  `author_citation_id` int(10) DEFAULT NULL,
   `synonym_name_status_id` int(1) NOT NULL,
   `additional_data` text,
   PRIMARY KEY (`id`),
   KEY `taxon_id` (`taxon_id`),
-  KEY `authority_id` (`authority_id`),
+  KEY `authority_id` (`author_citation_id`),
   KEY `synonym_name_status_id` (`synonym_name_status_id`),
+  CONSTRAINT `synonym_detail_ibfk_10` FOREIGN KEY (`author_citation_id`) REFERENCES `author_citation` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `synonym_detail_ibfk_7` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `synonym_detail_ibfk_8` FOREIGN KEY (`authority_id`) REFERENCES `author_citation` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `synonym_detail_ibfk_9` FOREIGN KEY (`synonym_name_status_id`) REFERENCES `synonym_name_status` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -421,7 +421,7 @@ DROP TABLE IF EXISTS `synonym_name_status`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `synonym_name_status` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
-  `name_status` varchar(50) DEFAULT NULL,
+  `name_status` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name_status` (`name_status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -445,9 +445,10 @@ CREATE TABLE `taxon` (
   KEY `taxonomic_rank_id` (`taxonomic_rank_id`),
   KEY `scientific_name_element_id` (`scientific_name_element_id`),
   KEY `source_database_id` (`source_database_id`),
-  CONSTRAINT `taxon_ibfk_22` FOREIGN KEY (`taxonomic_rank_id`) REFERENCES `taxonomic_rank` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `taxon_ibfk_23` FOREIGN KEY (`parent_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `taxon_ibfk_16` FOREIGN KEY (`scientific_name_element_id`) REFERENCES `scientific_name_element` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `taxon_ibfk_21` FOREIGN KEY (`source_database_id`) REFERENCES `source_database` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `taxon_ibfk_21` FOREIGN KEY (`source_database_id`) REFERENCES `source_database` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `taxon_ibfk_22` FOREIGN KEY (`taxonomic_rank_id`) REFERENCES `taxonomic_rank` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -462,7 +463,7 @@ CREATE TABLE `taxon_detail` (
   `taxon_id` int(11) NOT NULL,
   `author_citation_id` int(10) NOT NULL,
   `taxon_name_status_id` int(1) NOT NULL,
-  `scrutiny_id` int(11) DEFAULT NULL,
+  `scrutiny_id` int(11) NOT NULL,
   `additional_data` text,
   PRIMARY KEY (`taxon_id`),
   KEY `authority_id` (`author_citation_id`),
@@ -484,7 +485,7 @@ DROP TABLE IF EXISTS `taxon_name_status`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `taxon_name_status` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
-  `name_status` varchar(50) DEFAULT NULL,
+  `name_status` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name_status` (`name_status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
@@ -584,4 +585,4 @@ CREATE TABLE `uri_to_taxon` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-03-12 15:53:00
+-- Dump completed on 2010-03-15 16:48:03
