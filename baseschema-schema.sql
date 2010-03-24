@@ -16,17 +16,17 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `author_citation`
+-- Table structure for table `author_string`
 --
 
-DROP TABLE IF EXISTS `author_citation`;
+DROP TABLE IF EXISTS `author_string`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `author_citation` (
+CREATE TABLE `author_string` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `citation` varchar(255) NOT NULL COMMENT 'Name of author(s), who described the taxon or published the current combination and the year when appropriate.',
+  `string` varchar(255) NOT NULL COMMENT 'Name of author(s), who described the taxon or published the current combination and the year when appropriate.',
   PRIMARY KEY (`id`),
-  KEY `citation` (`citation`)
+  KEY `string` (`string`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Author citations for taxa and synonyms';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -40,18 +40,35 @@ DROP TABLE IF EXISTS `common_name`;
 CREATE TABLE `common_name` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `taxon_id` int(10) unsigned NOT NULL,
-  `name` varchar(255) NOT NULL COMMENT 'Common name',
+  `common_name_element_id` int(10) unsigned NOT NULL,
   `language_iso` char(3) DEFAULT NULL COMMENT 'Optional language code',
   `country_iso` char(2) DEFAULT NULL COMMENT 'Optional country code if usage is restricted to a particular country',
   PRIMARY KEY (`id`),
   KEY `taxon_id` (`taxon_id`),
+  KEY `common_name_element_id` (`common_name_element_id`),
   KEY `language_iso` (`language_iso`),
   KEY `country_iso` (`country_iso`),
-  KEY `name` (`name`),
+  CONSTRAINT `common_name_ibfk_11` FOREIGN KEY (`common_name_element_id`) REFERENCES `common_name_element` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `common_name_ibfk_10` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `common_name_ibfk_8` FOREIGN KEY (`language_iso`) REFERENCES `language` (`iso`) ON UPDATE CASCADE,
   CONSTRAINT `common_name_ibfk_9` FOREIGN KEY (`country_iso`) REFERENCES `country` (`iso`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Common names for taxa';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Common names plus language/country details';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `common_name_element`
+--
+
+DROP TABLE IF EXISTS `common_name_element`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `common_name_element` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `transliteration` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Common names separated to avoid duplication';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,8 +98,8 @@ CREATE TABLE `distribution` (
   `region_id` smallint(5) unsigned NOT NULL,
   `distribution_status_id` tinyint(3) unsigned DEFAULT NULL,
   PRIMARY KEY (`taxon_id`,`region_id`),
-  KEY `distribution_status_id` (`distribution_status_id`),
   KEY `region_id` (`region_id`),
+  KEY `distribution_status_id` (`distribution_status_id`),
   CONSTRAINT `distribution_ibfk_1` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `distribution_ibfk_3` FOREIGN KEY (`distribution_status_id`) REFERENCES `distribution_status` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `distribution_ibfk_4` FOREIGN KEY (`region_id`) REFERENCES `region` (`id`) ON UPDATE CASCADE
@@ -118,7 +135,7 @@ CREATE TABLE `distribution_status` (
   `status` varchar(100) NOT NULL COMMENT 'Distribution status (common, rare, etc.)',
   PRIMARY KEY (`id`),
   KEY `status` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Predetermined list of statuses';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Predetermined list of distribution statuses';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,10 +151,10 @@ CREATE TABLE `habitat` (
   `original_code` varchar(25) NOT NULL COMMENT 'Original ID or code of the habitat type in the standard referenced in habitat_standard_id',
   `name` varchar(255) NOT NULL COMMENT 'Habitat type',
   PRIMARY KEY (`id`),
+  KEY `habitat_standard_id` (`habitat_standard_id`),
   KEY `original_code` (`original_code`),
   KEY `name` (`name`),
-  KEY `habitat_standard_id` (`habitat_standard_id`),
-  CONSTRAINT `habitat_ibfk_1` FOREIGN KEY (`habitat_standard_id`) REFERENCES `habitat_standard` (`id`) ON UPDATE CASCADE
+   CONSTRAINT `habitat_ibfk_1` FOREIGN KEY (`habitat_standard_id`) REFERENCES `habitat_standard` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COMMENT='Predetermined list of habitat types';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -154,7 +171,7 @@ CREATE TABLE `habitat_standard` (
   `version` varchar(10) DEFAULT NULL COMMENT 'Version of the standard used',
   PRIMARY KEY (`id`),
   KEY `standard` (`standard`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Standards used in habitat table';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Standards used in habitat table';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,6 +189,34 @@ CREATE TABLE `habitat_to_taxon` (
   CONSTRAINT `habitat_to_taxon_ibfk_1` FOREIGN KEY (`habitat_id`) REFERENCES `habitat` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `habitat_to_taxon_ibfk_2` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Links habitat type(s) to taxon';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `hybrid`
+--
+
+DROP TABLE IF EXISTS `hybrid`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hybrid` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `taxon_1_id` int(10) unsigned NOT NULL,
+  `taxon_2_id` int(10) unsigned NOT NULL,
+  `source_database_id` int(10) unsigned NOT NULL,
+  `taxon_detail_id` int(10) unsigned DEFAULT NULL COMMENT 'Either taxon_detail_id or synonym_detail_id should be present',
+  `synonym_detail_id` int(10) unsigned DEFAULT NULL COMMENT 'Either taxon_detail_id or synonym_detail_id should be present',
+  PRIMARY KEY (`id`),
+  KEY `taxon_1_id` (`taxon_1_id`),
+  KEY `taxon_2_id` (`taxon_2_id`),
+  KEY `source_database_id` (`source_database_id`),
+  KEY `taxon_detail_id` (`taxon_detail_id`),
+  KEY `synonym_detail_id` (`synonym_detail_id`),
+  CONSTRAINT `hybrid_ibfk_1` FOREIGN KEY (`taxon_1_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `hybrid_ibfk_2` FOREIGN KEY (`taxon_2_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `hybrid_ibfk_3` FOREIGN KEY (`source_database_id`) REFERENCES `source_database` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `hybrid_ibfk_4` FOREIGN KEY (`taxon_detail_id`) REFERENCES `taxon_detail` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `hybrid_ibfk_5` FOREIGN KEY (`synonym_detail_id`) REFERENCES `synonym_detail` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Hybrid taxa or synonyms';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,15 +243,15 @@ DROP TABLE IF EXISTS `reference`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `reference` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `authors` varchar(255) NOT NULL COMMENT 'Complete author string',
-  `year` varchar(25) NOT NULL COMMENT 'Year(s) of publication',
+  `authors` varchar(255) DEFAULT NULL COMMENT 'Complete author string',
+  `year` varchar(25) DEFAULT NULL COMMENT 'Year(s) of publication',
   `title` varchar(255) DEFAULT NULL COMMENT 'Title of the publication',
-  `details` text DEFAULT NULL COMMENT 'Additional information pertaining to the publication',
+  `text` text COMMENT 'Additional information pertaining to the publication',
   `uri_id` int(10) unsigned DEFAULT NULL COMMENT 'Link to downloadable version',
   PRIMARY KEY (`id`),
-  KEY `uri_id` (`uri_id`),
   KEY `authors` (`authors`),
   KEY `year` (`year`),
+  KEY `uri_id` (`uri_id`),
   CONSTRAINT `reference_ibfk_1` FOREIGN KEY (`uri_id`) REFERENCES `uri` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='References used for taxa, common names and synonyms';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -240,8 +285,8 @@ CREATE TABLE `reference_to_synonym` (
   `synonym_detail_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`reference_id`,`synonym_detail_id`),
   KEY `synonym_detail_id` (`synonym_detail_id`),
-  CONSTRAINT `reference_to_synonym_ibfk_6` FOREIGN KEY (`synonym_detail_id`) REFERENCES `synonym_detail` (`id`),
-  CONSTRAINT `reference_to_synonym_ibfk_5` FOREIGN KEY (`reference_id`) REFERENCES `reference` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `reference_to_synonym_ibfk_5` FOREIGN KEY (`reference_id`) REFERENCES `reference` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `reference_to_synonym_ibfk_6` FOREIGN KEY (`synonym_detail_id`) REFERENCES `synonym_detail` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Links references to synonyms';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -274,10 +319,13 @@ CREATE TABLE `region` (
   `region_standard_id` tinyint(3) unsigned NOT NULL,
   `original_code` varchar(25) NOT NULL COMMENT 'Original ID or code of the region in the standard referenced in region_standard_id',
   `name` varchar(255) NOT NULL COMMENT 'Region',
+  `parent_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Optional parent region',
   PRIMARY KEY (`id`),
   KEY `region_standard_id` (`region_standard_id`),
   KEY `original_code` (`original_code`),
   KEY `name` (`name`),
+  KEY `parent_id` (`parent_id`),
+  CONSTRAINT `region_ibfk_2` FOREIGN KEY (`parent_id`) REFERENCES `region` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `region_ibfk_1` FOREIGN KEY (`region_standard_id`) REFERENCES `region_standard` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=943 DEFAULT CHARSET=utf8 COMMENT='Predetermined list of regions used for distribution';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -310,7 +358,7 @@ CREATE TABLE `scientific_name_element` (
   `name_element` varchar(100) NOT NULL COMMENT 'Basic element of a scientific name; e.g. the epithet argentatus as used in Larus argentatus argenteus',
   PRIMARY KEY (`id`),
   KEY `name_element` (`name_element`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Individual elements used to generate a complete scientific name';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Individual elements used to generate a complete scientific n';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -323,10 +371,10 @@ DROP TABLE IF EXISTS `scrutiny`;
 CREATE TABLE `scrutiny` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `scrutiny_date` date DEFAULT NULL COMMENT 'Most recent date a taxon name was verified',
-  `specialist_id` int(10) unsigned NOT NULL COMMENT 'The specialist performing the verification',
+  `specialist_id` int(10) unsigned DEFAULT NULL COMMENT 'The specialist performing the verification',
   PRIMARY KEY (`id`),
-  KEY `specialist_id` (`specialist_id`),
   KEY `scrutiny_date` (`scrutiny_date`),
+  KEY `specialist_id` (`specialist_id`),
   CONSTRAINT `scrutiny_ibfk_1` FOREIGN KEY (`specialist_id`) REFERENCES `specialist` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Latest scrutiny date of a taxon';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -363,7 +411,7 @@ DROP TABLE IF EXISTS `specialist`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `specialist` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL COMMENT '',
+  `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Specialists who have scrutinized species names';
@@ -377,16 +425,16 @@ DROP TABLE IF EXISTS `synonym`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `synonym` (
-  `taxonomic_rank_id` tinyint(3) unsigned NOT NULL COMMENT '',
-  `scientific_name_element_id` int(10) unsigned NOT NULL COMMENT '',
-  `synonym_details_id` int(10) unsigned NOT NULL COMMENT '',
+  `taxonomic_rank_id` tinyint(3) unsigned NOT NULL,
+  `scientific_name_element_id` int(10) unsigned NOT NULL,
+  `synonym_details_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`taxonomic_rank_id`,`scientific_name_element_id`,`synonym_details_id`),
   KEY `scientific_name_element_id` (`scientific_name_element_id`),
   KEY `synonym_details_id` (`synonym_details_id`),
   CONSTRAINT `synonym_ibfk_10` FOREIGN KEY (`taxonomic_rank_id`) REFERENCES `taxonomic_rank` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `synonym_ibfk_8` FOREIGN KEY (`scientific_name_element_id`) REFERENCES `scientific_name_element` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `synonym_ibfk_9` FOREIGN KEY (`synonym_details_id`) REFERENCES `synonym_detail` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Scientific name elements of a synonym; needed because ranks do not have to match';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Scientific name elements of a synonym; needed because ranks ';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -398,28 +446,28 @@ DROP TABLE IF EXISTS `synonym_detail`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `synonym_detail` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `taxon_id` int(10) unsigned NOT NULL,
+  `taxon_id` int(10) unsigned NOT NULL COMMENT 'Valid taxon to which the synonym relates',
   `author_citation_id` int(10) unsigned DEFAULT NULL,
-  `synonym_name_status_id` tinyint(2) unsigned NOT NULL,
+  `synonymic_status_id` tinyint(2) unsigned NOT NULL,
   `additional_data` text COMMENT 'Optional free text field describing the synonym',
   PRIMARY KEY (`id`),
   KEY `taxon_id` (`taxon_id`),
   KEY `author_citation_id` (`author_citation_id`),
-  KEY `synonym_name_status_id` (`synonym_name_status_id`),
-  CONSTRAINT `synonym_detail_ibfk_10` FOREIGN KEY (`author_citation_id`) REFERENCES `author_citation` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `synonym_detail_ibfk_7` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `synonym_detail_ibfk_9` FOREIGN KEY (`synonym_name_status_id`) REFERENCES `synonym_name_status` (`id`) ON UPDATE CASCADE
+  KEY `synonymic_status_id` (`synonymic_status_id`),
+  CONSTRAINT `synonym_detail_ibfk_10` FOREIGN KEY (`author_citation_id`) REFERENCES `author_string` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `synonym_detail_ibfk_11` FOREIGN KEY (`synonymic_status_id`) REFERENCES `synonymic_status` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `synonym_detail_ibfk_7` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Details pertaining to a synonym linked to a valid taxon';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `synonym_name_status`
+-- Table structure for table `synonymic_status`
 --
 
-DROP TABLE IF EXISTS `synonym_name_status`;
+DROP TABLE IF EXISTS `synonymic_status`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `synonym_name_status` (
+CREATE TABLE `synonymic_status` (
   `id` tinyint(2) unsigned NOT NULL AUTO_INCREMENT,
   `name_status` varchar(50) NOT NULL COMMENT 'Name status of a synonym',
   PRIMARY KEY (`id`),
@@ -439,16 +487,19 @@ CREATE TABLE `taxon` (
   `taxonomic_rank_id` tinyint(3) unsigned NOT NULL,
   `scientific_name_element_id` int(10) unsigned NOT NULL,
   `parent_id` int(10) unsigned DEFAULT NULL COMMENT 'ID of parent taxon; optional only for top-level taxa',
-  `source_database_id` int(10) unsigned DEFAULT NULL,
+  `source_database_id` int(10) unsigned NOT NULL,
+  `taxon_detail_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `parent_id` (`parent_id`),
   KEY `taxonomic_rank_id` (`taxonomic_rank_id`),
   KEY `scientific_name_element_id` (`scientific_name_element_id`),
+  KEY `parent_id` (`parent_id`),
   KEY `source_database_id` (`source_database_id`),
-  CONSTRAINT `taxon_ibfk_24` FOREIGN KEY (`taxonomic_rank_id`) REFERENCES `taxonomic_rank` (`id`) ON UPDATE CASCADE,
+  KEY `taxon_detail_id` (`taxon_detail_id`),
+  CONSTRAINT `taxon_ibfk_26` FOREIGN KEY (`parent_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `taxon_ibfk_16` FOREIGN KEY (`scientific_name_element_id`) REFERENCES `scientific_name_element` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `taxon_ibfk_21` FOREIGN KEY (`source_database_id`) REFERENCES `source_database` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `taxon_ibfk_23` FOREIGN KEY (`parent_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `taxon_ibfk_24` FOREIGN KEY (`taxonomic_rank_id`) REFERENCES `taxonomic_rank` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `taxon_ibfk_25` FOREIGN KEY (`taxon_detail_id`) REFERENCES `taxon_detail` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Scientific name elements and hierarchy of a taxon';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -460,35 +511,19 @@ DROP TABLE IF EXISTS `taxon_detail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `taxon_detail` (
-  `taxon_id` int(10) unsigned NOT NULL,
-  `author_citation_id` int(10) unsigned NOT NULL,
-  `taxon_name_status_id` tinyint(2) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `author_string_id` int(10) unsigned DEFAULT NULL,
+  `taxononomic_status_id` tinyint(2) unsigned NOT NULL,
   `scrutiny_id` int(10) unsigned NOT NULL,
   `additional_data` text COMMENT 'Optional free text field describing the taxon',
-  PRIMARY KEY (`taxon_id`),
-  KEY `author_citation_id` (`author_citation_id`),
-  KEY `taxon_name_status_id` (`taxon_name_status_id`),
-  KEY `scrutiny_id` (`scrutiny_id`),
-  CONSTRAINT `taxon_detail_ibfk_1` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `taxon_detail_ibfk_5` FOREIGN KEY (`taxon_name_status_id`) REFERENCES `taxon_name_status` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `taxon_detail_ibfk_6` FOREIGN KEY (`author_citation_id`) REFERENCES `author_citation` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `taxon_detail_ibfk_7` FOREIGN KEY (`scrutiny_id`) REFERENCES `scrutiny` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Details pertaining to species and lower taxa';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `taxon_name_status`
---
-
-DROP TABLE IF EXISTS `taxon_name_status`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `taxon_name_status` (
-  `id` tinyint(2) unsigned NOT NULL AUTO_INCREMENT,
-  `name_status` varchar(50) NOT NULL COMMENT 'Name status of a taxon',
   PRIMARY KEY (`id`),
-  KEY `name_status` (`name_status`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Predetermined list of statuses of acceptated names';
+  KEY `author_string_id` (`author_string_id`),
+  KEY `taxononomic_status_id` (`taxononomic_status_id`),
+  KEY `scrutiny_id` (`scrutiny_id`),
+  CONSTRAINT `taxon_detail_ibfk_7` FOREIGN KEY (`scrutiny_id`) REFERENCES `scrutiny` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `taxon_detail_ibfk_8` FOREIGN KEY (`author_string_id`) REFERENCES `author_string` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `taxon_detail_ibfk_9` FOREIGN KEY (`taxononomic_status_id`) REFERENCES `taxonomic_status` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Details pertaining to species and lower taxa';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -507,6 +542,21 @@ CREATE TABLE `taxonomic_rank` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `taxonomic_status`
+--
+
+DROP TABLE IF EXISTS `taxonomic_status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `taxonomic_status` (
+  `id` tinyint(2) unsigned NOT NULL AUTO_INCREMENT,
+  `name_status` varchar(50) NOT NULL COMMENT 'Name status of a taxon',
+  PRIMARY KEY (`id`),
+  KEY `name_status` (`name_status`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Predetermined list of statuses of acceptated names';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `uri`
 --
 
@@ -517,7 +567,7 @@ CREATE TABLE `uri` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `resource_identifier` text NOT NULL COMMENT 'Unique resource identifier (URI; including LSID)',
   `description` text COMMENT 'Short description of the URI',
-  `uri_scheme_id` tinyint(2) unsigned NOT NULL COMMENT '',
+  `uri_scheme_id` tinyint(2) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `uri_scheme_id` (`uri_scheme_id`),
   CONSTRAINT `uri_ibfk_1` FOREIGN KEY (`uri_scheme_id`) REFERENCES `uri_scheme` (`id`) ON UPDATE CASCADE
@@ -583,4 +633,4 @@ CREATE TABLE `uri_to_taxon` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-03-16 13:26:53
+-- Dump completed on 2010-03-24 15:35:15
