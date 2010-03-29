@@ -22,7 +22,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                        ->addResourceType('form', 'forms/', 'Form');
         $autoloader = Zend_Loader_Autoloader::getInstance();
         // Bs model
-        $autoloader->registerNamespace('Bs_');
+        $autoloader->registerNamespace('Bs_'); // Base Schema model
+        $autoloader->registerNamespace('Ac_'); // Annual Checklist model
     }
     
     /**
