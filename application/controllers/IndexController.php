@@ -15,10 +15,10 @@ class IndexController extends Zend_Controller_Action
         $rankIt    = new Bs_Taxon_Rank_Iterator($dba);
         $uriSchIt = new Bs_Uri_Scheme_Iterator($dba);
         
-        var_dump ($langIt->get('isoCode', 'spa'));
-        var_dump ($counIt->get('name', 'Netherlands'));
-        var_dump ($rankIt->get('name', 'kingdom'));
-        var_dump ($uriSchIt->get('scheme', 'lsid'));
+        echo $langIt->get('isoCode', 'spa') . '<br/>';
+        echo $counIt->get('name', 'Netherlands') . '<br/>';
+        echo $rankIt->get('name', 'kingdom') . '<br/>';
+        echo $uriSchIt->get('scheme', 'lsid') . '<br/>';
         
         /*$cn = new Bs_CommonName(
             'Truita', null,

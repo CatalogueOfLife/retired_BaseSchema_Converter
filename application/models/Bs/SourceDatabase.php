@@ -9,7 +9,7 @@ class Bs_SourceDatabase implements Bs_Storable
     protected $_groupNameInEnglish;
     protected $_authorsAndEditors;
     
-    public function store(Zend_Db_Adapter $dba)
+    public function store(Zend_Db_Adapter_Abstract $dba)
     {
     }
 }

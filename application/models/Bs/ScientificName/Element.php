@@ -57,7 +57,7 @@ class Bs_ScientificName_Element implements Bs_Storable
         $select = new Zend_Db_Select($dba);
         $select
             ->from('scientific_name_element', array('id'))
-            ->where('name = ?', (string)$name);
+            ->where('name = ?', $name);
         $id = $select->query()->fetchColumn(0);
         return $id;
     }

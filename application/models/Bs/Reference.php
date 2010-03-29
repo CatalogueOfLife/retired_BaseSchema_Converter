@@ -7,7 +7,7 @@ class Bs_Reference implements Bs_Storable
     protected $_authors;
     protected $_year;
     
-    public function store(Zend_Db_Adapter $dba)
+    public function store(Zend_Db_Adapter_Abstract $dba)
     {
     }
 }

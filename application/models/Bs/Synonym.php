@@ -1,7 +1,9 @@
 <?php
 class Bs_Synonym implements Bs_Storable
 {
-    public function store(Zend_Db_Adapter $dba)
+    protected $_taxonId;
+    
+    public function store(Zend_Db_Adapter_Abstract $dba)
     {
     }
 }

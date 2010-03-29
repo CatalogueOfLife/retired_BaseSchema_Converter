@@ -2,7 +2,8 @@
 abstract class Bs_Taxon
 {
     protected $_id;
-    protected $_sourceDatabase;
+    protected $_sourceDatabaseId;
     protected $_taxonRank;
     protected $_taxonDetails;
+    protected $_references;
 }
