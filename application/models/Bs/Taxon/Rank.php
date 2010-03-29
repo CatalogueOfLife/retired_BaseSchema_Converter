@@ -1,7 +1,27 @@
 <?php
-class Taxon_Rank extends AEnum implements ILoadable
+class Bs_Taxon_Rank
 {
-    public function load(Zend_Db_Adapter $dba)
+    protected $_id;
+    protected $_name;
+    
+    public function __construct($id, $name)
     {
+        $this->_id = $id;
+        $this->_name = $name;
+    }
+    
+    public function getName()
+    {
+        return $this->_name;
+    }
+    
+    public function getId()
+    {
+        return $this->_id;
+    }
+    
+    public function __toString()
+    {
+        return $this->getId() . ':' . $this->getName();
     }
 }

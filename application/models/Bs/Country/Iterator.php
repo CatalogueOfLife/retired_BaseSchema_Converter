@@ -14,11 +14,11 @@ class Bs_Country_Iterator extends Bs_Iterator implements Bs_Loadable
     public function load()
     {
         $stmt = $this->_dba->query($this->_getSelect());
-        $countries = array();
+        $items = array();
         while ($row = $stmt->fetch()) {
-            array_push($countries, new Bs_Country($row['iso'], $row['name']));
+            array_push($items, new Bs_Country($row['iso'], $row['name']));
         }
-        $this->_init($countries);
+        $this->_init($items);
     }
     
     private function _getSelect()
