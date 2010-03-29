@@ -19,7 +19,20 @@
         <bootstrap>
             <path><zf:const zf:name="APPLICATION_PATH"/>/Bootstrap.php</path>
             <class>Bootstrap</class>
-        </bootstrap>        
+        </bootstrap>
+        <database>
+            <adapter>Pdo_Mysql</adapter>
+            <params>
+                <port>3306</port>
+                <!-- overriden by config.ini -->
+                <host></host>
+                <username></username>
+                <password></password>
+                <dbname></dbname>
+                <!--  -->
+                <profiler enabled="0" />
+            </params>
+        </database>
         <resources>
             <frontController>
                 <controllerDirectory><zf:const zf:name="APPLICATION_PATH"/>/controllers</controllerDirectory>
@@ -59,6 +72,13 @@
             <display_startup_errors>1</display_startup_errors>
             <display_errors>1</display_errors>
         </phpSettings>
+        <database>
+            <params>
+                <profiler enabled="1">
+                    <class>Zend_Db_Profiler_Firebug</class>
+                </profiler>
+            </params>
+        </database>
         <log enabled="1">
             <filter>
                 <priority>7</priority>

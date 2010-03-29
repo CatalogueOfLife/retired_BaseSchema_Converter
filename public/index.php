@@ -20,16 +20,18 @@ defined('APPLICATION_ENV')
     );
 
 // Ensure library/ is on include_path
-$library = realpath(APPLICATION_PATH . '/../library');
 set_include_path(
     implode(
         PATH_SEPARATOR,
-        array($library, $library . '/orm', get_include_path())
+        array(
+            realpath(APPLICATION_PATH . '/../library'),
+            realpath(APPLICATION_PATH . '/models'),
+            get_include_path()
+        )
     )
 );
 
 // Incude classes required for the initialitzation of the app
-require_once 'Doctrine.php';
 require_once 'Zend/Application.php';
 require_once 'Zend/Config/Xml.php';
 require_once 'Zend/Config/Ini.php';

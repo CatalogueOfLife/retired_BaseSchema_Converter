@@ -18,34 +18,24 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 'namespace' => 'Bsc'
             )
         );
-        $resourceLoader->addResourceType('model', 'models/', 'Model')
+        $resourceLoader/*->addResourceType('model', 'models/Bs/', 'Bs')*/
                        ->addResourceType('form', 'forms/', 'Form');
         $autoloader = Zend_Loader_Autoloader::getInstance();
+        // Bs model
+        $autoloader->registerNamespace('Bs_');
     }
     
-    public function _initDoctrine()
+    /**
+     * Database initialization based on the application config file
+     */
+    public function _initDatabase()
     {
-        // Set the autoloader
-        spl_autoload_register(array('Doctrine', 'autoload'));
-        $manager = Doctrine_Manager::getInstance();
-        $manager->setAttribute(Doctrine::ATTR_AUTO_ACCESSOR_OVERRIDE, true);
-        $manager->setAttribute(
-            Doctrine::ATTR_MODEL_LOADING,
-            Doctrine::MODEL_LOADING_CONSERVATIVE
-        );
-        $manager->setAttribute(
-            Doctrine::ATTR_AUTOLOAD_TABLE_CLASSES,
-            true
-        );
         $config = Zend_Registry::get('config');
-        $dbp = $config->database->params;
-        $dsn = $dbp->dbtype . '://' .
-               $dbp->username . ':' . $dbp->password .'@' .
-               $dbp->host . ':' . $dbp->dbport . '/' .
-               $dbp->dbname;
-        $conn = Doctrine_Manager::connection($dsn, 'BscConn');
-        $conn->setAttribute(Doctrine::ATTR_USE_NATIVE_ENUM, true);
-        return $conn;
+        $dba = Zend_Db::factory($config->database);
+        Zend_Db_Table_Abstract::setDefaultAdapter($dba);
+        $dba->setFetchMode(Zend_Db::FETCH_ASSOC);
+        $dba->query('SET NAMES utf8');
+        Zend_Registry::set('dba', $dba);
     }
     
     /**
