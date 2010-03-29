@@ -9,7 +9,7 @@ class IndexController extends Zend_Controller_Action
 {
     public function indexAction()
     {
-        $dba = Zend_Registry::get('dba');
+        $dba = Zend_Registry::get('dbaBs');
         $langIt   = new Bs_Language_Iterator($dba);
         $counIt   = new Bs_Country_Iterator($dba);
         $rankIt    = new Bs_Taxon_Rank_Iterator($dba);

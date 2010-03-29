@@ -21,17 +21,32 @@
             <class>Bootstrap</class>
         </bootstrap>
         <database>
-            <adapter>Pdo_Mysql</adapter>
-            <params>
-                <port>3306</port>
-                <!-- overriden by config.ini -->
-                <host></host>
-                <username></username>
-                <password></password>
-                <dbname></dbname>
-                <!--  -->
-                <profiler enabled="0" />
-            </params>
+            <Bs>
+	            <adapter>Pdo_Mysql</adapter>
+	            <params>
+	                <port>3306</port>
+	                <!-- overriden by config.ini -->
+	                <host></host>
+	                <username></username>
+	                <password></password>
+	                <dbname></dbname>
+	                <!--  -->
+	                <profiler enabled="0" />
+	            </params>
+            </Bs>
+            <Ac>
+                <adapter>Pdo_Mysql</adapter>
+                <params>
+                    <port>3306</port>
+                    <!-- overriden by config.ini -->
+                    <host></host>
+                    <username></username>
+                    <password></password>
+                    <dbname></dbname>
+                    <!--  -->
+                    <profiler enabled="0" />
+                </params>
+            </Ac>
         </database>
         <resources>
             <frontController>
@@ -73,11 +88,20 @@
             <display_errors>1</display_errors>
         </phpSettings>
         <database>
-            <params>
-                <profiler enabled="1">
-                    <class>Zend_Db_Profiler_Firebug</class>
-                </profiler>
-            </params>
+            <Bs>
+	            <params>
+	                <profiler enabled="1">
+	                    <class>Zend_Db_Profiler_Firebug</class>
+	                </profiler>
+	            </params>
+	        </Bs>
+	        <Ac>
+                <params>
+                    <profiler enabled="1">
+                        <class>Zend_Db_Profiler_Firebug</class>
+                    </profiler>
+                </params>
+            </Ac> 
         </database>
         <log enabled="1">
             <filter>

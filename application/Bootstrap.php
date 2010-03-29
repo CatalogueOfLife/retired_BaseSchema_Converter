@@ -32,11 +32,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     public function _initDatabase()
     {
         $config = Zend_Registry::get('config');
-        $dba = Zend_Db::factory($config->database);
-        Zend_Db_Table_Abstract::setDefaultAdapter($dba);
-        $dba->setFetchMode(Zend_Db::FETCH_ASSOC);
-        $dba->query('SET NAMES utf8');
-        Zend_Registry::set('dba', $dba);
+        // Base Schema Database
+        $dbaBs = Zend_Db::factory($config->database->Bs);
+        //Zend_Db_Table_Abstract::setDefaultAdapter($dba);
+        $dbaBs->setFetchMode(Zend_Db::FETCH_ASSOC);
+        $dbaBs->query('SET NAMES utf8');
+        Zend_Registry::set('dbaBs', $dbaBs);
+        // Annual Checklist Database
+        $dbaAc = Zend_Db::factory($config->database->Ac);
+        $dbaAc->setFetchMode(Zend_Db::FETCH_ASSOC);
+        $dbaAc->query('SET NAMES utf8');
+        Zend_Registry::set('dbaAc', $dbaAc);
     }
     
     /**
