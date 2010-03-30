@@ -85,7 +85,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `habitat` WRITE;
 /*!40000 ALTER TABLE `habitat` DISABLE KEYS */;
-INSERT INTO `habitat` VALUES (1,1,'1','Forest'),(2,1,'1.1','Boreal'),(3,1,'1.2','Subarctic'),(4,1,'1.3','Subantarctic'),(5,1,'1.4','Temperate'),(6,1,'1.5','Subtropical/Tropical Dry'),(7,1,'1.6','Subtropical/Tropical Moist Lowland'),(8,1,'1.7','Subtropical/Tropical Mangrove'),(9,1,'1.8','Subtropical/Tropical Swamp'),(10,1,'1.9','Subtropical/Tropical Moist Montane'),(11,1,'2','Savanna'),(12,1,'2.1','Dry'),(13,1,'2.2','Moist'),(14,1,'3','Shrubland'),(15,1,'3.1','Subarctic'),(16,1,'3.2','Subantarctic'),(17,1,'3.3','Boreal'),(18,1,'3.4','Temperate'),(19,1,'3.5','Subtropical/Tropical Dry'),(20,1,'3.6','Subtropical/Tropical Moist'),(21,1,'3.7','Subtropical/Tropical High Altitude'),(22,1,'3.8','Mediterranean-type Shrubby Vegetation'),(23,1,'4','Grassland'),(24,1,'4.1','Tundra'),(25,1,'4.2','Subarctic'),(26,1,'4.3','Subantarctic'),(27,1,'4.4','Temperate'),(28,1,'4.5','Subtropical/Tropical Dry Lowland'),(29,1,'4.6','Subtropical/Tropical Seasonally Wet/Flooded Lowland'),(30,1,'4.7','Subtropical/Tropical High Altitude'),(31,1,'5','Wetlands (inland)'),(32,1,'5.1','Permanent Rivers/Streams/Creeks [includes waterfalls]'),(33,1,'5.2','Seasonal/Intermittent/Irregular Rivers/Streams/Creeks'),(34,1,'5.3','Shrub Dominated Wetlands'),(35,1,'5.4','Bogs, Marshes, Swamps, Fens, Peatlands'),(36,1,'5.5','Permanent Freshwater Lakes [over 8 ha]'),(37,1,'5.6','Seasonal/Intermittent Freshwater Lakes [over 8 ha]'),(38,1,'5.7','Permanent Freshwater Marshes/Pools [under 8 ha]'),(39,1,'5.8','Seasonal/Intermittent Freshwater Marshes/Pools [under 8 ha]'),(40,1,'5.9','Freshwater Springs and Oases'),(41,1,'5.1','Tundra Wetlands [includes pools and temporary waters from snowmelt] '),(42,1,'5.11','Alpine Wetlands [includes temporary waters from snowmelt]'),(43,1,'5.12','Geothermal Wetlands'),(44,1,'5.13','Permanent Inland Deltas'),(45,1,'5.14','Permanent Saline, Brackish or Alkaline Lakes'),(46,1,'5.15','Seasonal/Intermittent Saline, Brackish or Alkaline Lakes and Flats'),(47,1,'5.16','Permanent Saline, Brackish or Alkaline Marshes/Pools'),(48,1,'5.17','Seasonal/Intermittent Saline, Brackish or Alkaline Marshes/Pools'),(49,1,'5.18','Karst and Other Subterranean Hydrological Systems [inland]'),(50,1,'6','Rocky Areas [e.g inland cliffs, mountain peaks]'),(51,1,'7','Caves and Subterranean Habitats (non-aquatic)'),(52,1,'7.1','Caves'),(53,1,'7.2','Other Subterranean Habitats'),(54,1,'8','Desert'),(55,1,'8.1','Hot'),(56,1,'8.2','Temperate'),(57,1,'8.3','Cold'),(58,1,'9','Sea'),(59,1,'9.1','Open'),(60,1,'9.2','Shallow [usually less than 6 m deep at low tide; includes sea bays and straits]'),(61,1,'9.3','Subtidal Aquatic Beds [kelp beds, sea- grass beds and tropical marine meadows] '),(62,1,'9.4','Coral Reefs'),(63,1,'10','Coastline'),(64,1,'10.1','Rocky Shores [includes rocky offshore islands and sea cliffs]'),(65,1,'10.2','Sand, Shingle or Pebble Shores [includes sand bars, spits, sandy islets, dune systems]'),(66,1,'10.3','Estuarine Waters'),(67,1,'10.4','Intertidal Mud, Sand or Salt Flats'),(68,1,'10.5','Intertidal Marshes [includes salt marshes]'),(69,1,'10.6','Coastal Brackish/Saline Lagoons'),(70,1,'10.7','Coastal Freshwater Lagoons'),(71,1,'10.8','Karst and Other Subterranean Hydrological Systems [marine/coastal]'),(72,1,'11','Artificial - Terrestrial'),(73,1,'11.1','Arable Land'),(74,1,'11.2','Pastureland'),(75,1,'11.3','Plantations'),(76,1,'11.4','Rural Gardens'),(77,1,'11.5','Urban Areas '),(78,1,'11.6','Subtropical/Tropical Heavily Degraded Former Forest'),(79,1,'12','Artificial - Aquatic'),(80,1,'12.1','Water Storage Areas (over  8 ha)'),(81,1,'12.2','Ponds (below 8 ha)'),(82,1,'12.3','Aquaculture Ponds'),(83,1,'12.4','Salt Exploitation Sites'),(84,1,'12.5','Excavations (open)'),(85,1,'12.6','Wastewater Treatment Areas'),(86,1,'12.7','Irrigated Land [includes irrigation channels]'),(87,1,'12.8','Seasonally Flooded Agricultural Land'),(88,1,'12.9','Canals and Drainage Channels, Ditches'),(89,1,'12.1','Karst and Other Subterranean Hydrological Systems [human-made]'),(90,1,'13','Introduced Vegetation'),(91,1,'14','Other'),(92,1,'15','Unknown');
+INSERT INTO `habitat` VALUES (1,1,'1','Forest'),(2,1,'1.1','Boreal'),(3,1,'1.2','Subarctic'),(4,1,'1.3','Subantarctic'),(5,1,'1.4','Temperate'),(6,1,'1.5','Subtropical/Tropical Dry'),(7,1,'1.6','Subtropical/Tropical Moist Lowland'),(8,1,'1.7','Subtropical/Tropical Mangrove'),(9,1,'1.8','Subtropical/Tropical Swamp'),(10,1,'1.9','Subtropical/Tropical Moist Montane'),(63,1,'10','Coastline'),(64,1,'10.1','Rocky Shores [includes rocky offshore islands and sea cliffs]'),(65,1,'10.2','Sand, Shingle or Pebble Shores [includes sand bars, spits, sandy islets, dune systems]'),(66,1,'10.3','Estuarine Waters'),(67,1,'10.4','Intertidal Mud, Sand or Salt Flats'),(68,1,'10.5','Intertidal Marshes [includes salt marshes]'),(69,1,'10.6','Coastal Brackish/Saline Lagoons'),(70,1,'10.7','Coastal Freshwater Lagoons'),(71,1,'10.8','Karst and Other Subterranean Hydrological Systems [marine/coastal]'),(72,1,'11','Artificial - Terrestrial'),(73,1,'11.1','Arable Land'),(74,1,'11.2','Pastureland'),(75,1,'11.3','Plantations'),(76,1,'11.4','Rural Gardens'),(77,1,'11.5','Urban Areas '),(78,1,'11.6','Subtropical/Tropical Heavily Degraded Former Forest'),(79,1,'12','Artificial - Aquatic'),(89,1,'12.1','Karst and Other Subterranean Hydrological Systems [human-made]'),(80,1,'12.1','Water Storage Areas (over  8 ha)'),(81,1,'12.2','Ponds (below 8 ha)'),(82,1,'12.3','Aquaculture Ponds'),(83,1,'12.4','Salt Exploitation Sites'),(84,1,'12.5','Excavations (open)'),(85,1,'12.6','Wastewater Treatment Areas'),(86,1,'12.7','Irrigated Land [includes irrigation channels]'),(87,1,'12.8','Seasonally Flooded Agricultural Land'),(88,1,'12.9','Canals and Drainage Channels, Ditches'),(90,1,'13','Introduced Vegetation'),(91,1,'14','Other'),(92,1,'15','Unknown'),(11,1,'2','Savanna'),(12,1,'2.1','Dry'),(13,1,'2.2','Moist'),(14,1,'3','Shrubland'),(15,1,'3.1','Subarctic'),(16,1,'3.2','Subantarctic'),(17,1,'3.3','Boreal'),(18,1,'3.4','Temperate'),(19,1,'3.5','Subtropical/Tropical Dry'),(20,1,'3.6','Subtropical/Tropical Moist'),(21,1,'3.7','Subtropical/Tropical High Altitude'),(22,1,'3.8','Mediterranean-type Shrubby Vegetation'),(23,1,'4','Grassland'),(24,1,'4.1','Tundra'),(25,1,'4.2','Subarctic'),(26,1,'4.3','Subantarctic'),(27,1,'4.4','Temperate'),(28,1,'4.5','Subtropical/Tropical Dry Lowland'),(29,1,'4.6','Subtropical/Tropical Seasonally Wet/Flooded Lowland'),(30,1,'4.7','Subtropical/Tropical High Altitude'),(31,1,'5','Wetlands (inland)'),(32,1,'5.1','Permanent Rivers/Streams/Creeks [includes waterfalls]'),(41,1,'5.1','Tundra Wetlands [includes pools and temporary waters from snowmelt] '),(42,1,'5.11','Alpine Wetlands [includes temporary waters from snowmelt]'),(43,1,'5.12','Geothermal Wetlands'),(44,1,'5.13','Permanent Inland Deltas'),(45,1,'5.14','Permanent Saline, Brackish or Alkaline Lakes'),(46,1,'5.15','Seasonal/Intermittent Saline, Brackish or Alkaline Lakes and Flats'),(47,1,'5.16','Permanent Saline, Brackish or Alkaline Marshes/Pools'),(48,1,'5.17','Seasonal/Intermittent Saline, Brackish or Alkaline Marshes/Pools'),(49,1,'5.18','Karst and Other Subterranean Hydrological Systems [inland]'),(33,1,'5.2','Seasonal/Intermittent/Irregular Rivers/Streams/Creeks'),(34,1,'5.3','Shrub Dominated Wetlands'),(35,1,'5.4','Bogs, Marshes, Swamps, Fens, Peatlands'),(36,1,'5.5','Permanent Freshwater Lakes [over 8 ha]'),(37,1,'5.6','Seasonal/Intermittent Freshwater Lakes [over 8 ha]'),(38,1,'5.7','Permanent Freshwater Marshes/Pools [under 8 ha]'),(39,1,'5.8','Seasonal/Intermittent Freshwater Marshes/Pools [under 8 ha]'),(40,1,'5.9','Freshwater Springs and Oases'),(50,1,'6','Rocky Areas [e.g inland cliffs, mountain peaks]'),(51,1,'7','Caves and Subterranean Habitats (non-aquatic)'),(52,1,'7.1','Caves'),(53,1,'7.2','Other Subterranean Habitats'),(54,1,'8','Desert'),(55,1,'8.1','Hot'),(56,1,'8.2','Temperate'),(57,1,'8.3','Cold'),(58,1,'9','Sea'),(59,1,'9.1','Open'),(60,1,'9.2','Shallow [usually less than 6 m deep at low tide; includes sea bays and straits]'),(61,1,'9.3','Subtidal Aquatic Beds [kelp beds, sea- grass beds and tropical marine meadows] '),(62,1,'9.4','Coral Reefs');
 /*!40000 ALTER TABLE `habitat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,12 +100,12 @@ INSERT INTO `habitat_standard` VALUES (1,'IUCN Habitats','2.1');
 UNLOCK TABLES;
 
 --
--- Dumping data for table `habitat_to_taxon`
+-- Dumping data for table `habitat_to_taxon_detail`
 --
 
-LOCK TABLES `habitat_to_taxon` WRITE;
-/*!40000 ALTER TABLE `habitat_to_taxon` DISABLE KEYS */;
-/*!40000 ALTER TABLE `habitat_to_taxon` ENABLE KEYS */;
+LOCK TABLES `habitat_to_taxon_detail` WRITE;
+/*!40000 ALTER TABLE `habitat_to_taxon_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `habitat_to_taxon_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -193,6 +193,16 @@ LOCK TABLES `scientific_name_element` WRITE;
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `scientific_name_status`
+--
+
+LOCK TABLES `scientific_name_status` WRITE;
+/*!40000 ALTER TABLE `scientific_name_status` DISABLE KEYS */;
+INSERT INTO `scientific_name_status` VALUES (1,'accepted name'),(2,'ambiguous synonym'),(3,'misapplied name'),(4,'provisionally accepted name'),(5,'synonym');
+/*!40000 ALTER TABLE `scientific_name_status` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `scrutiny`
 --
 
@@ -229,22 +239,12 @@ LOCK TABLES `synonym` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `synonym_detail`
+-- Dumping data for table `synonym_name_element`
 --
 
-LOCK TABLES `synonym_detail` WRITE;
-/*!40000 ALTER TABLE `synonym_detail` DISABLE KEYS */;
-/*!40000 ALTER TABLE `synonym_detail` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `synonymic_status`
---
-
-LOCK TABLES `synonymic_status` WRITE;
-/*!40000 ALTER TABLE `synonymic_status` DISABLE KEYS */;
-INSERT INTO `synonymic_status` VALUES (2,'ambiguous synonym'),(3,'misapplied name'),(1,'synonym');
-/*!40000 ALTER TABLE `synonymic_status` ENABLE KEYS */;
+LOCK TABLES `synonym_name_element` WRITE;
+/*!40000 ALTER TABLE `synonym_name_element` DISABLE KEYS */;
+/*!40000 ALTER TABLE `synonym_name_element` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -266,6 +266,15 @@ LOCK TABLES `taxon_detail` WRITE;
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `taxon_name_element`
+--
+
+LOCK TABLES `taxon_name_element` WRITE;
+/*!40000 ALTER TABLE `taxon_name_element` DISABLE KEYS */;
+/*!40000 ALTER TABLE `taxon_name_element` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `taxonomic_rank`
 --
 
@@ -273,16 +282,6 @@ LOCK TABLES `taxonomic_rank` WRITE;
 /*!40000 ALTER TABLE `taxonomic_rank` DISABLE KEYS */;
 INSERT INTO `taxonomic_rank` VALUES (1,'aggregate'),(2,'bio-variety'),(3,'branch'),(4,'candidate'),(5,'capaxorder'),(6,'class'),(7,'cohort'),(8,'complex'),(9,'convar'),(10,'cultivar'),(11,'cultivar-group'),(12,'denominationclass'),(13,'division'),(14,'domain'),(15,'empire'),(16,'epifamily'),(17,'family'),(18,'family group'),(19,'form'),(20,'genus'),(21,'genus group'),(22,'gigafamily'),(23,'gigaorder'),(24,'grade'),(25,'graft-chimaera'),(26,'grandfamily'),(27,'grandorder'),(28,'grex'),(29,'group'),(30,'hybrid'),(31,'hyperfamily'),(32,'hyperorder'),(33,'hypoorder'),(34,'incertae sedie'),(35,'infraclass'),(36,'infracohort'),(37,'infradivision'),(38,'infradomain'),(39,'infrafamily'),(40,'infraform'),(41,'infragenerictaxon'),(42,'infragenus'),(43,'infrakingdom'),(44,'infralegion'),(45,'infraorder'),(46,'infraphylum'),(47,'infrasection'),(48,'infraseries'),(49,'infraspecies'),(50,'infraspecifictaxon'),(51,'infratribe'),(52,'infravariety'),(53,'interkingdom'),(54,'kingdom'),(55,'legion'),(56,'magnorder'),(57,'megafamily'),(58,'megaorder'),(59,'microorder'),(60,'microphylum'),(61,'microspecies'),(62,'midkingdom'),(63,'midphylum'),(64,'minorder'),(65,'mirorder'),(66,'monster'),(67,'morph'),(68,'morphovar'),(69,'mutant'),(70,'nanorder'),(71,'near'),(72,'order'),(73,'parvclass'),(74,'parvorder'),(75,'patho-variety'),(76,'phylum'),(77,'prole'),(78,'race'),(79,'section'),(80,'series'),(81,'serovar'),(82,'specialform'),(83,'species'),(84,'species group'),(85,'speciesaggregate'),(86,'strain'),(87,'sub-sub-variety'),(88,'sub-variety'),(89,'subclass'),(90,'subcohort'),(91,'subdivision'),(92,'subdomain'),(93,'subfamily'),(94,'subfamily group'),(95,'subform'),(96,'subgenus'),(97,'subgroup'),(98,'subkingdom'),(99,'sublegion'),(100,'suborder'),(101,'subphylum'),(102,'subsection'),(103,'subseries'),(104,'subspecies'),(105,'subspecificaggregate'),(106,'subsubform'),(107,'subtribe'),(108,'superclass'),(109,'supercohort'),(110,'superdivision'),(111,'superdomain'),(112,'superfamily'),(113,'superform'),(114,'supergenus'),(115,'superkingdom'),(116,'superlegion'),(117,'superorder'),(118,'superphylum'),(119,'supersection'),(120,'superseries'),(121,'superspecies'),(122,'supertribe'),(123,'supervariety'),(124,'supragenerictaxon'),(125,'suprakingdom'),(126,'supraphylum'),(127,'tribe'),(128,'uncatalogued ranks'),(129,'variety');
 /*!40000 ALTER TABLE `taxonomic_rank` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `taxonomic_status`
---
-
-LOCK TABLES `taxonomic_status` WRITE;
-/*!40000 ALTER TABLE `taxonomic_status` DISABLE KEYS */;
-INSERT INTO `taxonomic_status` VALUES (1,'accepted name'),(2,'provisionally accepted name');
-/*!40000 ALTER TABLE `taxonomic_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -300,7 +299,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `uri_scheme` WRITE;
 /*!40000 ALTER TABLE `uri_scheme` DISABLE KEYS */;
-INSERT INTO `uri_scheme` VALUES (1,'dav','Distributed Authoring and Versioning'),(2,'dict','Dictionary Service Protocol'),(3,'dns','Domain Name System'),(4,'file','File'),(5,'ftp','File Transfer Protocol'),(6,'http','HyperText Transfer Protocol'),(7,'https','HyperText Transfer Protocol Secure'),(8,'im','Instant messagin protocol'),(9,'lsid','Life Science Identifier'),(10,'mailto','SMPT e-mail address and default content'),(11,'news','News groups and postings'),(12,'rss','Really Simple Syndication'),(13,'rdf','Resource Description Framework URI'),(14,'sip','Session Initiation Protocol'),(15,'sips','Session Initiation Protocol Secure'),(16,'tag','Tag URI'),(17,'tel','Telephone Number'),(18,'telnet',' Teletype Network'),(19,'tv','TV Broadcast'),(20,'urn','Uniform Resource Identifier');
+INSERT INTO `uri_scheme` VALUES (1,'dav','Distributed Authoring and Versioning'),(2,'dict','Dictionary Service Protocol'),(3,'dns','Domain Name System'),(4,'file','File'),(5,'ftp','File Transfer Protocol'),(6,'http','HyperText Transfer Protocol'),(7,'https','HyperText Transfer Protocol Secure'),(8,'im','Instant messagin protocol'),(9,'lsid','Life Science Identifier'),(10,'mailto','SMPT e-mail address and default content'),(11,'news','News groups and postings'),(13,'rdf','Resource Description Framework URI'),(12,'rss','Really Simple Syndication'),(14,'sip','Session Initiation Protocol'),(15,'sips','Session Initiation Protocol Secure'),(16,'tag','Tag URI'),(17,'tel','Telephone Number'),(18,'telnet',' Teletype Network'),(19,'tv','TV Broadcast'),(20,'urn','Uniform Resource Identifier');
 /*!40000 ALTER TABLE `uri_scheme` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -331,4 +330,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-03-24 15:35:25
+-- Dump completed on 2010-03-30 17:02:53
