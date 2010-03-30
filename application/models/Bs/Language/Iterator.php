@@ -2,6 +2,7 @@
 class Bs_Language_Iterator extends Bs_Iterator implements Bs_Loadable
 {
     protected $_dba;
+    protected static $_itemsArray;
     
     public function __construct(Zend_Db_Adapter_Abstract $dba, $autoload = true)
     {
@@ -13,12 +14,15 @@ class Bs_Language_Iterator extends Bs_Iterator implements Bs_Loadable
     
     public function load()
     {
-        $stmt = $this->_dba->query($this->_getSelect());
-        $items = array();
-        while ($row = $stmt->fetch()) {
-            array_push($items, new Bs_Language($row['iso'], $row['name']));
+        if(is_null(self::$_itemsArray)) {
+            $stmt = $this->_dba->query($this->_getSelect());
+            $items = array();
+            while ($row = $stmt->fetch()) {
+                array_push($items, new Bs_Language($row['iso'], $row['name']));
+            }
+            self::$_itemsArray = $items;
         }
-        $this->_init($items);
+        $this->_init(self::$_itemsArray);
     }
     
     private function _getSelect()

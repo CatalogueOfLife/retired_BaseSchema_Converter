@@ -19,6 +19,7 @@ class Bs_CommonName implements Bs_Storable
     
     public function store(Zend_Db_Adapter_Abstract $dba)
     {
+        // save (or get if already there) the name element and get the id
         $this->_nameElement->store($dba);
         $nameElementId = $this->_nameElement->getId();
         
