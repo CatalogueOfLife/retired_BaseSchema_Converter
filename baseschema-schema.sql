@@ -101,9 +101,9 @@ CREATE TABLE `distribution` (
   PRIMARY KEY (`taxon_detail_id`,`region_id`),
   KEY `region_id` (`region_id`),
   KEY `distribution_status_id` (`distribution_status_id`),
-  CONSTRAINT `distribution_ibfk_5` FOREIGN KEY (`taxon_detail_id`) REFERENCES `taxon_detail` (`taxon_id`) ON UPDATE CASCADE,
   CONSTRAINT `distribution_ibfk_3` FOREIGN KEY (`distribution_status_id`) REFERENCES `distribution_status` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `distribution_ibfk_4` FOREIGN KEY (`region_id`) REFERENCES `region` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `distribution_ibfk_4` FOREIGN KEY (`region_id`) REFERENCES `region` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `distribution_ibfk_5` FOREIGN KEY (`taxon_detail_id`) REFERENCES `taxon_detail` (`taxon_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Links combination(s) of region and distribution status to ta';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -188,8 +188,8 @@ CREATE TABLE `habitat_to_taxon_detail` (
   `taxon_detail_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`habitat_id`,`taxon_detail_id`),
   KEY `taxon_detail_id` (`taxon_detail_id`),
-  CONSTRAINT `habitat_to_taxon_detail_ibfk_2` FOREIGN KEY (`taxon_detail_id`) REFERENCES `taxon_detail` (`taxon_id`) ON UPDATE CASCADE,
-  CONSTRAINT `habitat_to_taxon_detail_ibfk_1` FOREIGN KEY (`habitat_id`) REFERENCES `habitat` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `habitat_to_taxon_detail_ibfk_1` FOREIGN KEY (`habitat_id`) REFERENCES `habitat` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `habitat_to_taxon_detail_ibfk_2` FOREIGN KEY (`taxon_detail_id`) REFERENCES `taxon_detail` (`taxon_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Links habitat type(s) to taxon';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -205,8 +205,8 @@ CREATE TABLE `hybrid` (
   `parent_taxon_id` int(10) unsigned NOT NULL COMMENT 'References two (or three) parent taxon ids',
   PRIMARY KEY (`taxon_id`,`parent_taxon_id`),
   KEY `parent_taxon_id` (`parent_taxon_id`),
-  CONSTRAINT `hybrid_ibfk_2` FOREIGN KEY (`parent_taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `hybrid_ibfk_1` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `hybrid_ibfk_1` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `hybrid_ibfk_2` FOREIGN KEY (`parent_taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Links to parent taxa of hybrids';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -277,8 +277,8 @@ CREATE TABLE `reference_to_synonym` (
   `synonym_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`reference_id`,`synonym_id`),
   KEY `synonym_id` (`synonym_id`),
-  CONSTRAINT `reference_to_synonym_ibfk_6` FOREIGN KEY (`synonym_id`) REFERENCES `synonym` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `reference_to_synonym_ibfk_5` FOREIGN KEY (`reference_id`) REFERENCES `reference` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `reference_to_synonym_ibfk_5` FOREIGN KEY (`reference_id`) REFERENCES `reference` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `reference_to_synonym_ibfk_6` FOREIGN KEY (`synonym_id`) REFERENCES `synonym` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Links references to synonyms';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -485,7 +485,6 @@ CREATE TABLE `taxon` (
   `taxonomic_rank_id` tinyint(3) unsigned NOT NULL,
   `source_database_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique` (`taxonomic_rank_id`,`source_database_id`),
   KEY `taxonomic_rank_id` (`taxonomic_rank_id`),
   KEY `source_database_id` (`source_database_id`),
   CONSTRAINT `taxon_ibfk_21` FOREIGN KEY (`source_database_id`) REFERENCES `source_database` (`id`) ON UPDATE CASCADE,
@@ -507,7 +506,6 @@ CREATE TABLE `taxon_detail` (
   `scrutiny_id` int(10) unsigned NOT NULL,
   `additional_data` text COMMENT 'Optional free text field describing the taxon',
   PRIMARY KEY (`taxon_id`),
-  UNIQUE KEY `unique` (`author_string_id`,`scientific_name_status_id`,`scrutiny_id`),
   KEY `author_string_id` (`author_string_id`),
   KEY `taxononomic_status_id` (`scientific_name_status_id`),
   KEY `scrutiny_id` (`scrutiny_id`),
@@ -530,7 +528,6 @@ CREATE TABLE `taxon_name_element` (
   `scientific_name_element_id` int(10) unsigned NOT NULL,
   `parent_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`taxon_id`),
-  UNIQUE KEY `unique` (`scientific_name_element_id`,`parent_id`),
   KEY `scientific_name_element_id` (`scientific_name_element_id`),
   KEY `parent_id` (`parent_id`),
   CONSTRAINT `taxon_name_element_ibfk_1` FOREIGN KEY (`taxon_id`) REFERENCES `taxon` (`id`) ON UPDATE CASCADE,
@@ -632,4 +629,4 @@ CREATE TABLE `uri_to_taxon` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-03-30 17:02:46
+-- Dump completed on 2010-04-06 12:59:15
