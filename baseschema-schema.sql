@@ -364,6 +364,7 @@ CREATE TABLE IF NOT EXISTS `synonym` (
   `taxon_id` int(10) unsigned NOT NULL COMMENT 'Link to valid taxon to which the synonym relates',
   `author_string_id` int(10) unsigned DEFAULT NULL COMMENT 'Link to author citation of the synonym',
   `scientific_name_status_id` tinyint(2) unsigned NOT NULL COMMENT 'Link to the name status of the synonym',
+  `source_id` varchar(42) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `taxon_id` (`taxon_id`),
   KEY `author_string_id` (`author_string_id`),
@@ -399,6 +400,7 @@ CREATE TABLE IF NOT EXISTS `taxon` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `taxonomic_rank_id` tinyint(3) unsigned NOT NULL,
   `source_database_id` int(10) unsigned DEFAULT NULL,
+  `source_id` varchar(42) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `taxonomic_rank_id` (`taxonomic_rank_id`),
   KEY `source_database_id` (`source_database_id`)
