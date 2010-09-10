@@ -308,9 +308,10 @@ DROP TABLE IF EXISTS `region_free_text`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `region_free_text` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `free_text` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'Free text description of distribution; provided mainly to store full text descriptions from the Annual Checklist',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `free_text` varchar(12500) COLLATE utf8_bin NOT NULL COMMENT 'Free text description of distribution; provided mainly to store full text descriptions from the Annual Checklist',
+  PRIMARY KEY (`id`),
+  KEY `free_text` (`free_text`(255))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -539,8 +540,8 @@ CREATE TABLE `uri` (
   `description` text COMMENT 'Short description of the URI',
   `uri_scheme_id` tinyint(2) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `uri_scheme_id` (`uri_scheme_id`),
-  KEY `resource_identifier` (`resource_identifier`(255))
+  KEY `resource_identifier` (`resource_identifier`(255)),
+  KEY `uri_scheme_id` (`uri_scheme_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=128609 DEFAULT CHARSET=utf8 COMMENT='Unique resource identifiers';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -600,4 +601,4 @@ CREATE TABLE `uri_to_taxon` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-09-09 14:58:11
+-- Dump completed on 2010-09-10 10:07:40
