@@ -25,7 +25,7 @@ CREATE TABLE `_search_scientific` (
   `accepted_species_author` varchar(255) NULL,
   `source_database_id` int(10) NULL,
   `source_database_name` varchar(255) NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
+) ENGINE = MyISAM DEFAULT CHARSET=utf8
 
 ;
 
@@ -38,7 +38,7 @@ CREATE TABLE `_search_distribution` (
   `kingdom` varchar(255) NOT NULL,
   `source_database_id` int(10) NOT NULL,
   `db_name` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
+) ENGINE = MyISAM DEFAULT CHARSET=utf8
 
 ;
 
@@ -103,7 +103,7 @@ CREATE TABLE `_species_details` (
   `source_database_release_date` date NOT NULL,
   `scrutiny_date` date NOT NULL,
   `specialist` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
+) ENGINE = MyISAM DEFAULT CHARSET=utf8
 
 ;
 
@@ -120,7 +120,7 @@ CREATE TABLE `_search_all` (
   `source_database` varchar(255) NOT NULL,
   `source_database_id` int(10) NOT NULL,
   `accepted_taxon_id` int(10) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
+) ENGINE = MyISAM DEFAULT CHARSET=utf8
 
 ;
 
