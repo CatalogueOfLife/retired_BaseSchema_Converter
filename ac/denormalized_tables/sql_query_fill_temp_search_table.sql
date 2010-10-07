@@ -1,4 +1,4 @@
-INSERT INTO `temp_search_table` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 (
     SELECT -- select all the names from genus and higher
