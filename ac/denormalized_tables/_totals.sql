@@ -125,5 +125,5 @@ SELECT
 FROM
     `source_database` AS sd
 
-WHERE 1 = 0
+WHERE sd.`is_new` = 1
 ;
