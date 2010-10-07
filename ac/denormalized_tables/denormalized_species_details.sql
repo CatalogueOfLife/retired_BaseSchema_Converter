@@ -1,4 +1,4 @@
-INSERT INTO `denormalized_species_details`
+INSERT INTO `_species_details`
 (
 `taxon_id`,
 `kingdom_id`,
@@ -518,7 +518,7 @@ WHERE td.`taxon_id` IS NOT NULL
 
 ;
 
-UPDATE `denormalized_species_details` AS dss SET
+UPDATE `_species_details` AS dss SET
 `kingdom_lsid` = (SELECT `resource_identifier` AS kingdom_lsid
     FROM `uri` AS kingdom_uri, `uri_to_taxon` AS kingdom_utt
     WHERE kingdom_uri.`uri_scheme_id` = 9 AND
