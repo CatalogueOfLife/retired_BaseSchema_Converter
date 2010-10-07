@@ -1,4 +1,4 @@
-INSERT INTO `denormalized_source_database_details`
+INSERT INTO `_source_database_details`
 (`id`, `full_name`, `short_name`, `version`, `release_date`, `authors_editors`,
 `english_name`, `number_of_species`, `number_of_infraspecific_taxon`,
 `number_of_synonyms`, `number_of_common_names`, `abstract`, `organization`)
@@ -22,27 +22,13 @@ FROM
     `source_database` AS sd
 ;
 
-UPDATE `denormalized_source_database_details` SET `total_number` = 
+UPDATE `_source_database_details` SET `total_number` = 
 `number_of_species` + `number_of_infraspecific_taxon` + `number_of_synonyms` +
 `number_of_common_names`
 
 ;
 
-CREATE TABLE IF NOT EXISTS `denormalized_source_database_taxonomic_coverage` (
-`source_database_id` INT( 10 ) NOT NULL ,
-`kingdom` VARCHAR( 255 ) NOT NULL ,
-`phylum` VARCHAR( 255 ) NOT NULL ,
-`class` VARCHAR( 255 ) NOT NULL ,
-`order` VARCHAR( 255 ) NOT NULL ,
-`kingdom_id` INT( 10 ) NOT NULL ,
-`phylum_id` INT( 10 ) NOT NULL ,
-`class_id` INT( 10 ) NOT NULL ,
-`order_id` INT( 10 ) NOT NULL
-) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci
-
-;
-
-INSERT INTO `denormalized_source_database_taxonomic_coverage`
+INSERT INTO `_source_database_taxonomic_coverage`
 (`source_database_id`, `kingdom`, `phylum`, `class`, `order`, `kingdom_id`,
 `phylum_id`, `class_id`, `order_id`)
 
@@ -62,7 +48,7 @@ FROM
 
 RIGHT JOIN `taxon` AS `t` ON
 source_database.id = t.source_database_id AND
-t.taxonomic_rank_id = 20
+t.taxonomic_rank_id = 83
 
 RIGHT JOIN `taxon_name_element` AS `tne_g` ON
 t.id = tne_g.taxon_id
