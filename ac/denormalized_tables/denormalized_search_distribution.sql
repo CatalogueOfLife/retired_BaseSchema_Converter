@@ -1,4 +1,4 @@
-INSERT INTO `denormalized_search_distribution` (`distribution`,`accepted_species_id`,`name`,`author`,`rank`,`kingdom`,`source_database_id`,`db_name`)
+INSERT INTO `_search_distribution` (`distribution`,`accepted_species_id`,`name`,`author`,`rank`,`kingdom`,`source_database_id`,`db_name`)
 
 SELECT
 
@@ -242,11 +242,11 @@ tne15.`taxon_id` = t15.`id`
 
 ;
 
-INSERT INTO `denormalized_search_distribution` (`distribution`,`accepted_species_id`,`name`,`author`,`rank`,`kingdom`,`source_database_id`,`db_name`)
+INSERT INTO `_search_distribution` (`distribution`,`accepted_species_id`,`name`,`author`,`rank`,`kingdom`,`source_database_id`,`db_name`)
 
 SELECT
 
-ds.free_text AS distribution,
+rft.free_text AS distribution,
 ds.taxon_detail_id AS accepted_species_id,
 CONCAT(
 IF(t1.`taxonomic_rank_id` = 20, sne1.`name_element`,
@@ -336,6 +336,9 @@ t1.source_database_id AS source_database_id,
 sd.abbreviated_name AS db_name
 
 FROM `distribution_free_text` AS ds
+
+RIGHT JOIN `region_free_text` AS rft ON
+ds.`region_free_text_id` = rft.`id`
 
 LEFT JOIN `taxon_detail` AS td ON
 ds.taxon_detail_id = td.taxon_id
