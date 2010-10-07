@@ -603,9 +603,9 @@ UNION
         ) AS `name`,
         (
             SELECT
-                IF(sne_ss.`id` IS NOT NULL,
+                IF(sne_ss.`scientific_name_element_id` IS NOT NULL,
                     rank_ss.`rank`,
-                    IF(sne_s.`id` IS NOT NULL,
+                    IF(sne_s.`scientific_name_element_id` IS NOT NULL,
                         rank_s.`rank`,
                         rank_g.`rank`
                     )

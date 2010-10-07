@@ -41,7 +41,7 @@ SELECT
     "synonymic_species" AS description
 
 FROM
-    `temp_search_table` 
+    `_search_all` 
 
 WHERE
     `name_status` IN (2,3,5) AND
@@ -55,7 +55,7 @@ SELECT
     "synonymic_infraspecies" AS description
 
 FROM
-    `temp_search_table` 
+    `_search_all` 
 
 WHERE
     `name_status` IN (2,3,5) AND
