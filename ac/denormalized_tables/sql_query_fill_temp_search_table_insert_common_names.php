@@ -111,7 +111,7 @@ $common_names = $database->getMultipleSelectQuery($query);
 
 $temp_search_table = array();
 $i = 0;
-$insert_query = 'INSERT INTO `temp_search_table` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`, `source_database_id`, `accepted_taxon_id`) VALUES ';
+$insert_query = 'INSERT INTO `_serach_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`, `source_database_id`, `accepted_taxon_id`) VALUES ';
 foreach($common_names as $cn)
 {
     $cn_elements = explode(' ',$cn['name']);
