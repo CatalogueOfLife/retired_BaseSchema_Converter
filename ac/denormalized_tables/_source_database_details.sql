@@ -34,60 +34,109 @@ INSERT INTO `_source_database_taxonomic_coverage`
 
 SELECT
 `source_database`.`id` AS `source_database_id`,
-`sne_k`.`name_element` AS `kingdom`,
-`sne_p`.`name_element` AS `phylum`,
-`sne_c`.`name_element` AS `class`,
-`sne_o`.`name_element` AS `order`,
-`tne_k`.`taxon_id` AS `kingdom_id`,
-`tne_p`.`taxon_id` AS `phylum_id`,
-`tne_c`.`taxon_id` AS `class_id`,
-`tne_o`.`taxon_id` AS `order_id`
+IF(t7.taxonomic_rank_id = 54, sne_7.`name_element`,
+ IF(t8.taxonomic_rank_id = 54, sne_8.`name_element`,
+  IF(t9.taxonomic_rank_id = 54, sne_9.`name_element`,""
+))) AS `kingdom`,
+IF(t6.taxonomic_rank_id = 76, sne_6.`name_element`,
+ IF(t7.taxonomic_rank_id = 76, sne_7.`name_element`,
+  IF(t8.taxonomic_rank_id = 76, sne_8.`name_element`,""
+))) AS `phylum`,
+IF(t5.taxonomic_rank_id = 6, sne_5.`name_element`,
+ IF(t6.taxonomic_rank_id = 6, sne_6.`name_element`,
+  IF(t7.taxonomic_rank_id = 6, sne_7.`name_element`,""
+))) AS `class`,
+IF(t4.taxonomic_rank_id = 72, sne_4.`name_element`,
+ IF(t5.taxonomic_rank_id = 72, sne_5.`name_element`,
+  IF(t6.taxonomic_rank_id = 72, sne_6.`name_element`,""
+))) AS `order`,
+IF(t7.taxonomic_rank_id = 54, t7.`id`,
+ IF(t8.taxonomic_rank_id = 54, t8.`id`,
+  IF(t9.taxonomic_rank_id = 54, t9.`id`,""
+))) AS `kingdom_id`,
+IF(t6.taxonomic_rank_id = 76, t6.`id`,
+ IF(t7.taxonomic_rank_id = 76, t7.`id`,
+  IF(t8.taxonomic_rank_id = 76, t8.`id`,""
+))) AS `phylum_id`,
+IF(t5.taxonomic_rank_id = 6, t5.`id`,
+ IF(t6.taxonomic_rank_id = 6, t6.`id`,
+  IF(t7.taxonomic_rank_id = 6, t7.`id`,""
+))) AS `class_id`,
+IF(t4.taxonomic_rank_id = 72, t4.`id`,
+ IF(t5.taxonomic_rank_id = 72, t5.`id`,
+  IF(t6.taxonomic_rank_id = 72, t6.`id`,""
+))) AS `order_id`
 
 FROM
 `source_database`
 
-RIGHT JOIN `taxon` AS `t` ON
-source_database.id = t.source_database_id AND
-t.taxonomic_rank_id = 83
+LEFT JOIN `taxon` AS `t1` ON
+source_database.id = t1.source_database_id AND
+t1.taxonomic_rank_id = 83
 
-RIGHT JOIN `taxon_name_element` AS `tne_g` ON
-t.id = tne_g.taxon_id
+LEFT JOIN `taxon_name_element` AS `tne_1` ON
+t1.id = tne_1.taxon_id
 
-RIGHT JOIN `taxon_name_element` AS `tne_f` ON
-tne_g.parent_id = tne_f.taxon_id
+LEFT JOIN `taxon_name_element` AS `tne_2` ON
+tne_1.parent_id = tne_2.taxon_id
 
-LEFT JOIN `taxon_name_element` AS `tne_sf` ON
-tne_f.parent_id = tne_sf.taxon_id
+LEFT JOIN `taxon_name_element` AS `tne_3` ON
+tne_2.parent_id = tne_3.taxon_id
 
-LEFT JOIN `taxon` AS `t_sf` ON
-tne_sf.taxon_id = t_sf.id AND
-t_sf.taxonomic_rank_id = 112
+LEFT JOIN `taxon_name_element` AS `tne_4` ON
+tne_3.parent_id = tne_4.taxon_id
 
-RIGHT JOIN `taxon_name_element` AS `tne_o` ON
-(tne_f.parent_id = tne_o.taxon_id AND
-t_sf.id IS NULL) OR
-(tne_sf.parent_id = tne_o.taxon_id AND
-t_sf.id IS NOT NULL)
+LEFT JOIN `scientific_name_element` AS `sne_4` ON
+tne_4.scientific_name_element_id = sne_4.id
 
-RIGHT JOIN `scientific_name_element` AS `sne_o`
-ON tne_o.scientific_name_element_id = sne_o.id
+LEFT JOIN `taxon` AS `t4` ON
+tne_4.taxon_id = t4.id
 
-RIGHT JOIN `taxon_name_element` AS `tne_c` ON
-tne_o.parent_id = tne_c.taxon_id
+LEFT JOIN `taxon_name_element` AS `tne_5` ON
+tne_4.parent_id = tne_5.taxon_id
 
-RIGHT JOIN `scientific_name_element` AS `sne_c` ON
-tne_c.scientific_name_element_id = sne_c.id
+LEFT JOIN `scientific_name_element` AS `sne_5` ON
+tne_5.scientific_name_element_id = sne_5.id
 
-RIGHT JOIN `taxon_name_element` AS `tne_p` ON
-tne_c.parent_id = tne_p.taxon_id
+LEFT JOIN `taxon` AS `t5` ON
+tne_5.taxon_id = t5.id
 
-RIGHT JOIN `scientific_name_element` AS `sne_p` ON
-tne_p.scientific_name_element_id = sne_p.id
+LEFT JOIN `taxon_name_element` AS `tne_6` ON
+tne_5.parent_id = tne_6.taxon_id
 
-RIGHT JOIN `taxon_name_element` AS `tne_k` ON
-tne_p.parent_id = tne_k.taxon_id
+LEFT JOIN `scientific_name_element` AS `sne_6` ON
+tne_6.scientific_name_element_id = sne_6.id
 
-RIGHT JOIN `scientific_name_element` AS `sne_k` ON
-tne_k.scientific_name_element_id = sne_k.id
+LEFT JOIN `taxon` AS `t6` ON
+tne_6.taxon_id = t6.id
+
+LEFT JOIN `taxon_name_element` AS `tne_7` ON
+tne_6.parent_id = tne_7.taxon_id
+
+LEFT JOIN `scientific_name_element` AS `sne_7` ON
+tne_7.scientific_name_element_id = sne_7.id
+
+LEFT JOIN `taxon` AS `t7` ON
+tne_7.taxon_id = t7.id
+
+LEFT JOIN `taxon_name_element` AS `tne_8` ON
+tne_7.parent_id = tne_8.taxon_id
+
+LEFT JOIN `scientific_name_element` AS `sne_8` ON
+tne_8.scientific_name_element_id = sne_8.id
+
+LEFT JOIN `taxon` AS `t8` ON
+tne_8.taxon_id = t8.id
+
+LEFT JOIN `taxon_name_element` AS `tne_9` ON
+tne_8.parent_id = tne_9.taxon_id
+
+LEFT JOIN `scientific_name_element` AS `sne_9` ON
+tne_9.scientific_name_element_id = sne_9.id
+
+LEFT JOIN `taxon` AS `t9` ON
+tne_9.taxon_id = t9.id
 
 WHERE `source_database`.`id` IS NOT NULL
+
+GROUP BY `kingdom`, `phylum`, `class`, `order`
