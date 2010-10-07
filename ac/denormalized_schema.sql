@@ -59,7 +59,7 @@ CREATE TABLE `_source_database_details` (
 `abstract` LONGTEXT NOT NULL ,
 `organization` VARCHAR( 255 ) NOT NULL,
 `is_new` BOOL NOT NULL DEFAULT '0'
-) ENGINE = MyISAM CHARACTER SET utf8 ;
+) ENGINE = MyISAM CHARACTER SET utf8 
 
 ;
 
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `_source_database_taxonomic_coverage` (
 `phylum_id` INT( 10 ) NOT NULL ,
 `class_id` INT( 10 ) NOT NULL ,
 `order_id` INT( 10 ) NOT NULL
-) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci
+) ENGINE = MyISAM CHARACTER SET utf8
 
 ;
 
