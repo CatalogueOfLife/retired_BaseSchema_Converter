@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS `_search_scientific`;
 DROP TABLE IF EXISTS `_search_distribution`;
 DROP TABLE IF EXISTS `_source_database_details`;
+DROP TABLE IF EXISTS `_source_database_taxonomic_coverage`;
 DROP TABLE IF EXISTS `_species_details`;
 DROP TABLE IF EXISTS `_search_all`;
 DROP TABLE IF EXISTS `_taxon_tree`;
@@ -59,6 +60,20 @@ CREATE TABLE `_source_database_details` (
 `organization` VARCHAR( 255 ) NOT NULL,
 `is_new` BOOL NOT NULL DEFAULT '0'
 ) ENGINE = MyISAM CHARACTER SET utf8 ;
+
+;
+
+CREATE TABLE IF NOT EXISTS `_source_database_taxonomic_coverage` (
+`source_database_id` INT( 10 ) NOT NULL ,
+`kingdom` VARCHAR( 255 ) NOT NULL ,
+`phylum` VARCHAR( 255 ) NOT NULL ,
+`class` VARCHAR( 255 ) NOT NULL ,
+`order` VARCHAR( 255 ) NOT NULL ,
+`kingdom_id` INT( 10 ) NOT NULL ,
+`phylum_id` INT( 10 ) NOT NULL ,
+`class_id` INT( 10 ) NOT NULL ,
+`order_id` INT( 10 ) NOT NULL
+) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci
 
 ;
 
