@@ -1,4 +1,4 @@
-INSERT INTO `temp_taxon_tree` (`taxon_id`, `name`, `rank`, `parent_id`, `lsid`, `number_of_children`)
+INSERT INTO `_taxon_tree` (`taxon_id`, `name`, `rank`, `parent_id`, `lsid`, `number_of_children`)
 SELECT
     t_1.`id` AS `taxon_id`,
     IF(t_1.`taxonomic_rank_id` IN (54,76,6,72,17,112,20),sne_1.`name_element`,
