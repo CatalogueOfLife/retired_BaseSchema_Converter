@@ -1,4 +1,4 @@
-INSERT INTO `totals` (`total`,`description`)
+INSERT INTO `_totals` (`total`,`description`)
 
 SELECT
     COUNT(t.id) AS total,
@@ -11,7 +11,7 @@ WHERE
     t.`taxonomic_rank_id` = 83
 ;
 
-INSERT INTO `totals` (`total`,`description`)
+INSERT INTO `_totals` (`total`,`description`)
 
 SELECT
     COUNT(t.id) AS total,
@@ -24,7 +24,7 @@ WHERE
     t.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83)
 ;
 
-INSERT INTO `totals` (`total`,`description`)
+INSERT INTO `_totals` (`total`,`description`)
 
 SELECT
     COUNT(t.id) AS total,
@@ -34,7 +34,7 @@ FROM
     `taxon` AS t
 ;
 
-INSERT INTO `totals` (`total`,`description`)
+INSERT INTO `_totals` (`total`,`description`)
 
 SELECT
     COUNT(DISTINCT `id`) AS total,
@@ -48,7 +48,7 @@ WHERE
     `rank` = "species"
 ;
 
-INSERT INTO `totals` (`total`,`description`)
+INSERT INTO `_totals` (`total`,`description`)
 
 SELECT
     COUNT(DISTINCT `id`) AS total,
@@ -72,7 +72,7 @@ WHERE
     )
 ;
 
-INSERT INTO `totals` (`total`,`description`)
+INSERT INTO `_totals` (`total`,`description`)
 
 SELECT
     COUNT(id) AS total,
@@ -82,7 +82,7 @@ FROM
     `synonym`
 ;
 
-INSERT INTO `totals` (`total`,`description`)
+INSERT INTO `_totals` (`total`,`description`)
 
 SELECT
     COUNT(DISTINCT `id`) AS total,
@@ -92,7 +92,7 @@ FROM
     `common_name`
 ;
 
-INSERT INTO `totals` (`total`,`description`)
+INSERT INTO `_totals` (`total`,`description`)
 
 SELECT
     COUNT(DISTINCT t.`id`) + (SELECT
@@ -106,7 +106,7 @@ FROM
     `taxon` AS t
 ;
 
-INSERT INTO `totals` (`total`,`description`)
+INSERT INTO `_totals` (`total`,`description`)
 
 SELECT
     COUNT(sd.id) AS total,
@@ -116,7 +116,7 @@ FROM
     `source_database` AS sd
 ;
 
-INSERT INTO `totals` (`total`,`description`)
+INSERT INTO `_totals` (`total`,`description`)
 
 SELECT
     COUNT(sd.id) AS total,
