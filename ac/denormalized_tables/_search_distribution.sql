@@ -485,3 +485,5 @@ LEFT JOIN `taxon` AS t15 ON
 tne15.`taxon_id` = t15.`id`
 
 ;
+
+ALTER TABLE `_search_distribution` ADD INDEX ( `distribution` );
