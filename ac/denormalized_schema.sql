@@ -26,18 +26,6 @@ CREATE TABLE `_search_scientific` (
 `accepted_species_author` varchar(255) NULL,
 `source_database_id` int(10) NULL,
 `source_database_name` varchar(255) NULL,
-
-PRIMARY KEY ( `id` ),  
-INDEX (`kingdom`),
-INDEX (`phylum`),
-INDEX (`class`),
-INDEX (`order`),
-INDEX (`superfamily`),
-INDEX (`family`),
-INDEX (`genus`),
-INDEX (`species`),
-INDEX (`infraspecies`)
-
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8
 
 ;
@@ -51,9 +39,6 @@ CREATE TABLE `_search_distribution` (
 `kingdom` varchar(255) NOT NULL,
 `source_database_id` int(10) NOT NULL,
 `db_name` varchar(255) NOT NULL,
-
-INDEX (`distribution`)
-
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8
 
 ;
@@ -74,9 +59,6 @@ CREATE TABLE `_source_database_details` (
 `abstract` TEXT NOT NULL ,
 `organization` VARCHAR( 255 ) NOT NULL,
 `is_new` BOOL NOT NULL DEFAULT '0',
-
-PRIMARY KEY ( `id` )
-
 ) ENGINE = MyISAM CHARACTER SET utf8 
 
 ;
@@ -91,9 +73,6 @@ CREATE TABLE `_source_database_taxonomic_coverage` (
 `phylum_id` INT( 10 ) NOT NULL ,
 `class_id` INT( 10 ) NOT NULL ,
 `order_id` INT( 10 ) NOT NULL,
-
-INDEX (`source_database_id`)
-
 ) ENGINE = MyISAM CHARACTER SET utf8
 
 ;
@@ -139,9 +118,6 @@ CREATE TABLE `_species_details` (
 `source_database_release_date` date NOT NULL,
 `scrutiny_date` date NOT NULL,
 `specialist` varchar(255) NOT NULL,
-
-PRIMARY KEY ( `taxon_id` )
-
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8
 
 ;
@@ -159,14 +135,6 @@ CREATE TABLE `_search_all` (
 `source_database` varchar(255) NOT NULL,
 `source_database_id` int(10) NOT NULL,
 `accepted_taxon_id` int(10) DEFAULT NULL,
-
-INDEX (`id`),
-INDEX (`name_element`),
-INDEX (`name`),
-INDEX (`rank`),
-INDEX (`group`),
-INDEX (`source_database`)
-
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8
 
 ;
@@ -178,10 +146,6 @@ CREATE TABLE `_taxon_tree` (
 `parent_id` int(10) NOT NULL,
 `lsid` varchar(255) NOT NULL,
 `number_of_children` int(10) NOT NULL,
-
-PRIMARY KEY ( `taxon_id` ),  
-INDEX (`parent_id`)
-
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8
 
 ;
