@@ -34,7 +34,9 @@ INDEX (`class`),
 INDEX (`order`),
 INDEX (`superfamily`),
 INDEX (`family`),
-INDEX (`genus`, `species`, `infraspecies`)
+INDEX (`genus`),
+INDEX (`species`),
+INDEX (`infraspecies`)
 
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8
 
