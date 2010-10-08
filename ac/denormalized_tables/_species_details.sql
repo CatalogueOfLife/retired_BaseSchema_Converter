@@ -1,3 +1,5 @@
+ALTER TABLE `_species_details` DISABLE KEYS;
+
 INSERT INTO `_species_details`
 (
 `taxon_id`,
@@ -571,3 +573,6 @@ UPDATE `_species_details` AS dss SET
     infraspecies_utt.`taxon_id` = dss.infraspecies_id)
     
 ;
+
+ALTER TABLE `_species_details` ENABLE KEYS;
+

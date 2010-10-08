@@ -1,3 +1,5 @@
+ALTER TABLE `_totals` DISABLE KEYS;
+
 INSERT INTO `_totals` (`total`,`description`)
 
 SELECT
@@ -127,3 +129,6 @@ FROM
 
 WHERE sd.`is_new` = 1
 ;
+
+ALTER TABLE `_totals` ENABLE KEYS;
+

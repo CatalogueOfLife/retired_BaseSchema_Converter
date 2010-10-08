@@ -1,3 +1,5 @@
+ALTER TABLE `_search_all` DISABLE KEYS;
+
 INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
@@ -738,3 +740,6 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     WHERE s1.`id` IS NOT NULL
 
 ;
+
+ALTER TABLE `_search_all` ENABLE KEYS;
+

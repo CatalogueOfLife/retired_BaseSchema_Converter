@@ -1,3 +1,5 @@
+ALTER TABLE `_taxon_tree` DISABLE KEYS;
+
 INSERT INTO `_taxon_tree` (`taxon_id`, `name`, `rank`, `parent_id`, `lsid`, `number_of_children`)
 SELECT
     t_1.`id` AS `taxon_id`,
@@ -42,4 +44,8 @@ LEFT JOIN `uri` AS `uri` ON
     utt.`uri_id` = uri.`id`
 
 WHERE t_1.`id` IS NOT NULL
-GROUP BY t_1.`id`;
+GROUP BY t_1.`id`
+
+;
+
+ALTER TABLE `_taxon_tree` ENABLE KEYS;

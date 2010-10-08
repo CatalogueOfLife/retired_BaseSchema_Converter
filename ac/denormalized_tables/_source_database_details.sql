@@ -1,3 +1,5 @@
+ALTER TABLE `_source_database_details` DISABLE KEYS;
+
 INSERT INTO `_source_database_details`
 (`id`, `full_name`, `short_name`, `version`, `release_date`, `authors_editors`,
 `english_name`, `number_of_species`, `number_of_infraspecific_taxon`,
@@ -140,3 +142,7 @@ tne_9.taxon_id = t9.id
 WHERE `source_database`.`id` IS NOT NULL
 
 GROUP BY `kingdom`, `phylum`, `class`, `order`
+;
+
+ALTER TABLE `_source_database_details` ENABLE KEYS;
+

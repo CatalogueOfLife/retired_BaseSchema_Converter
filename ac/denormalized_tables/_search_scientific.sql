@@ -1,3 +1,5 @@
+ALTER TABLE `_search_scientific` DISABLE KEYS;
+
 INSERT INTO `_search_scientific`
 (`id`,`kingdom`,`phylum`,`class`,`order`,`superfamily`,`family`,`genus`,`subgenus`,`species`,`infraspecies`,`source_database_id`)
 
@@ -620,3 +622,6 @@ dss.`status` = (SELECT `scientific_name_status_id` FROM `taxon_detail` WHERE `ta
 dss.`source_database_name` = (SELECT `abbreviated_name` FROM `source_database` WHERE dss.`source_database_id` = `source_database`.`id`)
 
 ;
+
+ALTER TABLE `_search_scientific` ENABLE KEYS;
+
