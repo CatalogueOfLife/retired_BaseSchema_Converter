@@ -1,6 +1,6 @@
 ALTER TABLE `_search_all` DISABLE KEYS;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all the names from genus and higher
@@ -103,7 +103,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all the specific epitets from species
@@ -112,7 +112,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         CONCAT_WS(" ",sne_2.`name_element`,sne_1.`name_element`) AS `name`,
         rank.`rank` AS `rank`,
         sns1.`id` AS `name_status`,
-        "" AS `name_status_suffix`,
+        aus.`string` AS `name_suffix`,
         IF (tne_1.`parent_id` IS NULL,sne_1.`name_element`,
             IF (tne_2.`parent_id` IS NULL,sne_2.`name_element`,
             IF (tne_3.`parent_id` IS NULL,sne_3.`name_element`,
@@ -193,14 +193,16 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     -- mandatory join on scientific name status for taxon detail
     RIGHT JOIN `scientific_name_status` AS `sns1` ON
         td1.`scientific_name_status_id` = sns1.`id`
-
+    LEFT JOIN `author_string` AS `aus` ON
+        td1.`author_string_id` = aus.`id`
+        
     -- selecting only from genus and higher
     WHERE
         `taxonomic_rank_id` = 83
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all the genus from species
@@ -209,7 +211,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         CONCAT_WS(" ",sne_2.`name_element`,sne_1.`name_element`) AS `name`,
         rank.`rank` AS `rank`,
         sns1.`id` AS `name_status`,
-        "" AS `name_status_suffix`,
+        aus.`string` AS `name_suffix`,
         IF (tne_1.`parent_id` IS NULL,sne_1.`name_element`,
             IF (tne_2.`parent_id` IS NULL,sne_2.`name_element`,
             IF (tne_3.`parent_id` IS NULL,sne_3.`name_element`,
@@ -290,14 +292,16 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     -- mandatory join on scientific name status for taxon detail
     RIGHT JOIN `scientific_name_status` AS `sns1` ON
         td1.`scientific_name_status_id` = sns1.`id`
-
+    LEFT JOIN `author_string` AS `aus` ON
+        td1.`author_string_id` = aus.`id`
+        
     -- selecting only from genus and higher
     WHERE
         `taxonomic_rank_id` = 83
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all subspecific epitets from subspecies
@@ -306,7 +310,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         CONCAT_WS(" ",sne_3.`name_element`,sne_2.`name_element`,sne_1.`name_element`) AS `name`,
         rank.`rank` AS `rank`,
         sns1.`id` AS `name_status`,
-        "" AS `name_status_suffix`,
+        aus.`string` AS `name_suffix`,
         IF (tne_1.`parent_id` IS NULL,sne_1.`name_element`,
             IF (tne_2.`parent_id` IS NULL,sne_2.`name_element`,
             IF (tne_3.`parent_id` IS NULL,sne_3.`name_element`,
@@ -388,14 +392,16 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     -- mandatory join on scientific name status for taxon detail
     RIGHT JOIN `scientific_name_status` AS `sns1` ON
         td1.`scientific_name_status_id` = sns1.`id`
-
+    LEFT JOIN `author_string` AS `aus` ON
+        td1.`author_string_id` = aus.`id`
+        
     -- selecting only from genus and higher
     WHERE
         `taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83)
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all specific epitets from subspecies
@@ -404,7 +410,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         CONCAT_WS(" ",sne_3.`name_element`,sne_2.`name_element`,sne_1.`name_element`) AS `name`,
         rank.`rank` AS `rank`,
         sns1.`id` AS `name_status`,
-        "" AS `name_status_suffix`,
+        aus.`string` AS `name_suffix`,
         IF (tne_1.`parent_id` IS NULL,sne_1.`name_element`,
             IF (tne_2.`parent_id` IS NULL,sne_2.`name_element`,
             IF (tne_3.`parent_id` IS NULL,sne_3.`name_element`,
@@ -486,6 +492,8 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     -- mandatory join on scientific name status for taxon detail
     RIGHT JOIN `scientific_name_status` AS `sns1` ON
         td1.`scientific_name_status_id` = sns1.`id`
+    LEFT JOIN `author_string` AS `aus` ON
+        td1.`author_string_id` = aus.`id`
 
     -- selecting only from genus and higher
     WHERE
@@ -493,7 +501,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all genus from subspecies
@@ -502,7 +510,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         CONCAT_WS(" ",sne_3.`name_element`,sne_2.`name_element`,sne_1.`name_element`) AS `name`,
         rank.`rank` AS `rank`,
         sns1.`id` AS `name_status`,
-        "" AS `name_status_suffix`,
+        aus.`string` AS `name_suffix`,
         IF (tne_1.`parent_id` IS NULL,sne_1.`name_element`,
             IF (tne_2.`parent_id` IS NULL,sne_2.`name_element`,
             IF (tne_3.`parent_id` IS NULL,sne_3.`name_element`,
@@ -584,6 +592,8 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     -- mandatory join on scientific name status for taxon detail
     RIGHT JOIN `scientific_name_status` AS `sns1` ON
         td1.`scientific_name_status_id` = sns1.`id`
+    LEFT JOIN `author_string` AS `aus` ON
+        td1.`author_string_id` = aus.`id`
 
     -- selecting only from genus and higher
     WHERE
@@ -591,10 +601,10 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, `name_status`, `name_status_suffix`, `name_status_suffix_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
 -- Filling synonyms
 
-    SELECT -- select all genus from infraspecies
+    SELECT
         s1.`id` AS `id`,
         sysne_1.`name_element` AS `name_element`,
         (
@@ -620,6 +630,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
             WHERE
                 s2.`id` = s1.`id`
         ) AS `name`,
+        aus.`string` AS `name_suffix`,
         (
             SELECT
                 IF(sne_ss.`scientific_name_element_id` IS NOT NULL,
@@ -652,6 +663,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         CONCAT_WS(" ",IF(t_3.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112),
             sne_3.`name_element`,""),sne_2.`name_element`,sne_1.`name_element`)
             AS `name_status_suffix`,
+        aus_1.`string` AS `name_status_suffix_suffix`,
         IF (tne_1.`parent_id` IS NULL,sne_1.`name_element`,
             IF (tne_2.`parent_id` IS NULL,sne_2.`name_element`,
             IF (tne_3.`parent_id` IS NULL,sne_3.`name_element`,
@@ -737,6 +749,13 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     LEFT JOIN `scientific_name_element` AS `sne_9` ON
         tne_9.`scientific_name_element_id` = sne_9.`id`
 
+    LEFT JOIN `taxon_detail` AS td_1 ON
+        t_1.`id` = td_1.`taxon_id`
+    LEFT JOIN `author_string` AS aus_1 ON
+        td_1.`author_string_id` = aus_1.`id`
+    LEFT JOIN `author_string` AS aus ON
+        s1.`author_string_id` = aus.`id`
+        
     WHERE s1.`id` IS NOT NULL
 
 ;
