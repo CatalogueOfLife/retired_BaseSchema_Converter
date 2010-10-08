@@ -1,6 +1,6 @@
 INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
-(
+
     SELECT -- select all the names from genus and higher
         t1.`id` AS `id`,
         sne_1.`name_element` AS `name_element`,
@@ -98,9 +98,12 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     -- 104 subspecies
     -- 49  infraspecies
     -- 129 variety
-)
-UNION
-(
+
+;
+
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+-- Filling taxa
+
     SELECT -- select all the specific epitets from species
         t1.`id` AS `id`,
         sne_1.`name_element` AS `name_element`,
@@ -192,9 +195,12 @@ UNION
     -- selecting only from genus and higher
     WHERE
         `taxonomic_rank_id` = 83
-)
-UNION
-(
+
+;
+
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+-- Filling taxa
+
     SELECT -- select all the genus from species
         t1.`id` AS `id`,
         sne_2.`name_element` AS `name_element`,
@@ -286,9 +292,12 @@ UNION
     -- selecting only from genus and higher
     WHERE
         `taxonomic_rank_id` = 83
-)
-UNION
-(
+
+;
+
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+-- Filling taxa
+
     SELECT -- select all subspecific epitets from subspecies
         t1.`id` AS `id`,
         sne_1.`name_element` AS `name_element`,
@@ -381,9 +390,12 @@ UNION
     -- selecting only from genus and higher
     WHERE
         `taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83)
-)
-UNION
-(
+
+;
+
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+-- Filling taxa
+
     SELECT -- select all specific epitets from subspecies
         t1.`id` AS `id`,
         sne_2.`name_element` AS `name_element`,
@@ -476,9 +488,12 @@ UNION
     -- selecting only from genus and higher
     WHERE
         `taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83)
-)
-UNION
-(
+
+;
+
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+-- Filling taxa
+
     SELECT -- select all genus from subspecies
         t1.`id` AS `id`,
         sne_3.`name_element` AS `name_element`,
@@ -571,10 +586,12 @@ UNION
     -- selecting only from genus and higher
     WHERE
         `taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83)
-)
+
+;
+
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_status_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
 -- Filling synonyms
-UNION
-(
+
     SELECT -- select all genus from infraspecies
         s1.`id` AS `id`,
         sysne_1.`name_element` AS `name_element`,
@@ -719,4 +736,5 @@ UNION
         tne_9.`scientific_name_element_id` = sne_9.`id`
 
     WHERE s1.`id` IS NOT NULL
-);
+
+;
