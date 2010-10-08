@@ -34,17 +34,7 @@ INDEX (`class`),
 INDEX (`order`),
 INDEX (`superfamily`),
 INDEX (`family`),
-INDEX (`genus`),
-INDEX (`subgenus`),
-INDEX (`species`),
-INDEX (`infraspecies`),
-INDEX (`author`),
-INDEX (`status`),
-INDEX (`accepted_species_id`),
-INDEX (`accepted_species_name`),
-INDEX (`accepted_species_author`),
-INDEX (`source_database_id`),
-INDEX (`source_database_name`)
+INDEX (`genus`, `species`, `infraspecies`)
 
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8
 
@@ -60,14 +50,7 @@ CREATE TABLE `_search_distribution` (
 `source_database_id` int(10) NOT NULL,
 `db_name` varchar(255) NOT NULL,
 
-INDEX (`distribution`),
-INDEX (`accepted_species_id`),
-INDEX (`name`),
-INDEX (`author`),
-INDEX (`rank`),
-INDEX (`kingdom`),
-INDEX (`source_database_id`),
-INDEX (`db_name`)
+INDEX (`distribution`)
 
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8
 
@@ -90,20 +73,7 @@ CREATE TABLE `_source_database_details` (
 `organization` VARCHAR( 255 ) NOT NULL,
 `is_new` BOOL NOT NULL DEFAULT '0',
 
-PRIMARY KEY ( `id` ),  
-INDEX (`full_name`),
-INDEX (`short_name`),
-INDEX (`version`),
-INDEX (`release_date`),
-INDEX (`authors_editors`),
-INDEX (`english_name`),
-INDEX (`number_of_species`),
-INDEX (`number_of_infraspecific_taxon`),
-INDEX (`number_of_synonyms`),
-INDEX (`number_of_common_names`),
-INDEX (`total_number`),
-INDEX (`organization`),
-INDEX (`is_new`)
+PRIMARY KEY ( `id` )
 
 ) ENGINE = MyISAM CHARACTER SET utf8 
 
@@ -120,15 +90,7 @@ CREATE TABLE `_source_database_taxonomic_coverage` (
 `class_id` INT( 10 ) NOT NULL ,
 `order_id` INT( 10 ) NOT NULL,
 
-INDEX (`source_database_id`),
-INDEX (`kingdom`),
-INDEX (`phylum`),
-INDEX (`class`),
-INDEX (`order`),
-INDEX (`kingdom_id`),
-INDEX (`phylum_id`),
-INDEX (`class_id`),
-INDEX (`order_id`)
+INDEX (`source_database_id`)
 
 ) ENGINE = MyISAM CHARACTER SET utf8
 
@@ -176,45 +138,7 @@ CREATE TABLE `_species_details` (
 `scrutiny_date` date NOT NULL,
 `specialist` varchar(255) NOT NULL,
 
-PRIMARY KEY ( `taxon_id` ),  
-INDEX (`kingdom_id`),
-INDEX (`kingdom_lsid`),
-INDEX (`kingdom_name`),
-INDEX (`phylum_id`),
-INDEX (`phylum_lsid`),
-INDEX (`phylum_name`),
-INDEX (`class_id`),
-INDEX (`class_lsid`),
-INDEX (`class_name`),
-INDEX (`order_id`),
-INDEX (`order_lsid`),
-INDEX (`order_name`),
-INDEX (`superfamily_id`),
-INDEX (`superfamily_lsid`),
-INDEX (`superfamily_name`),
-INDEX (`family_id`),
-INDEX (`family_lsid`),
-INDEX (`family_name`),
-INDEX (`genus_id`),
-INDEX (`genus_lsid`),
-INDEX (`genus_name`),
-INDEX (`subgenus_id`),
-INDEX (`subgenus_lsid`),
-INDEX (`subgenus_name`),
-INDEX (`species_id`),
-INDEX (`species_lsid`),
-INDEX (`species_name`),
-INDEX (`infraspecies_id`),
-INDEX (`infraspecies_lsid`),
-INDEX (`infraspecies_name`),
-INDEX (`infraspecific_marker`),
-INDEX (`author`),
-INDEX (`status`),
-INDEX ( `source_database_id`),
-INDEX (`source_database_short_name`),
-INDEX (`source_database_release_date`),
-INDEX (`scrutiny_date`),
-INDEX (`specialist`)
+PRIMARY KEY ( `taxon_id` )
 
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8
 
@@ -237,15 +161,9 @@ CREATE TABLE `_search_all` (
 INDEX (`id`),
 INDEX (`name_element`),
 INDEX (`name`),
-INDEX (`name_suffix`),
 INDEX (`rank`),
-INDEX (`name_status`),
-INDEX (`name_status_suffix`),
-INDEX (`name_status_suffix_suffix`),
 INDEX (`group`),
-INDEX (`source_database`),
-INDEX (`source_database_id`),
-INDEX (`accepted_taxon_id`)
+INDEX (`source_database`)
 
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8
 
@@ -260,11 +178,7 @@ CREATE TABLE `_taxon_tree` (
 `number_of_children` int(10) NOT NULL,
 
 PRIMARY KEY ( `taxon_id` ),  
-INDEX (`name`),
-INDEX (`rank`),
-INDEX (`parent_id`),
-INDEX (`lsid`),
-INDEX (`number_of_children`)
+INDEX (`parent_id`)
 
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8
 
