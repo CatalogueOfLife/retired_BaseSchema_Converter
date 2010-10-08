@@ -1,5 +1,6 @@
     SELECT
         cn.`id` AS `id`,
+        "" AS `name_element`,
         cne.`name` AS `name`,
         rank.`rank` AS `rank`,
         6 AS `name_status`,
