@@ -36,21 +36,21 @@ INSERT INTO `_source_database_taxonomic_coverage`
 
 SELECT
 `source_database`.`id` AS `source_database_id`,
-IF(t7.taxonomic_rank_id = 54, sne_7.`name_element`,
- IF(t8.taxonomic_rank_id = 54, sne_8.`name_element`,
-  IF(t9.taxonomic_rank_id = 54, sne_9.`name_element`,""
+IF(t7.taxonomic_rank_id = 54, CONCAT(UCASE(SUBSTRING(sne_7.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_7.`name_element`, 2))),
+ IF(t8.taxonomic_rank_id = 54, CONCAT(UCASE(SUBSTRING(sne_8.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_8.`name_element`, 2))),
+  IF(t9.taxonomic_rank_id = 54, CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),""
 ))) AS `kingdom`,
-IF(t6.taxonomic_rank_id = 76, sne_6.`name_element`,
- IF(t7.taxonomic_rank_id = 76, sne_7.`name_element`,
-  IF(t8.taxonomic_rank_id = 76, sne_8.`name_element`,""
+IF(t6.taxonomic_rank_id = 76, CONCAT(UCASE(SUBSTRING(sne_6.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_6.`name_element`, 2))),
+ IF(t7.taxonomic_rank_id = 76, CONCAT(UCASE(SUBSTRING(sne_7.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_7.`name_element`, 2))),
+  IF(t8.taxonomic_rank_id = 76, CONCAT(UCASE(SUBSTRING(sne_8.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_8.`name_element`, 2))),""
 ))) AS `phylum`,
-IF(t5.taxonomic_rank_id = 6, sne_5.`name_element`,
- IF(t6.taxonomic_rank_id = 6, sne_6.`name_element`,
-  IF(t7.taxonomic_rank_id = 6, sne_7.`name_element`,""
+IF(t5.taxonomic_rank_id = 6, CONCAT(UCASE(SUBSTRING(sne_5.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_5.`name_element`, 2))),
+ IF(t6.taxonomic_rank_id = 6, CONCAT(UCASE(SUBSTRING(sne_6.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_6.`name_element`, 2))),
+  IF(t7.taxonomic_rank_id = 6, CONCAT(UCASE(SUBSTRING(sne_7.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_7.`name_element`, 2))),""
 ))) AS `class`,
-IF(t4.taxonomic_rank_id = 72, sne_4.`name_element`,
- IF(t5.taxonomic_rank_id = 72, sne_5.`name_element`,
-  IF(t6.taxonomic_rank_id = 72, sne_6.`name_element`,""
+IF(t4.taxonomic_rank_id = 72, CONCAT(UCASE(SUBSTRING(sne_4.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_4.`name_element`, 2))),
+ IF(t5.taxonomic_rank_id = 72, CONCAT(UCASE(SUBSTRING(sne_5.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_5.`name_element`, 2))),
+  IF(t6.taxonomic_rank_id = 72, CONCAT(UCASE(SUBSTRING(sne_6.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_6.`name_element`, 2))),""
 ))) AS `order`,
 IF(t7.taxonomic_rank_id = 54, t7.`id`,
  IF(t8.taxonomic_rank_id = 54, t8.`id`,
