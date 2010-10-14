@@ -32,7 +32,7 @@ CREATE TABLE `_search_scientific` (
 ;
 
 CREATE TABLE `_search_distribution` (
-`distribution` varchar(255) NOT NULL,
+`distribution` varchar(10000) NOT NULL,
 `accepted_species_id` int(10) NOT NULL,
 `name` varchar(255) NOT NULL,
 `author` varchar(255) NOT NULL,
@@ -156,7 +156,6 @@ CREATE TABLE `_totals` (
 `total` int(10) DEFAULT NULL,
 
 PRIMARY KEY (`description`)
-
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8
 
 ;
