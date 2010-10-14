@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS `_species_details`;
 DROP TABLE IF EXISTS `_search_all`;
 DROP TABLE IF EXISTS `_taxon_tree`;
 DROP TABLE IF EXISTS `_totals`;
+DROP TABLE IF EXISTS `_search_family`;
 
 CREATE TABLE `_search_scientific` (
 `id` int(10) NOT NULL,
@@ -156,6 +157,18 @@ CREATE TABLE `_totals` (
 
 PRIMARY KEY (`description`)
 
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+;
+
+CREATE TABLE `ac_baseschema_new_new`.`_search_family` (
+`id` INT( 10 ) NOT NULL ,
+`kingdom` VARCHAR( 255 ) NULL ,
+`phylum` VARCHAR( 255 ) NULL ,
+`class` VARCHAR( 255 ) NULL ,
+`order` VARCHAR( 255 ) NULL ,
+`superfamily` VARCHAR( 255 ) NULL ,
+`family` VARCHAR( 255 ) NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8
 
 ;
