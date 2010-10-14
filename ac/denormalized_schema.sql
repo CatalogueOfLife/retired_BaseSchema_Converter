@@ -161,7 +161,7 @@ PRIMARY KEY (`description`)
 
 ;
 
-CREATE TABLE `ac_baseschema_new_new`.`_search_family` (
+CREATE TABLE `_search_family` (
 `id` INT( 10 ) NOT NULL ,
 `kingdom` VARCHAR( 255 ) NULL ,
 `phylum` VARCHAR( 255 ) NULL ,
