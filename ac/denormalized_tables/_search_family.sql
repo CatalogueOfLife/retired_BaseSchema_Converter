@@ -15,3 +15,10 @@ WHERE `genus` IS NULL AND `subgenus` IS NULL AND `species` IS NULL AND `infraspe
 GROUP BY `kingdom`, `phylum`, `class`, `order`, `superfamily`, `family`
 
 ;
+
+ALTER TABLE `_search_family` ADD INDEX ( `kingdom` );
+ALTER TABLE `_search_family` ADD INDEX ( `phylum` );
+ALTER TABLE `_search_family` ADD INDEX ( `class` );
+ALTER TABLE `_search_family` ADD INDEX ( `order` );
+ALTER TABLE `_search_family` ADD INDEX ( `superfamily` );
+ALTER TABLE `_search_family` ADD INDEX ( `family` );
