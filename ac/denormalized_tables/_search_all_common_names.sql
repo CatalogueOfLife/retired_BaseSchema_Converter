@@ -2,12 +2,14 @@
         cn.`id` AS `id`,
         "" AS `name_element`,
         cne.`name` AS `name`,
+        l.`name` AS `name_suffix`,
         rank.`rank` AS `rank`,
         6 AS `name_status`,
         IF (t_1.`taxonomic_rank_id` IN (54,76,6,72,17,112,20),CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))),
             IF(t_2.`taxonomic_rank_id` = 20,CONCAT(CONCAT(UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2)))," ",sne_1.`name_element`),
             CONCAT(CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2)))," ",sne_2.`name_element`," ",sne_1.`name_element`)
         )) AS `name_status_suffix`,
+        aus.`string` AS `name_status_suffix_suffix`,
         IF (tne_1.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))),
             IF (tne_2.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2))),
             IF (tne_3.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),
@@ -44,6 +46,16 @@
     -- mandatory join on ranks
     RIGHT JOIN `taxonomic_rank` AS `rank` ON
         t_1.`taxonomic_rank_id` = rank.`id`
+
+    -- optional join for language
+    LEFT JOIN `language` AS `l` ON
+        cn.`language_iso` = l.`iso`
+
+    -- optional join for accepted name author
+    LEFT JOIN `taxon_detail` AS `td_1` ON
+        t_1.`id` = td_1.`taxon_id`
+    LEFT JOIN `author_string` AS `aus` ON
+        td_1.`author_string_id` = aus.`id`
 
     -- optional joins on name elements to get group
     LEFT JOIN `taxon_name_element` AS `tne_2` ON
