@@ -609,7 +609,8 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
         sysne_1.`name_element` AS `name_element`,
         (
             SELECT
-                CONCAT_WS(" ",sysne_g.`name_element`,sysne_s.`name_element`,
+                CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sysne_g.`name_element`, 1, 1)),
+              LOWER(SUBSTRING(sysne_g.`name_element`, 2))),sysne_s.`name_element`,
                     sysne_ss.`name_element`)
             FROM `synonym` AS `s2`
             RIGHT JOIN `synonym_name_element` AS `sne_g` ON
@@ -660,9 +661,36 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
                 s2.`id` = s1.`id`
         ) AS `rank`,
         sns1.`id` AS `name_status`,
-        CONCAT_WS(" ",IF(t_3.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112),
-            sne_3.`name_element`,""),sne_2.`name_element`,sne_1.`name_element`)
-            AS `name_status_suffix`,
+        CONCAT_WS(" ",
+          IF(t_3.`taxonomic_rank_id` = 20,
+            CONCAT(
+              UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),
+              LOWER(SUBSTRING(sne_3.`name_element`, 2))
+            ),
+            ""
+          ),
+          IF(t_2.`taxonomic_rank_id` = 20,
+            CONCAT(
+              UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),
+              LOWER(SUBSTRING(sne_2.`name_element`, 2))
+            ),
+            sne_2.`name_element`
+          ),
+          sne_1.`name_element`) AS `name_status_suffix`,
+          /*
+           *     -- 54  kingdom
+			    -- 76  phylum
+			    -- 6   class
+			    -- 72  order
+			    -- 17  family
+			    -- 112 superfamily
+			    -- 20  genus
+			    -- 83  species
+			    -- 19  form
+			    -- 104 subspecies
+			    -- 49  infraspecies
+			    -- 129 variety
+    */
         aus_1.`string` AS `name_status_suffix_suffix`,
         IF (tne_1.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))),
             IF (tne_2.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2))),
