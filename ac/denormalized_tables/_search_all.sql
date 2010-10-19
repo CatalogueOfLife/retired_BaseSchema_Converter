@@ -21,7 +21,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
         ))))))))) AS `kingdom`,
-        db.name AS `source_database`,
+        db.`abbreviated_name` AS `source_database`,
         db.`id` AS `source_database_id`,
         "" AS accepted_taxon_id
 
@@ -124,7 +124,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
         ))))))))) AS `kingdom`,
-        db.name AS `source_database`,
+        db.`abbreviated_name` AS `source_database`,
         db.`id` AS `source_database_id`,
         "" AS accepted_taxon_id
 
@@ -223,7 +223,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
         ))))))))) AS `kingdom`,
-        db.name AS `source_database`,
+        db.`abbreviated_name` AS `source_database`,
         db.`id` AS `source_database_id`,
         "" AS accepted_taxon_id
 
@@ -322,7 +322,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
         ))))))))) AS `kingdom`,
-        db.name AS `source_database`,
+        db.`abbreviated_name` AS `source_database`,
         db.`id` AS `source_database_id`,
         "" AS accepted_taxon_id
 
@@ -422,7 +422,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
         ))))))))) AS `kingdom`,
-        db.name AS `source_database`,
+        db.`abbreviated_name` AS `source_database`,
         db.`id` AS `source_database_id`,
         "" AS accepted_taxon_id
 
@@ -522,7 +522,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
         ))))))))) AS `kingdom`,
-        db.name AS `source_database`,
+        db.`abbreviated_name` AS `source_database`,
         db.`id` AS `source_database_id`,
         "" AS accepted_taxon_id
 
@@ -703,7 +703,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
         ))))))))) AS `kingdom`,
-        db.name AS `source_database`,
+        db.`abbreviated_name` AS `source_database`,
         db.`id` AS `source_database_id`,
         t_1.`id` AS accepted_taxon_id
     FROM
