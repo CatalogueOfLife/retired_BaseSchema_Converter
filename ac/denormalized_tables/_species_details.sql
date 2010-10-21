@@ -364,7 +364,7 @@ IF(t1.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), sne1.`name_elemen
     db.`id` AS source_database_id,
     db.`abbreviated_name` AS source_database_short_name,
     db.`release_date` AS source_database_release_date,
-    sc.`scrutiny_date` AS IF(scrutiny_date IS NOT NULL,scrutiny_date,original_scrutiny_date),
+    IF(sc.`scrutiny_date` IS NOT NULL,sc.`scrutiny_date`,sc.`original_scrutiny_date`) AS scrutiny_date,
     sp.`name` AS specialist
     
 FROM `taxon_detail` AS td
