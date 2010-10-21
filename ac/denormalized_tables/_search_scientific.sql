@@ -617,8 +617,14 @@ sne_ss.`id` = syne_ss.`scientific_name_element_id`
 ;
 
 UPDATE `_search_scientific` AS dss
-SET dss.`author` = (SELECT `string` FROM `taxon_detail` LEFT JOIN `author_string` ON `author_string_id` = `author_string`.`id` WHERE `taxon_id` = dss.`id`),
-dss.`status` = (SELECT `scientific_name_status_id` FROM `taxon_detail` WHERE `taxon_id` = dss.`id`),
+SET dss.`author` = IF(dss.`accepted_species_id` IS NULL,
+    (SELECT `string` FROM `taxon_detail` LEFT JOIN `author_string` ON `author_string_id` = `author_string`.`id` WHERE `taxon_id` = dss.`id`),
+    (SELECT `string` FROM `synonym` LEFT JOIN `author_string` ON `synonym`.`author_string_id` = `author_string`.`id` WHERE `synonym`.`id` = dss.`id`)
+),
+dss.`status` = IF(dss.`accepted_species_id` IS NULL,
+    (SELECT `scientific_name_status_id` FROM `taxon_detail` WHERE `taxon_id` = dss.`id`),
+    (SELECT `scientific_name_status_id` FROM `synonym` WHERE `synonym`.`id` = dss.`id`)
+),
 dss.`source_database_name` = (SELECT `abbreviated_name` FROM `source_database` WHERE dss.`source_database_id` = `source_database`.`id`)
 
 ;
