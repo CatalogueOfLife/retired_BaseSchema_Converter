@@ -625,7 +625,7 @@ dss.`status` = IF(dss.`accepted_species_id` IS NULL,
     (SELECT `scientific_name_status_id` FROM `taxon_detail` WHERE `taxon_id` = dss.`id`),
     (SELECT `scientific_name_status_id` FROM `synonym` WHERE `synonym`.`id` = dss.`id`)
 ),
-dss.`source_database_name` = (SELECT `abbreviated_name` FROM `source_database` WHERE dss.`source_database_id` = `source_database`.`id`)
+dss.`source_database_name` = (SELECT `abbreviated_name` FROM `source_database` WHERE dss.`source_database_id` = `source_database`.`id`),
 dss.`accepted_species_author` = IF(dss.`accepted_species_id` IS NULL,NULL,
     (
         SELECT aus.`string` FROM `taxon_detail` AS td
