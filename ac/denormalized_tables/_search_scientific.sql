@@ -1,4 +1,4 @@
-ALTER TABLE `_search_scientific` DISABLE KEYS;
+ ALTER TABLE `_search_scientific` DISABLE KEYS;
 
 INSERT INTO `_search_scientific`
 (`id`,`kingdom`,`phylum`,`class`,`order`,`superfamily`,`family`,`genus`,`subgenus`,`species`,`infraspecies`,`source_database_id`)
