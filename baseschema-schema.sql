@@ -628,3 +628,14 @@ CREATE TABLE `uri_to_taxon` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2010-10-15 10:05:31
+
+
+DROP TABLE IF EXISTS `_conversion_errors`;
+CREATE TABLE `_conversion_errors` (
+  `id` int(10) unsigned NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `object` text NOT NULL,
+  `message` varchar(150) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
