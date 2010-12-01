@@ -788,5 +788,16 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
 
 ;
 
+UPDATE `_search_all` SET
+
+`name_element` = TRIM(`name_element`),
+`name` = TRIM(`name`),
+`name_suffix` = TRIM(`name_suffix`),
+`rank` = TRIM(`rank`),
+`name_status_suffix` = TRIM(`name_status_suffix`),
+`name_status_suffix_suffix` = TRIM(`name_status_suffix_suffix`),
+`group` = TRIM(`group`),
+`source_database` = TRIM(`source_database`);
+
 ALTER TABLE `_search_all` ENABLE KEYS;
 

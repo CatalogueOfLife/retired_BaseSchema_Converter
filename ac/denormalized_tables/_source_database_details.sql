@@ -144,5 +144,22 @@ WHERE `source_database`.`id` IS NOT NULL
 GROUP BY `kingdom`, `phylum`, `class`, `order`
 ;
 
+UPDATE `_source_database_details` SET
+
+`full_name` = TRIM(`full_name`),
+`short_name` = TRIM(`short_name`),
+`version` = TRIM(`version`),
+`authors_editors` = TRIM(`authors_editors`),
+`english_name` = TRIM(`english_name`),
+`abstract` = TRIM(`abstract`),
+`organization` = TRIM(`organization`);
+
+UPDATE `_source_database_taxonomic_coverage` SET
+
+`kingdom` = TRIM(`kingdom`),
+`phylum` = TRIM(`phylum`),
+`class` = TRIM(`class`),
+`order` = TRIM(`order`);
+
 ALTER TABLE `_source_database_details` ENABLE KEYS;
 

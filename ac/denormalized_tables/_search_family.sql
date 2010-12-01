@@ -16,6 +16,15 @@ GROUP BY `kingdom`, `phylum`, `class`, `order`, `superfamily`, `family`
 
 ;
 
+UPDATE `_search_family` SET
+
+`kingdom` = TRIM(`kingdom`),
+`phylum` = TRIM(`phylum`),
+`class` = TRIM(`class`),
+`order` = TRIM(`order`),
+`superfamily` = TRIM(`superfamily`),
+`family` = TRIM(`family`);
+
 ALTER TABLE `_search_family` ADD INDEX ( `kingdom` );
 ALTER TABLE `_search_family` ADD INDEX ( `phylum` );
 ALTER TABLE `_search_family` ADD INDEX ( `class` );

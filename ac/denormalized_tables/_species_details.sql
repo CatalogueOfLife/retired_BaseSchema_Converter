@@ -574,5 +574,34 @@ UPDATE `_species_details` AS dss SET
     
 ;
 
+UPDATE `_species_details` SET
+
+`kingdom_lsid` = TRIM(`kingdom_lsid`),
+`kingdom_name` = TRIM(`kingdom_name`),
+`phylum_lsid` = TRIM(`phylum_lsid`),
+`phylum_name` = TRIM(`phylum_name`),
+`phylum_lsid` = TRIM(`class_lsid`),
+`phylum_name` = TRIM(`class_name`),
+`phylum_lsid` = TRIM(`order_lsid`),
+`phylum_name` = TRIM(`order_name`),
+`phylum_lsid` = TRIM(`superfamily_lsid`),
+`phylum_name` = TRIM(`superfamily_name`),
+`phylum_lsid` = TRIM(`family_lsid`),
+`phylum_name` = TRIM(`family_name`),
+`phylum_lsid` = TRIM(`genus_lsid`),
+`phylum_name` = TRIM(`genus_name`),
+`phylum_lsid` = TRIM(`subgenus_lsid`),
+`phylum_name` = TRIM(`subgenus_name`),
+`phylum_lsid` = TRIM(`species_lsid`),
+`phylum_name` = TRIM(`species_name`),
+`phylum_lsid` = TRIM(`infraspecies_lsid`),
+`phylum_name` = TRIM(`infraspecies_name`),
+`infraspecific_marker` = TRIM(`infraspecific_marker`),
+`author` = TRIM(`author`),
+`additional_data` = TRIM(`additional_data`),
+`source_database_short_name` = TRIM(`source_database_short_name`),
+`scrutiny_date` = TRIM(`scrutiny_date`),
+`specialist` = TRIM(`specialist`);
+
 ALTER TABLE `_species_details` ENABLE KEYS;
 

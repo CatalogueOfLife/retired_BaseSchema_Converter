@@ -636,5 +636,22 @@ dss.`accepted_species_author` = IF(dss.`accepted_species_id` IS NULL,NULL,
 )
 ;
 
+UPDATE `_search_scientific` SET
+
+`kingdom` = TRIM(`kingdom`),
+`phylum` = TRIM(`phylum`),
+`class` = TRIM(`class`),
+`order` = TRIM(`order`),
+`superfamily` = TRIM(`superfamily`),
+`family` = TRIM(`family`),
+`genus` = TRIM(`genus`),
+`subgenus` = TRIM(`subgenus`),
+`species` = TRIM(`species`),
+`infraspecies` = TRIM(`infraspecies`),
+`author` = TRIM(`author`),
+`accepted_species_name` = TRIM(`accepted_species_name`),
+`accepted_species_author` = TRIM(`accepted_species_author`),
+`source_database_name` = TRIM(`source_database_name`);
+
 ALTER TABLE `_search_scientific` ENABLE KEYS;
 

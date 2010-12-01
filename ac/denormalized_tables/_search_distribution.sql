@@ -488,6 +488,14 @@ tne15.`taxon_id` = t15.`id`
 
 ;
 
+UPDATE `_search_distribution` SET
+
+`distribution` = TRIM(`distribution`),
+`name` = TRIM(`name`),
+`author` = TRIM(`author`),
+`kingdom` = TRIM(`kingdom`),
+`db_name` = TRIM(`db_name`);
+
 ALTER TABLE `_search_distribution` ENABLE KEYS;
 
 

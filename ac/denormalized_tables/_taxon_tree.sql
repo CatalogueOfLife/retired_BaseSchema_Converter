@@ -48,4 +48,10 @@ GROUP BY t_1.`id`
 
 ;
 
+UPDATE `_taxon_tree` SET
+
+`name` = TRIM(`name`),
+`rank` = TRIM(`rank`),
+`lsid` = TRIM(`lsid`);
+
 ALTER TABLE `_taxon_tree` ENABLE KEYS;
