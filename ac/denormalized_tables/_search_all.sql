@@ -307,7 +307,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     SELECT -- select all subspecific epitets from subspecies
         t1.`id` AS `id`,
         sne_1.`name_element` AS `name_element`,
-        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,sne_1.`name_element`) AS `name`,
+        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,`marker`,sne_1.`name_element`) AS `name`,
         rank.`rank` AS `rank`,
         sns1.`id` AS `name_status`,
         aus.`string` AS `name_suffix`,
@@ -407,7 +407,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     SELECT -- select all specific epitets from subspecies
         t1.`id` AS `id`,
         sne_2.`name_element` AS `name_element`,
-        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,sne_1.`name_element`) AS `name`,
+        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,`marker`,sne_1.`name_element`) AS `name`,
         rank.`rank` AS `rank`,
         sns1.`id` AS `name_status`,
         aus.`string` AS `name_suffix`,
@@ -507,7 +507,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     SELECT -- select all genus from subspecies
         t1.`id` AS `id`,
         sne_3.`name_element` AS `name_element`,
-        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,sne_1.`name_element`) AS `name`,
+        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,`marker`,sne_1.`name_element`) AS `name`,
         rank.`rank` AS `rank`,
         sns1.`id` AS `name_status`,
         aus.`string` AS `name_suffix`,
@@ -611,7 +611,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
             SELECT
                 CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sysne_g.`name_element`, 1, 1)),
               LOWER(SUBSTRING(sysne_g.`name_element`, 2))),sysne_s.`name_element`,
-                    sysne_ss.`name_element`)
+                    trank_ss.`marker`,sysne_ss.`name_element`)
             FROM `synonym` AS `s2`
             RIGHT JOIN `synonym_name_element` AS `sne_g` ON
                 s2.`id` = sne_g.`synonym_id` AND
@@ -628,6 +628,8 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
                 sne_ss.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83)
             LEFT JOIN `scientific_name_element` AS `sysne_ss` ON
                 sne_ss.`scientific_name_element_id` = sysne_ss.`id`
+            LEFT JOIN `taxonomic_rank` AS `trank_ss` ON
+                sne_ss.`taxonomic_rank_id` = trank_ss.`id`
             WHERE
                 s2.`id` = s1.`id`
         ) AS `name`,
