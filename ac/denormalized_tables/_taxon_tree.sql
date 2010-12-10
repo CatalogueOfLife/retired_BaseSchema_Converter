@@ -5,7 +5,7 @@ SELECT
     t_1.`id` AS `taxon_id`,
     IF(t_1.`taxonomic_rank_id` IN (54,76,6,72,17,112,20,96),CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))),
         IF(t_1.`taxonomic_rank_id` = 83,CONCAT_WS(' ',CONCAT(UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2))),sne_1.`name_element`),
-            CONCAT_WS(' ',CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,sne_1.`name_element`)
+            CONCAT_WS(' ',CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,rank.`marker`,sne_1.`name_element`)
         )
     ) AS `name`,
     rank.`rank` AS `rank`,

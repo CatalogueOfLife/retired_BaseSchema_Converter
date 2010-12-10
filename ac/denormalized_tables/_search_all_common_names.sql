@@ -7,7 +7,7 @@
         6 AS `name_status`,
         IF (t_1.`taxonomic_rank_id` IN (54,76,6,72,17,112,20),CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))),
             IF(t_2.`taxonomic_rank_id` = 20,CONCAT(CONCAT(UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2)))," ",sne_1.`name_element`),
-            CONCAT(CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2)))," ",sne_2.`name_element`," ",sne_1.`name_element`)
+            CONCAT(CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2)))," ",sne_2.`name_element`,IF(tr1.`marker` != "",CONCAT(" ",tr1.`marker`),"")," ",sne_1.`name_element`)
         )) AS `name_status_suffix`,
         aus.`string` AS `name_status_suffix_suffix`,
         IF (tne_1.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))),
@@ -102,6 +102,9 @@
     LEFT JOIN `scientific_name_element` AS `sne_9` ON
         tne_9.`scientific_name_element_id` = sne_9.`id`
 
+    LEFT JOIN `taxonomic_rank` AS `tr1` ON
+        t_1.`taxonomic_rank_id` = tr1.`id`
+        
     WHERE
         cn.`id` IS NOT NULL
     GROUP BY cn.`common_name_element_id`, cn.`language_iso`
