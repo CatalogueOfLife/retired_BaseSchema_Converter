@@ -396,7 +396,7 @@ t15.`taxonomic_rank_id` = tr15.`id`
 ;
 
 INSERT INTO `_search_scientific`
-(`id`,`kingdom`,`genus`,`subgenus`,`species`,`infraspecies`,`infraspecific_marker,`author`,`status`,`accepted_species_id`,`accepted_species_name`,`accepted_species_author`,`source_database_id`,`source_database_name`)
+(`id`,`kingdom`,`genus`,`subgenus`,`species`,`infraspecies`,`infraspecific_marker`,`author`,`status`,`accepted_species_id`,`accepted_species_name`,`accepted_species_author`,`source_database_id`,`source_database_name`)
 
 SELECT
 s.`id` AS id,
@@ -426,72 +426,7 @@ aus.`string` AS author,
 s.`scientific_name_status_id` AS status,
 s.`taxon_id` AS accepted_id,
 
-CONCAT(
-IF(t1.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne1.`name_element`, 2))),
- IF(t2.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne2.`name_element`, 2))),
-  IF(t3.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne3.`name_element`, 2))),
-   IF(t4.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne4.`name_element`, 1, 1)),LOWER(SUBSTRING(sne4.`name_element`, 2))),
-    IF(t5.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne5.`name_element`, 1, 1)),LOWER(SUBSTRING(sne5.`name_element`, 2))),
-     IF(t6.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne6.`name_element`, 1, 1)),LOWER(SUBSTRING(sne6.`name_element`, 2))),
-      IF(t7.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne7.`name_element`, 1, 1)),LOWER(SUBSTRING(sne7.`name_element`, 2))),
-       IF(t8.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne8.`name_element`, 1, 1)),LOWER(SUBSTRING(sne8.`name_element`, 2))),
-        IF(t9.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne9.`name_element`, 2))),
-         IF(t10.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne10.`name_element`, 1, 1)),LOWER(SUBSTRING(sne10.`name_element`, 2))),
-          IF(t11.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne11.`name_element`, 1, 1)),LOWER(SUBSTRING(sne11.`name_element`, 2))),
-           IF(t12.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne12.`name_element`, 1, 1)),LOWER(SUBSTRING(sne12.`name_element`, 2))),
-            IF(t13.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne13.`name_element`, 1, 1)),LOWER(SUBSTRING(sne13.`name_element`, 2))),
-             IF(t14.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne14.`name_element`, 1, 1)),LOWER(SUBSTRING(sne14.`name_element`, 2))),
-              IF(t15.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2))),""
-))))))))))))))),
-IF(t1.`taxonomic_rank_id` = 96, CONCAT(" (",UCASE(SUBSTRING(sne1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne1.`name_element`, 2)),")"),
- IF(t2.`taxonomic_rank_id` = 96, CONCAT(" (",UCASE(SUBSTRING(sne2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne2.`name_element`, 2)),")"),
-  IF(t3.`taxonomic_rank_id` = 96, CONCAT(" (",UCASE(SUBSTRING(sne3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne3.`name_element`, 2)),")"),
-   IF(t4.`taxonomic_rank_id` = 96, CONCAT(" (",UCASE(SUBSTRING(sne4.`name_element`, 1, 1)),LOWER(SUBSTRING(sne4.`name_element`, 2)),")"),
-    IF(t5.`taxonomic_rank_id` = 96, CONCAT(" (",UCASE(SUBSTRING(sne5.`name_element`, 1, 1)),LOWER(SUBSTRING(sne5.`name_element`, 2)),")"),
-     IF(t6.`taxonomic_rank_id` = 96, CONCAT(" (",UCASE(SUBSTRING(sne6.`name_element`, 1, 1)),LOWER(SUBSTRING(sne6.`name_element`, 2)),")"),
-      IF(t7.`taxonomic_rank_id` = 96, CONCAT(" (",UCASE(SUBSTRING(sne7.`name_element`, 1, 1)),LOWER(SUBSTRING(sne7.`name_element`, 2)),")"),
-       IF(t8.`taxonomic_rank_id` = 96, CONCAT(" (",UCASE(SUBSTRING(sne8.`name_element`, 1, 1)),LOWER(SUBSTRING(sne8.`name_element`, 2)),")"),
-        IF(t9.`taxonomic_rank_id` = 96, CONCAT(" (",UCASE(SUBSTRING(sne9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne9.`name_element`, 2)),")"),
-         IF(t10.`taxonomic_rank_id` = 96, CONCAT(" (",UCASE(SUBSTRING(sne10.`name_element`, 1, 1)),LOWER(SUBSTRING(sne10.`name_element`, 2)),")"),
-          IF(t11.`taxonomic_rank_id` = 96, CONCAT(" (",UCASE(SUBSTRING(sne11.`name_element`, 1, 1)),LOWER(SUBSTRING(sne11.`name_element`, 2)),")"),
-           IF(t12.`taxonomic_rank_id` = 96, CONCAT(" (",UCASE(SUBSTRING(sne12.`name_element`, 1, 1)),LOWER(SUBSTRING(sne12.`name_element`, 2)),")"),
-            IF(t13.`taxonomic_rank_id` = 96, CONCAT(" (",UCASE(SUBSTRING(sne13.`name_element`, 1, 1)),LOWER(SUBSTRING(sne13.`name_element`, 2)),")"),
-             IF(t14.`taxonomic_rank_id` = 96, CONCAT(" (",UCASE(SUBSTRING(sne14.`name_element`, 1, 1)),LOWER(SUBSTRING(sne14.`name_element`, 2)),")"),
-              IF(t15.`taxonomic_rank_id` = 96, CONCAT(" (",UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2)),")"),""
-))))))))))))))),
-IF(t1.`taxonomic_rank_id` = 83, CONCAT(" ",sne1.`name_element`),
- IF(t2.`taxonomic_rank_id` = 83, CONCAT(" ",sne2.`name_element`),
-  IF(t3.`taxonomic_rank_id` = 83, CONCAT(" ",sne3.`name_element`),
-   IF(t4.`taxonomic_rank_id` = 83, CONCAT(" ",sne4.`name_element`),
-    IF(t5.`taxonomic_rank_id` = 83, CONCAT(" ",sne5.`name_element`),
-     IF(t6.`taxonomic_rank_id` = 83, CONCAT(" ",sne6.`name_element`),
-      IF(t7.`taxonomic_rank_id` = 83, CONCAT(" ",sne7.`name_element`),
-       IF(t8.`taxonomic_rank_id` = 83, CONCAT(" ",sne8.`name_element`),
-        IF(t9.`taxonomic_rank_id` = 83, CONCAT(" ",sne9.`name_element`),
-         IF(t10.`taxonomic_rank_id` = 83, CONCAT(" ",sne10.`name_element`),
-          IF(t11.`taxonomic_rank_id` = 83, CONCAT(" ",sne11.`name_element`),
-           IF(t12.`taxonomic_rank_id` = 83, CONCAT(" ",sne12.`name_element`),
-            IF(t13.`taxonomic_rank_id` = 83, CONCAT(" ",sne13.`name_element`),
-             IF(t14.`taxonomic_rank_id` = 83, CONCAT(" ",sne14.`name_element`),
-              IF(t15.`taxonomic_rank_id` = 83, CONCAT(" ",sne15.`name_element`),""
-))))))))))))))),
-IF(t1.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), CONCAT(" ",IF(tr1.`marker` != "",CONCAT(" ",tr1.`marker`),""),sne1.`name_element`),
- IF(t2.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), CONCAT(" ",IF(tr2.`marker` != "",CONCAT(" ",tr2.`marker`),""),sne2.`name_element`),
-  IF(t3.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), CONCAT(" ",IF(tr3.`marker` != "",CONCAT(" ",tr3.`marker`),""),sne3.`name_element`),
-   IF(t4.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), CONCAT(" ",IF(tr4.`marker` != "",CONCAT(" ",tr4.`marker`),""),sne4.`name_element`),
-    IF(t5.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), CONCAT(" ",IF(tr5.`marker` != "",CONCAT(" ",tr5.`marker`),""),sne5.`name_element`),
-     IF(t6.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), CONCAT(" ",IF(tr6.`marker` != "",CONCAT(" ",tr6.`marker`),""),sne6.`name_element`),
-      IF(t7.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), CONCAT(" ",IF(tr7.`marker` != "",CONCAT(" ",tr7.`marker`),""),sne7.`name_element`),
-       IF(t8.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), CONCAT(" ",IF(tr8.`marker` != "",CONCAT(" ",tr8.`marker`),""),sne8.`name_element`),
-        IF(t9.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), CONCAT(" ",IF(tr9.`marker` != "",CONCAT(" ",tr9.`marker`),""),sne9.`name_element`),
-         IF(t10.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), CONCAT(" ",IF(tr10.`marker` != "",CONCAT(" ",tr10.`marker`),""),sne10.`name_element`),
-          IF(t11.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), CONCAT(" ",IF(tr11.`marker` != "",CONCAT(" ",tr11.`marker`),""),sne11.`name_element`),
-           IF(t12.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), CONCAT(" ",IF(tr12.`marker` != "",CONCAT(" ",tr12.`marker`),""),sne12.`name_element`),
-            IF(t13.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), CONCAT(" ",IF(tr13.`marker` != "",CONCAT(" ",tr13.`marker`),""),sne13.`name_element`),
-             IF(t14.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), CONCAT(" ",IF(tr14.`marker` != "",CONCAT(" ",tr14.`marker`),""),sne14.`name_element`),
-              IF(t15.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), CONCAT(" ",IF(tr15.`marker` != "",CONCAT(" ",tr15.`marker`),""),sne15.`name_element`),""
-)))))))))))))))
-) AS accepted_species_name,
+"" AS accepted_species_name,
 
 "" AS accepted_species_author,
 IF(t1.`source_database_id` IS NOT NULL, t1.`source_database_id`,
@@ -679,54 +614,9 @@ sne_ss.`id` = syne_ss.`scientific_name_element_id`
 LEFT JOIN `taxonomic_rank` AS tr_ss ON
 syne_ss.`taxonomic_rank_id` = tr_ss.`id`
 
-LEFT JOIN `taxonomic_rank` AS tr1 ON
-t1.`taxonomic_rank_id` = tr1.`id`
-
-LEFT JOIN `taxonomic_rank` AS tr2 ON
-t2.`taxonomic_rank_id` = tr2.`id`
-
-LEFT JOIN `taxonomic_rank` AS tr3 ON
-t3.`taxonomic_rank_id` = tr3.`id`
-
-LEFT JOIN `taxonomic_rank` AS tr4 ON
-t4.`taxonomic_rank_id` = tr4.`id`
-
-LEFT JOIN `taxonomic_rank` AS tr5 ON
-t5.`taxonomic_rank_id` = tr5.`id`
-
-LEFT JOIN `taxonomic_rank` AS tr6 ON
-t6.`taxonomic_rank_id` = tr6.`id`
-
-LEFT JOIN `taxonomic_rank` AS tr7 ON
-t7.`taxonomic_rank_id` = tr7.`id`
-
-LEFT JOIN `taxonomic_rank` AS tr8 ON
-t8.`taxonomic_rank_id` = tr8.`id`
-
-LEFT JOIN `taxonomic_rank` AS tr9 ON
-t9.`taxonomic_rank_id` = tr9.`id`
-
-LEFT JOIN `taxonomic_rank` AS tr10 ON
-t10.`taxonomic_rank_id` = tr10.`id`
-
-LEFT JOIN `taxonomic_rank` AS tr11 ON
-t11.`taxonomic_rank_id` = tr11.`id`
-
-LEFT JOIN `taxonomic_rank` AS tr12 ON
-t12.`taxonomic_rank_id` = tr12.`id`
-
-LEFT JOIN `taxonomic_rank` AS tr13 ON
-t13.`taxonomic_rank_id` = tr13.`id`
-
-LEFT JOIN `taxonomic_rank` AS tr14 ON
-t14.`taxonomic_rank_id` = tr14.`id`
-
-LEFT JOIN `taxonomic_rank` AS tr15 ON
-t15.`taxonomic_rank_id` = tr15.`id`
-
 ;
 
-UPDATE `_search_scientific` AS dss
+UPDATE `_search_scientific` AS dss, `_search_all` AS sa
 SET dss.`author` = IF(dss.`accepted_species_id` IS NULL,
     (SELECT `string` FROM `taxon_detail` LEFT JOIN `author_string` ON `author_string_id` = `author_string`.`id` WHERE `taxon_id` = dss.`id`),
     (SELECT `string` FROM `synonym` LEFT JOIN `author_string` ON `synonym`.`author_string_id` = `author_string`.`id` WHERE `synonym`.`id` = dss.`id`)
@@ -735,15 +625,12 @@ dss.`status` = IF(dss.`accepted_species_id` IS NULL,
     (SELECT `scientific_name_status_id` FROM `taxon_detail` WHERE `taxon_id` = dss.`id`),
     (SELECT `scientific_name_status_id` FROM `synonym` WHERE `synonym`.`id` = dss.`id`)
 ),
-dss.`source_database_name` = (SELECT `abbreviated_name` FROM `source_database` WHERE dss.`source_database_id` = `source_database`.`id`),
-dss.`accepted_species_author` = IF(dss.`accepted_species_id` IS NULL,NULL,
-    (
-        SELECT aus.`string` FROM `taxon_detail` AS td
-        LEFT JOIN author_string AS aus ON
-        td.`author_string_id` = aus.`id`
-        WHERE td.`taxon_id` = dss.`accepted_species_id`
-    )
-)
+dss.`source_database_name` = sa.`source_database`,
+dss.`accepted_species_author` = sa.`name_suffix`,
+dss.`accepted_species_name` = sa.`name`
+
+WHERE dss.`accepted_species_id` = sa.`id`
+
 ;
 
 UPDATE `_search_scientific` SET
