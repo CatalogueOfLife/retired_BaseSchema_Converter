@@ -19,6 +19,7 @@ CREATE TABLE `_search_scientific` (
 `genus` varchar(255) NULL,
 `subgenus` varchar(255) NULL,
 `species` varchar(255) NULL,
+`infraspecific_marker` varchar(255) NULL,
 `infraspecies` varchar(255) NULL,
 `author` varchar(255) NULL,
 `status` tinyint(1) NULL,
