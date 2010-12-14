@@ -64,15 +64,6 @@ t1.source_database_id = sd.id
 
 ;
 
-UPDATE `_search_distribution` AS sd, `_search_all` AS sa SET
-
-sd.`name` = sa.`name`,
-sd.`kingdom` = sa.`group`
-
-WHERE
-sd.`accepted_species_id` = sa.`id`
-;
-
 UPDATE `_search_distribution` SET
 
 `distribution` = TRIM(`distribution`),
