@@ -616,23 +616,6 @@ syne_ss.`taxonomic_rank_id` = tr_ss.`id`
 
 ;
 
-UPDATE `_search_scientific` AS dss, `_search_all` AS sa
-SET dss.`author` = IF(dss.`accepted_species_id` IS NULL,
-    (SELECT `string` FROM `taxon_detail` LEFT JOIN `author_string` ON `author_string_id` = `author_string`.`id` WHERE `taxon_id` = dss.`id`),
-    (SELECT `string` FROM `synonym` LEFT JOIN `author_string` ON `synonym`.`author_string_id` = `author_string`.`id` WHERE `synonym`.`id` = dss.`id`)
-),
-dss.`status` = IF(dss.`accepted_species_id` IS NULL,
-    (SELECT `scientific_name_status_id` FROM `taxon_detail` WHERE `taxon_id` = dss.`id`),
-    (SELECT `scientific_name_status_id` FROM `synonym` WHERE `synonym`.`id` = dss.`id`)
-),
-dss.`source_database_name` = sa.`source_database`,
-dss.`accepted_species_author` = sa.`name_suffix`,
-dss.`accepted_species_name` = sa.`name`
-
-WHERE dss.`accepted_species_id` = sa.`id`
-
-;
-
 UPDATE `_search_scientific` SET
 
 `kingdom` = TRIM(`kingdom`),
