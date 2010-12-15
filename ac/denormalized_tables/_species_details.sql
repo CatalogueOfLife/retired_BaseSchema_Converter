@@ -363,7 +363,7 @@ IF(t1.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), sne1.`name_elemen
     td.`additional_data` AS additional_data,
     db.`id` AS source_database_id,
     db.`abbreviated_name` AS source_database_short_name,
-    db.`release_date` AS source_database_release_date,
+    db.`version` AS source_database_version,
     sc.`original_scrutiny_date` AS scrutiny_date,
     sp.`name` AS specialist
     
