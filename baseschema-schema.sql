@@ -544,8 +544,6 @@ DROP TABLE IF EXISTS `taxonomic_rank`;
 CREATE TABLE `taxonomic_rank` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `rank` varchar(50) NOT NULL COMMENT 'Taxonomic rank (e.g. family, subspecies)',
-  `marker_displayed` varchar(50) NULL COMMENT 'The infraspecific marker displayed in the interface',
-  `standard` tinyint(1) NOT NULL default '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `rank` (`rank`)
 ) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8 COMMENT='Predetermined list of taxonomic ranks';
@@ -629,5 +627,4 @@ CREATE TABLE `uri_to_taxon` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-10-15 10:05:31
-
+-- Dump completed on 2010-12-16 15:39:02
