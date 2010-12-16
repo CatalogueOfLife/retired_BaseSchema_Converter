@@ -571,7 +571,7 @@ UPDATE `_species_details` AS dss SET
     WHERE infraspecies_uri.`uri_scheme_id` = 9 AND
     infraspecies_uri.`id` = infraspecies_utt.`uri_id` AND
     infraspecies_utt.`taxon_id` = dss.infraspecies_id),
-`infraspecific_marker` = (SELECT rank.`marker` AS infraspecific_marker
+`infraspecific_marker` = (SELECT rank.`marker_displayed` AS infraspecific_marker
     FROM `taxon` AS t, `taxonomic_rank` AS rank WHERE t.`id` = dss.`infraspecies_id` AND t.`taxonomic_rank_id` = rank.`id`)
 ;
 
