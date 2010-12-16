@@ -544,6 +544,7 @@ DROP TABLE IF EXISTS `taxonomic_rank`;
 CREATE TABLE `taxonomic_rank` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `rank` varchar(50) NOT NULL COMMENT 'Taxonomic rank (e.g. family, subspecies)',
+  `marker` varchar(50) NULL COMMENT 'The marker that comes infront of the rank',
   PRIMARY KEY (`id`),
   UNIQUE KEY `rank` (`rank`)
 ) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8 COMMENT='Predetermined list of taxonomic ranks';
