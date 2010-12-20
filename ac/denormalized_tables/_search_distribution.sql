@@ -1,6 +1,6 @@
 ALTER TABLE `_search_distribution` DISABLE KEYS;
 
-INSERT INTO `_search_distribution` (`distribution`,`accepted_species_id`,`name`,`author`,`rank`,`kingdom`,`source_database_id`,`db_name`)
+INSERT INTO `_search_distribution` (`distribution`,`accepted_species_id`,`name`,`author`,`rank`,`kingdom`,`source_database_id`,`source_database_name`)
 
 SELECT
 
@@ -11,7 +11,7 @@ aus.string AS author,
 t1.`taxonomic_rank_id` AS rank,
 "" AS kingdom,
 t1.source_database_id AS source_database_id,
-sd.abbreviated_name AS db_name
+sd.abbreviated_name AS source_database_name
 
 FROM `distribution` AS ds
 
@@ -32,7 +32,7 @@ t1.source_database_id = sd.id
 
 ;
 
-INSERT INTO `_search_distribution` (`distribution`,`accepted_species_id`,`name`,`author`,`rank`,`kingdom`,`source_database_id`,`db_name`)
+INSERT INTO `_search_distribution` (`distribution`,`accepted_species_id`,`name`,`author`,`rank`,`kingdom`,`source_database_id`,`source_database_name`)
 
 SELECT
 
@@ -43,7 +43,7 @@ aus.string AS author,
 t1.`taxonomic_rank_id` AS rank,
 "" AS kingdom,
 t1.source_database_id AS source_database_id,
-sd.abbreviated_name AS db_name
+sd.abbreviated_name AS source_database_name
 
 FROM `distribution_free_text` AS ds
 
@@ -70,7 +70,7 @@ UPDATE `_search_distribution` SET
 `name` = TRIM(`name`),
 `author` = TRIM(`author`),
 `kingdom` = TRIM(`kingdom`),
-`db_name` = TRIM(`db_name`);
+`source_database_name` = TRIM(`source_database_name`);
 
 ALTER TABLE `_search_distribution` ENABLE KEYS;
 

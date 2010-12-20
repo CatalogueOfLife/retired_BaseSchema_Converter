@@ -1,6 +1,6 @@
 ALTER TABLE `_search_all` DISABLE KEYS;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all the names from genus and higher
@@ -21,7 +21,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
         ))))))))) AS `kingdom`,
-        db.`abbreviated_name` AS `source_database`,
+        db.`abbreviated_name` AS `source_database_name`,
         db.`id` AS `source_database_id`,
         "" AS accepted_taxon_id
 
@@ -103,7 +103,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all the specific epitets from species
@@ -124,7 +124,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
         ))))))))) AS `kingdom`,
-        db.`abbreviated_name` AS `source_database`,
+        db.`abbreviated_name` AS `source_database_name`,
         db.`id` AS `source_database_id`,
         "" AS accepted_taxon_id
 
@@ -202,7 +202,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all the genus from species
@@ -223,7 +223,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
         ))))))))) AS `kingdom`,
-        db.`abbreviated_name` AS `source_database`,
+        db.`abbreviated_name` AS `source_database_name`,
         db.`id` AS `source_database_id`,
         "" AS accepted_taxon_id
 
@@ -301,7 +301,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all subspecific epitets from subspecies
@@ -322,7 +322,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
         ))))))))) AS `kingdom`,
-        db.`abbreviated_name` AS `source_database`,
+        db.`abbreviated_name` AS `source_database_name`,
         db.`id` AS `source_database_id`,
         "" AS accepted_taxon_id
 
@@ -401,7 +401,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all specific epitets from subspecies
@@ -422,7 +422,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
         ))))))))) AS `kingdom`,
-        db.`abbreviated_name` AS `source_database`,
+        db.`abbreviated_name` AS `source_database_name`,
         db.`id` AS `source_database_id`,
         "" AS accepted_taxon_id
 
@@ -501,7 +501,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all genus from subspecies
@@ -522,7 +522,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
         ))))))))) AS `kingdom`,
-        db.`abbreviated_name` AS `source_database`,
+        db.`abbreviated_name` AS `source_database_name`,
         db.`id` AS `source_database_id`,
         "" AS accepted_taxon_id
 
@@ -601,7 +601,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, `name_status`, `name_status_suffix`, `name_status_suffix_suffix`, `group`, `source_database`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, `name_status`, `name_status_suffix`, `name_status_suffix_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling synonyms
 
     SELECT
@@ -705,7 +705,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
         ))))))))) AS `kingdom`,
-        db.`abbreviated_name` AS `source_database`,
+        db.`abbreviated_name` AS `source_database_name`,
         db.`id` AS `source_database_id`,
         t_1.`id` AS accepted_taxon_id
     FROM
@@ -799,7 +799,7 @@ UPDATE `_search_all` SET
 `name_status_suffix` = TRIM(`name_status_suffix`),
 `name_status_suffix_suffix` = TRIM(`name_status_suffix_suffix`),
 `group` = TRIM(`group`),
-`source_database` = TRIM(`source_database`);
+`source_database_name` = TRIM(`source_database_name`);
 
 ALTER TABLE `_search_all` ENABLE KEYS;
 

@@ -40,7 +40,7 @@ CREATE TABLE `_search_distribution` (
 `rank` int(11) NOT NULL,
 `kingdom` varchar(255) NOT NULL,
 `source_database_id` int(10) NOT NULL,
-`db_name` varchar(255) NOT NULL
+`source_database_name` varchar(255) NOT NULL
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8
 
 ;
@@ -134,7 +134,7 @@ CREATE TABLE `_search_all` (
 `name_status_suffix` varchar(255) NOT NULL,
 `name_status_suffix_suffix` varchar(255) DEFAULT NULL,
 `group` varchar(255) NOT NULL,
-`source_database` varchar(255) NOT NULL,
+`source_database_name` varchar(255) NOT NULL,
 `source_database_id` int(10) NOT NULL,
 `accepted_taxon_id` int(10) DEFAULT NULL
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8
