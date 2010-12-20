@@ -21,7 +21,7 @@
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
         ))))))))) AS `kingdom`,
-        db.`abbreviated_name` AS `source_database`,
+        db.`abbreviated_name` AS `source_database_name`,
         db.`id` AS `source_database_id`,
         t_1.`id` AS accepted_taxon_id
     FROM
