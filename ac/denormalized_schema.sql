@@ -117,7 +117,7 @@ CREATE TABLE `_species_details` (
 `additional_data` text NOT NULL,
 `source_database_id` int(11) NOT NULL,
 `source_database_short_name` varchar(255) NOT NULL,
-`source_database_release_date` date NOT NULL,
+`source_database_release_date` varchar(255) NOT NULL,
 `scrutiny_date` varchar(255) NULL,
 `specialist` varchar(255) NOT NULL
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8
