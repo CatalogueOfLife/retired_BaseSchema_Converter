@@ -10,24 +10,24 @@ DROP TABLE IF EXISTS `_search_family`;
 
 CREATE TABLE `_search_scientific` (
 `id` int(10) NOT NULL,
-`kingdom` varchar(255) NULL,
-`phylum` varchar(255) NULL,
-`class` varchar(255) NULL,
-`order` varchar(255) NULL,
-`superfamily` varchar(255) NULL,
-`family` varchar(255) NULL,
-`genus` varchar(255) NULL,
-`subgenus` varchar(255) NULL,
-`species` varchar(255) NULL,
-`infraspecific_marker` varchar(255) NULL,
-`infraspecies` varchar(255) NULL,
-`author` varchar(255) NULL,
-`status` tinyint(1) NULL,
-`accepted_species_id` int(10) NULL,
-`accepted_species_name` varchar(255) NULL,
-`accepted_species_author` varchar(255) NULL,
-`source_database_id` int(10) NULL,
-`source_database_name` varchar(255) NULL
+`kingdom` varchar(255) NOT NULL,
+`phylum` varchar(255) NOT NULL,
+`class` varchar(255) NOT NULL,
+`order` varchar(255) NOT NULL,
+`superfamily` varchar(255) NOT NULL,
+`family` varchar(255) NOT NULL,
+`genus` varchar(255) NOT NULL,
+`subgenus` varchar(255) NOT NULL,
+`species` varchar(255) NOT NULL,
+`infraspecific_marker` varchar(255) NOT NULL,
+`infraspecies` varchar(255) NOT NULL,
+`author` varchar(255) NOT NULL,
+`status` tinyint(1) NOT NULL,
+`accepted_species_id` int(10) NOT NULL,
+`accepted_species_name` varchar(255) NOT NULL,
+`accepted_species_author` varchar(255) NOT NULL,
+`source_database_id` int(10) NOT NULL,
+`source_database_name` varchar(255) NOT NULL
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8
 
 ;
@@ -163,12 +163,12 @@ PRIMARY KEY (`description`)
 
 CREATE TABLE `_search_family` (
 `id` INT( 10 ) NOT NULL ,
-`kingdom` VARCHAR( 255 ) NULL ,
-`phylum` VARCHAR( 255 ) NULL ,
-`class` VARCHAR( 255 ) NULL ,
-`order` VARCHAR( 255 ) NULL ,
-`superfamily` VARCHAR( 255 ) NULL ,
-`family` VARCHAR( 255 ) NULL
+`kingdom` VARCHAR( 255 ) NOT NULL ,
+`phylum` VARCHAR( 255 ) NOT NULL ,
+`class` VARCHAR( 255 ) NOT NULL ,
+`order` VARCHAR( 255 ) NOT NULL ,
+`superfamily` VARCHAR( 255 ) NOT NULL ,
+`family` VARCHAR( 255 ) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8
 
 ;
