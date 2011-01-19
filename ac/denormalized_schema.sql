@@ -78,7 +78,7 @@ CREATE TABLE `_source_database_taxonomic_coverage` (
 `kingdom_status` TINYINT( 1 ) NOT NULL ,
 `phylum_status` TINYINT( 1 ) NOT NULL ,
 `class_status` TINYINT( 1 ) NOT NULL ,
-`order_status` TINYINT( 1 ) NOT NULL ,
+`order_status` TINYINT( 1 ) NOT NULL
 ) ENGINE = MyISAM CHARACTER SET utf8
 
 ;
