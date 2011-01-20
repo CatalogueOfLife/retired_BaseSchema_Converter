@@ -10,7 +10,7 @@ SELECT
     `family`
 FROM `_search_scientific`
 
-WHERE `genus` IS NULL AND `subgenus` IS NULL AND `species` IS NULL AND `infraspecies` IS NULL
+WHERE `genus`= "" AND `subgenus` = "" AND `species` = "" AND `infraspecies` = "" 
 
 GROUP BY `kingdom`, `phylum`, `class`, `order`, `superfamily`, `family`
 
