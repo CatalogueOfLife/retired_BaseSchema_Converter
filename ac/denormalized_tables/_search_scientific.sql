@@ -180,6 +180,10 @@ IF(t1.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), sne1.`name_elemen
              IF(t14.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), sne14.`name_element`,
               IF(t15.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), sne15.`name_element`,NULL
 ))))))))))))))) AS infraspecies,
+IF(
+	sne1.`name_element` != "animalia" && sne2.`name_element` != "animalia" && sne3.`name_element` != "animalia" &&
+	sne4.`name_element` != "animalia" && sne5.`name_element` != "animalia" && sne6.`name_element` != "animalia" &&
+	sne7.`name_element` != "animalia" && sne8.`name_element` != "animalia" && sne9.`name_element` != "animalia",
 IF(t1.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr1.`marker_displayed`,
  IF(t2.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr2.`marker_displayed`,
   IF(t3.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr3.`marker_displayed`,
@@ -195,7 +199,7 @@ IF(t1.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr1.`marker_displ
             IF(t13.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr13.`marker_displayed`,
              IF(t14.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr14.`marker_displayed`,
               IF(t15.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr15.`marker_displayed`,NULL
-))))))))))))))) AS infraspecific_marker,
+))))))))))))))),NULL) AS infraspecific_marker,
 IF(t1.`source_database_id` IS NOT NULL, t1.`source_database_id`,
  IF(t2.`source_database_id` IS NOT NULL, t2.`source_database_id`,
   IF(t3.`source_database_id` IS NOT NULL, t3.`source_database_id`,
