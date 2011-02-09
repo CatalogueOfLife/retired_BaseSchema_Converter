@@ -115,6 +115,6 @@
         
     WHERE
         cn.`id` IS NOT NULL
-    GROUP BY cn.`common_name_element_id`, cn.`language_iso`
+    GROUP BY  cn.`taxon_id` , cn.`common_name_element_id`
 
     ;
