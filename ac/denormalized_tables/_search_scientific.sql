@@ -18,7 +18,7 @@ IF(t1.`id` IS NOT NULL, t1.`id`,
            IF(t12.`id` IS NOT NULL, t12.`id`,
             IF(t13.`id` IS NOT NULL, t13.`id`,
              IF(t14.`id` IS NOT NULL, t14.`id`,
-              IF(t15.`id` IS NOT NULL, t15.`id`,NULL
+              IF(t15.`id` IS NOT NULL, t15.`id`,""
 ))))))))))))))) AS id,
 IF(t1.`taxonomic_rank_id` = 54, CONCAT(UCASE(SUBSTRING(sne1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne1.`name_element`, 2))),
  IF(t2.`taxonomic_rank_id` = 54, CONCAT(UCASE(SUBSTRING(sne2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne2.`name_element`, 2))),
@@ -34,7 +34,7 @@ IF(t1.`taxonomic_rank_id` = 54, CONCAT(UCASE(SUBSTRING(sne1.`name_element`, 1, 1
            IF(t12.`taxonomic_rank_id` = 54, CONCAT(UCASE(SUBSTRING(sne12.`name_element`, 1, 1)),LOWER(SUBSTRING(sne12.`name_element`, 2))),
             IF(t13.`taxonomic_rank_id` = 54, CONCAT(UCASE(SUBSTRING(sne13.`name_element`, 1, 1)),LOWER(SUBSTRING(sne13.`name_element`, 2))),
              IF(t14.`taxonomic_rank_id` = 54, CONCAT(UCASE(SUBSTRING(sne14.`name_element`, 1, 1)),LOWER(SUBSTRING(sne14.`name_element`, 2))),
-              IF(t15.`taxonomic_rank_id` = 54, CONCAT(UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2))),NULL
+              IF(t15.`taxonomic_rank_id` = 54, CONCAT(UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2))),""
 ))))))))))))))) AS kingdom,
 IF(t1.`taxonomic_rank_id` = 76, CONCAT(UCASE(SUBSTRING(sne1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne1.`name_element`, 2))),
  IF(t2.`taxonomic_rank_id` = 76, CONCAT(UCASE(SUBSTRING(sne2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne2.`name_element`, 2))),
@@ -50,7 +50,7 @@ IF(t1.`taxonomic_rank_id` = 76, CONCAT(UCASE(SUBSTRING(sne1.`name_element`, 1, 1
            IF(t12.`taxonomic_rank_id` = 76, CONCAT(UCASE(SUBSTRING(sne12.`name_element`, 1, 1)),LOWER(SUBSTRING(sne12.`name_element`, 2))),
             IF(t13.`taxonomic_rank_id` = 76, CONCAT(UCASE(SUBSTRING(sne13.`name_element`, 1, 1)),LOWER(SUBSTRING(sne13.`name_element`, 2))),
              IF(t14.`taxonomic_rank_id` = 76, CONCAT(UCASE(SUBSTRING(sne14.`name_element`, 1, 1)),LOWER(SUBSTRING(sne14.`name_element`, 2))),
-              IF(t15.`taxonomic_rank_id` = 76, CONCAT(UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2))),NULL
+              IF(t15.`taxonomic_rank_id` = 76, CONCAT(UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2))),""
 ))))))))))))))) AS phylum,
 IF(t1.`taxonomic_rank_id` = 6, CONCAT(UCASE(SUBSTRING(sne1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne1.`name_element`, 2))),
  IF(t2.`taxonomic_rank_id` = 6, CONCAT(UCASE(SUBSTRING(sne2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne2.`name_element`, 2))),
@@ -66,7 +66,7 @@ IF(t1.`taxonomic_rank_id` = 6, CONCAT(UCASE(SUBSTRING(sne1.`name_element`, 1, 1)
            IF(t12.`taxonomic_rank_id` = 6, CONCAT(UCASE(SUBSTRING(sne12.`name_element`, 1, 1)),LOWER(SUBSTRING(sne12.`name_element`, 2))),
             IF(t13.`taxonomic_rank_id` = 6, CONCAT(UCASE(SUBSTRING(sne13.`name_element`, 1, 1)),LOWER(SUBSTRING(sne13.`name_element`, 2))),
              IF(t14.`taxonomic_rank_id` = 6, CONCAT(UCASE(SUBSTRING(sne14.`name_element`, 1, 1)),LOWER(SUBSTRING(sne14.`name_element`, 2))),
-              IF(t15.`taxonomic_rank_id` = 6, CONCAT(UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2))),NULL
+              IF(t15.`taxonomic_rank_id` = 6, CONCAT(UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2))),""
 ))))))))))))))) AS class,
 IF(t1.`taxonomic_rank_id` = 72, CONCAT(UCASE(SUBSTRING(sne1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne1.`name_element`, 2))),
  IF(t2.`taxonomic_rank_id` = 72, CONCAT(UCASE(SUBSTRING(sne2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne2.`name_element`, 2))),
@@ -82,7 +82,7 @@ IF(t1.`taxonomic_rank_id` = 72, CONCAT(UCASE(SUBSTRING(sne1.`name_element`, 1, 1
            IF(t12.`taxonomic_rank_id` = 72, CONCAT(UCASE(SUBSTRING(sne12.`name_element`, 1, 1)),LOWER(SUBSTRING(sne12.`name_element`, 2))),
             IF(t13.`taxonomic_rank_id` = 72, CONCAT(UCASE(SUBSTRING(sne13.`name_element`, 1, 1)),LOWER(SUBSTRING(sne13.`name_element`, 2))),
              IF(t14.`taxonomic_rank_id` = 72, CONCAT(UCASE(SUBSTRING(sne14.`name_element`, 1, 1)),LOWER(SUBSTRING(sne14.`name_element`, 2))),
-              IF(t15.`taxonomic_rank_id` = 72, CONCAT(UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2))),NULL
+              IF(t15.`taxonomic_rank_id` = 72, CONCAT(UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2))),""
 ))))))))))))))) AS "order",
 IF(t1.`taxonomic_rank_id` = 112, CONCAT(UCASE(SUBSTRING(sne1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne1.`name_element`, 2))),
  IF(t2.`taxonomic_rank_id` = 112, CONCAT(UCASE(SUBSTRING(sne2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne2.`name_element`, 2))),
@@ -98,7 +98,7 @@ IF(t1.`taxonomic_rank_id` = 112, CONCAT(UCASE(SUBSTRING(sne1.`name_element`, 1, 
            IF(t12.`taxonomic_rank_id` = 112, CONCAT(UCASE(SUBSTRING(sne12.`name_element`, 1, 1)),LOWER(SUBSTRING(sne12.`name_element`, 2))),
             IF(t13.`taxonomic_rank_id` = 112, CONCAT(UCASE(SUBSTRING(sne13.`name_element`, 1, 1)),LOWER(SUBSTRING(sne13.`name_element`, 2))),
              IF(t14.`taxonomic_rank_id` = 112, CONCAT(UCASE(SUBSTRING(sne14.`name_element`, 1, 1)),LOWER(SUBSTRING(sne14.`name_element`, 2))),
-              IF(t15.`taxonomic_rank_id` = 112, CONCAT(UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2))),NULL
+              IF(t15.`taxonomic_rank_id` = 112, CONCAT(UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2))),""
 ))))))))))))))) AS superfamily,
 IF(t1.`taxonomic_rank_id` = 17, CONCAT(UCASE(SUBSTRING(sne1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne1.`name_element`, 2))),
  IF(t2.`taxonomic_rank_id` = 17, CONCAT(UCASE(SUBSTRING(sne2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne2.`name_element`, 2))),
@@ -114,7 +114,7 @@ IF(t1.`taxonomic_rank_id` = 17, CONCAT(UCASE(SUBSTRING(sne1.`name_element`, 1, 1
            IF(t12.`taxonomic_rank_id` = 17, CONCAT(UCASE(SUBSTRING(sne12.`name_element`, 1, 1)),LOWER(SUBSTRING(sne12.`name_element`, 2))),
             IF(t13.`taxonomic_rank_id` = 17, CONCAT(UCASE(SUBSTRING(sne13.`name_element`, 1, 1)),LOWER(SUBSTRING(sne13.`name_element`, 2))),
              IF(t14.`taxonomic_rank_id` = 17, CONCAT(UCASE(SUBSTRING(sne14.`name_element`, 1, 1)),LOWER(SUBSTRING(sne14.`name_element`, 2))),
-              IF(t15.`taxonomic_rank_id` = 17, CONCAT(UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2))),NULL
+              IF(t15.`taxonomic_rank_id` = 17, CONCAT(UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2))),""
 ))))))))))))))) AS family,
 IF(t1.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne1.`name_element`, 2))),
  IF(t2.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne2.`name_element`, 2))),
@@ -130,7 +130,7 @@ IF(t1.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne1.`name_element`, 1, 1
            IF(t12.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne12.`name_element`, 1, 1)),LOWER(SUBSTRING(sne12.`name_element`, 2))),
             IF(t13.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne13.`name_element`, 1, 1)),LOWER(SUBSTRING(sne13.`name_element`, 2))),
              IF(t14.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne14.`name_element`, 1, 1)),LOWER(SUBSTRING(sne14.`name_element`, 2))),
-              IF(t15.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2))),NULL
+              IF(t15.`taxonomic_rank_id` = 20, CONCAT(UCASE(SUBSTRING(sne15.`name_element`, 1, 1)),LOWER(SUBSTRING(sne15.`name_element`, 2))),""
 ))))))))))))))) AS genus,
 IF(t1.`taxonomic_rank_id` = 96, sne1.`name_element`,
  IF(t2.`taxonomic_rank_id` = 96, sne2.`name_element`,
@@ -146,7 +146,7 @@ IF(t1.`taxonomic_rank_id` = 96, sne1.`name_element`,
            IF(t12.`taxonomic_rank_id` = 96, sne12.`name_element`,
             IF(t13.`taxonomic_rank_id` = 96, sne13.`name_element`,
              IF(t14.`taxonomic_rank_id` = 96, sne14.`name_element`,
-              IF(t15.`taxonomic_rank_id` = 96, sne15.`name_element`,NULL
+              IF(t15.`taxonomic_rank_id` = 96, sne15.`name_element`,""
 ))))))))))))))) AS subgenus,
 IF(t1.`taxonomic_rank_id` = 83, sne1.`name_element`,
  IF(t2.`taxonomic_rank_id` = 83, sne2.`name_element`,
@@ -162,7 +162,7 @@ IF(t1.`taxonomic_rank_id` = 83, sne1.`name_element`,
            IF(t12.`taxonomic_rank_id` = 83, sne12.`name_element`,
             IF(t13.`taxonomic_rank_id` = 83, sne13.`name_element`,
              IF(t14.`taxonomic_rank_id` = 83, sne14.`name_element`,
-              IF(t15.`taxonomic_rank_id` = 83, sne15.`name_element`,NULL
+              IF(t15.`taxonomic_rank_id` = 83, sne15.`name_element`,""
 ))))))))))))))) AS species,
 IF(t1.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), sne1.`name_element`,
  IF(t2.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), sne2.`name_element`,
@@ -178,12 +178,12 @@ IF(t1.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), sne1.`name_elemen
            IF(t12.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), sne12.`name_element`,
             IF(t13.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), sne13.`name_element`,
              IF(t14.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), sne14.`name_element`,
-              IF(t15.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), sne15.`name_element`,NULL
+              IF(t15.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), sne15.`name_element`,""
 ))))))))))))))) AS infraspecies,
 IF(
-	sne1.`name_element` != "animalia" && sne2.`name_element` != "animalia" && sne3.`name_element` != "animalia" &&
-	sne4.`name_element` != "animalia" && sne5.`name_element` != "animalia" && sne6.`name_element` != "animalia" &&
-	sne7.`name_element` != "animalia" && sne8.`name_element` != "animalia" && sne9.`name_element` != "animalia",
+    sne1.`name_element` = "animalia" OR sne2.`name_element` = "animalia" OR sne3.`name_element` = "animalia" OR
+    sne4.`name_element` = "animalia" OR sne5.`name_element` = "animalia" OR sne6.`name_element` = "animalia" OR
+    sne7.`name_element` = "animalia" OR sne8.`name_element` = "animalia" OR sne9.`name_element` = "animalia", "",
 IF(t1.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr1.`marker_displayed`,
  IF(t2.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr2.`marker_displayed`,
   IF(t3.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr3.`marker_displayed`,
@@ -198,8 +198,8 @@ IF(t1.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr1.`marker_displ
            IF(t12.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr12.`marker_displayed`,
             IF(t13.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr13.`marker_displayed`,
              IF(t14.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr14.`marker_displayed`,
-              IF(t15.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr15.`marker_displayed`,NULL
-))))))))))))))),NULL) AS infraspecific_marker,
+              IF(t15.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), tr15.`marker_displayed`,""
+)))))))))))))))) AS infraspecific_marker,
 IF(t1.`source_database_id` IS NOT NULL, t1.`source_database_id`,
  IF(t2.`source_database_id` IS NOT NULL, t2.`source_database_id`,
   IF(t3.`source_database_id` IS NOT NULL, t3.`source_database_id`,
@@ -425,7 +425,11 @@ CONCAT(UCASE(SUBSTRING(sne_g.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_g.`name_
 CONCAT(UCASE(SUBSTRING(sne_sg.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_sg.`name_element`, 2))) AS subgenus,
 sne_s.`name_element` AS species,
 sne_ss.`name_element` AS infraspecies,
-tr_ss.`marker_displayed` AS infraspecific_marker,
+IF(
+    sne1.`name_element` = "animalia" OR sne2.`name_element` = "animalia" OR sne3.`name_element` = "animalia" OR
+    sne4.`name_element` = "animalia" OR sne5.`name_element` = "animalia" OR sne6.`name_element` = "animalia" OR
+    sne7.`name_element` = "animalia" OR sne8.`name_element` = "animalia" OR sne9.`name_element` = "animalia", 
+    "",tr_ss.`marker_displayed`) AS infraspecific_marker,
 aus.`string` AS author,
 s.`scientific_name_status_id` AS status,
 s.`taxon_id` AS accepted_id,
