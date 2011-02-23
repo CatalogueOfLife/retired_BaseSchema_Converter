@@ -603,3 +603,10 @@ CREATE TABLE `uri_to_taxon` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2010-12-16 15:47:12
+
+-- Added quick fix for adding non-ISO countries and languages to ISO tables
+
+ALTER TABLE `language` ADD `standard` TINYINT( 1 ) NOT NULL DEFAULT '1';
+ALTER TABLE `country` ADD `standard` TINYINT( 1 ) NOT NULL DEFAULT '1';
+ALTER TABLE `country` CHANGE `iso` `iso` CHAR( 3 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ISO 3166-1-Alpha-2 code';
+ALTER TABLE `common_name` CHANGE `country_iso` `country_iso` CHAR( 3 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'Optional country code if usage is restricted to a particular country' ;
