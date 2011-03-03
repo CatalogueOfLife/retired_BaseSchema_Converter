@@ -2,14 +2,22 @@
         cn.`id` AS `id`,
         "" AS `name_element`,
         cne.`name` AS `name`,
-        l.`name` AS `name_suffix`,
+        IFNULL(l.`name`,"") AS `name_suffix`,
         rank.`rank` AS `rank`,
         6 AS `name_status`,
-        IF (t_1.`taxonomic_rank_id` IN (54,76,6,72,17,112,20),CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))),
+        IFNULL(IF (t_1.`taxonomic_rank_id` IN (54,76,6,72,17,112,20),CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))),
             IF(t_2.`taxonomic_rank_id` = 20,CONCAT(CONCAT(UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2)))," ",sne_1.`name_element`),
-            CONCAT(CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2)))," ",sne_2.`name_element`,IF(tr1.`marker_displayed` != "",CONCAT(" ",tr1.`marker_displayed`),"")," ",sne_1.`name_element`)
-        )) AS `name_status_suffix`,
-        aus.`string` AS `name_status_suffix_suffix`,
+            CONCAT(CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2)))," ",sne_2.`name_element`,IF(tr1.`marker_displayed` != "",CONCAT(" ",
+            IF(
+	        	sne_1.`name_element` != "animalia" && sne_2.`name_element` != "animalia" && sne_3.`name_element` != "animalia" &&
+	        	sne_4.`name_element` != "animalia" && sne_5.`name_element` != "animalia" && sne_6.`name_element` != "animalia" &&
+	        	sne_7.`name_element` != "animalia" && sne_8.`name_element` != "animalia" && sne_9.`name_element` != "animalia",
+            	tr1.`marker_displayed`,""
+
+            )
+            ),"")," ",sne_1.`name_element`)
+        )),"") AS `name_status_suffix`,
+        IFNULL(aus.`string`,"") AS `name_status_suffix_suffix`,
         IF (tne_1.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))),
             IF (tne_2.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2))),
             IF (tne_3.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),
@@ -107,6 +115,6 @@
         
     WHERE
         cn.`id` IS NOT NULL
-    GROUP BY cn.`common_name_element_id`, cn.`language_iso`
+    GROUP BY  cn.`taxon_id` , cn.`common_name_element_id`
 
     ;

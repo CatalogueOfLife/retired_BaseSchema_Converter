@@ -141,7 +141,7 @@ tne_9.taxon_id = t9.id
 
 WHERE `source_database`.`id` IS NOT NULL
 
-GROUP BY `kingdom`, `phylum`, `class`, `order`
+GROUP BY `kingdom`, `phylum`, `class`, `order`, `source_database`.`id`
 ;
 
 UPDATE `_source_database_details` SET

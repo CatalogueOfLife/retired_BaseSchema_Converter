@@ -307,7 +307,14 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     SELECT -- select all subspecific epitets from subspecies
         t1.`id` AS `id`,
         sne_1.`name_element` AS `name_element`,
-        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,rank.`marker_displayed`,sne_1.`name_element`) AS `name`,
+        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,
+            IF(
+                sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
+                sne_4.`name_element` = "animalia" OR sne_5.`name_element` = "animalia" OR sne_6.`name_element` = "animalia" OR
+                sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia",
+                "",rank.`marker_displayed`
+            )
+        ,sne_1.`name_element`) AS `name`,
         rank.`rank` AS `rank`,
         sns1.`id` AS `name_status`,
         aus.`string` AS `name_suffix`,
@@ -407,7 +414,14 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     SELECT -- select all specific epitets from subspecies
         t1.`id` AS `id`,
         sne_2.`name_element` AS `name_element`,
-        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,rank.`marker_displayed`,sne_1.`name_element`) AS `name`,
+        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,
+            IF(
+                sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
+                sne_4.`name_element` = "animalia" OR sne_5.`name_element` = "animalia" OR sne_6.`name_element` = "animalia" OR
+                sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia",
+                "",rank.`marker_displayed`
+            )
+        ,sne_1.`name_element`)  AS `name`,
         rank.`rank` AS `rank`,
         sns1.`id` AS `name_status`,
         aus.`string` AS `name_suffix`,
@@ -507,7 +521,14 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     SELECT -- select all genus from subspecies
         t1.`id` AS `id`,
         sne_3.`name_element` AS `name_element`,
-        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,rank.`marker_displayed`,sne_1.`name_element`) AS `name`,
+        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,
+            IF(
+                sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
+                sne_4.`name_element` = "animalia" OR sne_5.`name_element` = "animalia" OR sne_6.`name_element` = "animalia" OR
+                sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia",
+                "",rank.`marker_displayed`
+            )
+        ,sne_1.`name_element`)  AS `name`,
         rank.`rank` AS `rank`,
         sns1.`id` AS `name_status`,
         aus.`string` AS `name_suffix`,
@@ -611,7 +632,13 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
             SELECT
                 CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sysne_g.`name_element`, 1, 1)),
               LOWER(SUBSTRING(sysne_g.`name_element`, 2))),sysne_s.`name_element`,
-                    trank_ss.`marker_displayed`,sysne_ss.`name_element`)
+                IF(
+                    sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR  sne_3.`name_element` = "animalia" OR 
+                    sne_4.`name_element` = "animalia" OR  sne_5.`name_element` = "animalia" OR  sne_6.`name_element` = "animalia" OR 
+                    sne_7.`name_element` = "animalia" OR  sne_8.`name_element` = "animalia" OR  sne_9.`name_element` = "animalia",
+                    "", trank_ss.`marker_displayed`
+                )
+            ,sysne_ss.`name_element`)
             FROM `synonym` AS `s2`
             RIGHT JOIN `synonym_name_element` AS `sne_g` ON
                 s2.`id` = sne_g.`synonym_id` AND
@@ -678,20 +705,27 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
             ),
             sne_2.`name_element`
           ),
+            IF(
+                    sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR  sne_3.`name_element` = "animalia" OR 
+                    sne_4.`name_element` = "animalia" OR  sne_5.`name_element` = "animalia" OR  sne_6.`name_element` = "animalia" OR 
+                    sne_7.`name_element` = "animalia" OR  sne_8.`name_element` = "animalia" OR  sne_9.`name_element` = "animalia",
+                "", rank.`marker_displayed`
+            ),
+
           sne_1.`name_element`) AS `name_status_suffix`,
           /*
            *     -- 54  kingdom
-			    -- 76  phylum
-			    -- 6   class
-			    -- 72  order
-			    -- 17  family
-			    -- 112 superfamily
-			    -- 20  genus
-			    -- 83  species
-			    -- 19  form
-			    -- 104 subspecies
-			    -- 49  infraspecies
-			    -- 129 variety
+                -- 76  phylum
+                -- 6   class
+                -- 72  order
+                -- 17  family
+                -- 112 superfamily
+                -- 20  genus
+                -- 83  species
+                -- 19  form
+                -- 104 subspecies
+                -- 49  infraspecies
+                -- 129 variety
     */
         aus_1.`string` AS `name_status_suffix_suffix`,
         IF (tne_1.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))),
@@ -721,6 +755,8 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
     -- mandatory join on taxon
     RIGHT JOIN `taxon` AS `t_1` ON
         s1.`taxon_id` = t_1.`id`
+    RIGHT JOIN `taxonomic_rank` AS `rank` ON
+        t_1.`taxonomic_rank_id` = rank.`id`
     RIGHT JOIN `taxon_name_element` AS `tne_1` ON
         t_1.`id` = tne_1.`taxon_id`
     RIGHT JOIN `scientific_name_element` AS `sne_1` ON
