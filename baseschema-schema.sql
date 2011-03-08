@@ -475,6 +475,21 @@ CREATE TABLE `taxon` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `taxonomic_coverage`
+--
+
+DROP TABLE IF EXISTS `taxonomic_coverage`;
+CREATE TABLE `taxonomic_coverage` (
+  `source_database_id` int(10) NOT NULL,
+  `taxon_id` int(10) NOT NULL,
+  `sector` tinyint(2) NOT NULL,
+  `point_of_attachment` tinyint(1) NOT NULL DEFAULT '0',
+  KEY `source_database_id` (`source_database_id`),
+  KEY `sector` (`sector`),
+  KEY `taxon_id` (`taxon_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
 -- Table structure for table `taxon_detail`
 --
 
