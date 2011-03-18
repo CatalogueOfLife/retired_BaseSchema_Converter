@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `_image_resource`;
 DROP TABLE IF EXISTS `_search_scientific`;
 DROP TABLE IF EXISTS `_search_distribution`;
 DROP TABLE IF EXISTS `_source_database_details`;
@@ -7,6 +8,21 @@ DROP TABLE IF EXISTS `_search_all`;
 DROP TABLE IF EXISTS `_taxon_tree`;
 DROP TABLE IF EXISTS `_totals`;
 DROP TABLE IF EXISTS `_search_family`;
+DROP TABLE IF EXISTS `_source_database_to_taxon_tree_branch`;
+
+
+CREATE TABLE `_image_resource` (
+  `taxon_id` int(10) unsigned NOT NULL,
+  `src` varchar(255) NOT NULL,
+  `href` varchar(255) NOT NULL,
+  `width` mediumint(4) unsigned NOT NULL,
+  `height` mediumint(4) unsigned NOT NULL,
+  `source` varchar(255) NOT NULL,
+  `photographer` varchar(255) NOT NULL,
+  `caption` varchar(255) NOT NULL,
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  KEY `taxon_id` (`taxon_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_search_scientific` (
 `id` int(10) NOT NULL,
@@ -152,7 +168,9 @@ CREATE TABLE `_taxon_tree` (
 `rank` varchar(255) NOT NULL,
 `parent_id` int(10) NOT NULL,
 `lsid` varchar(255) NOT NULL,
-`number_of_children` int(10) NOT NULL
+`number_of_children` int(10) NOT NULL,
+`total_species_estimation` int(7) NOT NULL,
+`total_species` int(7) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8
 
 ;
@@ -160,7 +178,6 @@ CREATE TABLE `_taxon_tree` (
 CREATE TABLE `_totals` (
 `description` varchar(255) NOT NULL DEFAULT '',
 `total` int(10) DEFAULT NULL,
-
 PRIMARY KEY (`description`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8
 
@@ -177,3 +194,10 @@ CREATE TABLE `_search_family` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8
 
 ;
+
+
+CREATE TABLE `_source_database_to_taxon_tree_branch` (
+  `source_database_id` int(10) NOT NULL,
+  `taxon_tree_id` int(10) NOT NULL,
+  KEY `taxon_tree_id` (`taxon_tree_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
