@@ -1,14 +1,17 @@
 DROP TABLE IF EXISTS `_image_resource`;
-DROP TABLE IF EXISTS `_search_scientific`;
+DROP TABLE IF EXISTS `_search_all`;
 DROP TABLE IF EXISTS `_search_distribution`;
+DROP TABLE IF EXISTS `_search_family`;
+DROP TABLE IF EXISTS `_search_scientific`;
 DROP TABLE IF EXISTS `_source_database_details`;
 DROP TABLE IF EXISTS `_source_database_taxonomic_coverage`;
+DROP TABLE IF EXISTS `_source_database_to_taxon_tree_branch`;
 DROP TABLE IF EXISTS `_species_details`;
-DROP TABLE IF EXISTS `_search_all`;
 DROP TABLE IF EXISTS `_taxon_tree`;
 DROP TABLE IF EXISTS `_totals`;
-DROP TABLE IF EXISTS `_search_family`;
-DROP TABLE IF EXISTS `_source_database_to_taxon_tree_branch`;
+DROP TABLE IF EXISTS `__import_image_resource`;
+DROP TABLE IF EXISTS `__import_source_database_qualifiers`;
+DROP TABLE IF EXISTS `__import_species_estimate`;
 
 
 CREATE TABLE `_image_resource` (
@@ -44,9 +47,7 @@ CREATE TABLE `_search_scientific` (
 `accepted_species_author` varchar(255) NOT NULL,
 `source_database_id` int(10) NOT NULL,
 `source_database_name` varchar(255) NOT NULL
-) ENGINE = MyISAM DEFAULT CHARSET=utf8
-
-;
+) ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_search_distribution` (
 `distribution` varchar(10000) NOT NULL,
@@ -57,9 +58,7 @@ CREATE TABLE `_search_distribution` (
 `kingdom` varchar(255) NOT NULL,
 `source_database_id` int(10) NOT NULL,
 `source_database_name` varchar(255) NOT NULL
-) ENGINE = MyISAM DEFAULT CHARSET=utf8
-
-;
+) ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_source_database_details` (
 `id` INT( 10 ) NOT NULL ,
@@ -76,10 +75,12 @@ CREATE TABLE `_source_database_details` (
 `total_number` INT( 10 ) NOT NULL ,
 `abstract` TEXT NOT NULL ,
 `organization` VARCHAR( 255 ) NOT NULL,
-`is_new` BOOL NOT NULL DEFAULT '0'
-) ENGINE = MyISAM CHARACTER SET utf8 
-
-;
+`is_new` BOOL NOT NULL DEFAULT '0',
+`taxonomic_coverage` text NOT NULL,
+`coverage` varchar(255) NOT NULL,
+`completeness` tinyint(3) NOT NULL,
+`confidence` tinyint(1) NOT NULL
+) ENGINE = MyISAM CHARACTER SET utf8;
 
 CREATE TABLE `_source_database_taxonomic_coverage` (
 `source_database_id` INT( 10 ) NOT NULL ,
@@ -95,9 +96,7 @@ CREATE TABLE `_source_database_taxonomic_coverage` (
 `phylum_status` TINYINT( 1 ) NOT NULL ,
 `class_status` TINYINT( 1 ) NOT NULL ,
 `order_status` TINYINT( 1 ) NOT NULL
-) ENGINE = MyISAM CHARACTER SET utf8
-
-;
+) ENGINE = MyISAM CHARACTER SET utf8;
 
 CREATE TABLE `_species_details` (
 `taxon_id` int(11) NOT NULL,
@@ -141,9 +140,7 @@ CREATE TABLE `_species_details` (
 `scrutiny_date` varchar(255) NULL,
 `specialist` varchar(255) NOT NULL,
  `point_of_attachment_id` int(10) unsigned NOT NULL DEFAULT '0'
-) ENGINE = MyISAM DEFAULT CHARSET=utf8
-
-;
+) ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_search_all` (
 `id` int(10) NOT NULL,
@@ -158,9 +155,7 @@ CREATE TABLE `_search_all` (
 `source_database_name` varchar(255) NOT NULL,
 `source_database_id` int(10) NOT NULL,
 `accepted_taxon_id` int(10) DEFAULT NULL
-) ENGINE = MyISAM DEFAULT CHARSET=utf8
-
-;
+) ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_taxon_tree` (
 `taxon_id` int(10) NOT NULL,
@@ -171,17 +166,13 @@ CREATE TABLE `_taxon_tree` (
 `number_of_children` int(10) NOT NULL,
 `total_species_estimation` int(7) NOT NULL,
 `total_species` int(7) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
-
-;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_totals` (
 `description` varchar(255) NOT NULL DEFAULT '',
 `total` int(10) DEFAULT NULL,
 PRIMARY KEY (`description`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
-
-;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_search_family` (
 `id` INT( 10 ) NOT NULL ,
@@ -191,13 +182,42 @@ CREATE TABLE `_search_family` (
 `order` VARCHAR( 255 ) NOT NULL ,
 `superfamily` VARCHAR( 255 ) NOT NULL ,
 `family` VARCHAR( 255 ) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
-
-;
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_source_database_to_taxon_tree_branch` (
   `source_database_id` int(10) NOT NULL,
   `taxon_tree_id` int(10) NOT NULL,
   KEY `taxon_tree_id` (`taxon_tree_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `__import_image_resource` (
+  `taxon_id` int(10) unsigned NOT NULL,
+  `src` varchar(255) NOT NULL,
+  `href` varchar(255) NOT NULL,
+  `width` mediumint(8) unsigned NOT NULL,
+  `height` mediumint(8) unsigned NOT NULL,
+  `source` varchar(255) NOT NULL,
+  `photographer` varchar(255) NOT NULL,
+  `caption` varchar(255) NOT NULL,
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  KEY `taxon_id` (`taxon_id`),
+  KEY `src` (`src`),
+  KEY `href` (`href`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `__import_source_database_qualifiers` (
+  `source_database_name` varchar(255) NOT NULL,
+  `coverage` varchar(255) NOT NULL,
+  `completeness` int(3) NOT NULL,
+  `confidence` int(2) NOT NULL,
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `__import_species_estimate` (
+  `rank` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `last_update` date NOT NULL,
+  `source` varchar(255) NOT NULL,
+  `estimation_total_number_of_species` int(7) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
