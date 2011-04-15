@@ -165,7 +165,8 @@ CREATE TABLE `_taxon_tree` (
 `lsid` varchar(255) NOT NULL,
 `number_of_children` int(10) NOT NULL,
 `total_species_estimation` int(7) NOT NULL,
-`total_species` int(7) NOT NULL
+`total_species` int(7) NOT NULL,
+`estimate_source` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_totals` (
@@ -216,8 +217,8 @@ CREATE TABLE `__import_source_database_qualifiers` (
 CREATE TABLE `__import_species_estimate` (
   `rank` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `last_update` date NOT NULL,
   `source` varchar(255) NOT NULL,
-  `estimation_total_number_of_species` int(7) NOT NULL
+  `species_estimate` int(7) NOT NULL,
+  `last_update` date NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
