@@ -397,6 +397,7 @@ CREATE TABLE `source_database` (
   `version` varchar(25) DEFAULT NULL COMMENT 'Optional version number of the source database',
   `release_date` date DEFAULT NULL COMMENT 'Optional most recent release date of the source database',
   `abstract` text COMMENT 'Optional free text field describing the source database',
+  `taxonomic_coverage` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`,`abbreviated_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8 COMMENT='Information about source databases';
