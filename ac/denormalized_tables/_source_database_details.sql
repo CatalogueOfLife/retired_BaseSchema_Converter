@@ -20,7 +20,7 @@ SELECT
     sd.`abstract` AS abstract,
     sd.`organisation` AS organization,
     sd.`taxonomic_coverage` AS taxonomic_coverage
-
+ 
 FROM
     `source_database` AS sd
 ;
