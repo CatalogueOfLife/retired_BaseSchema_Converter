@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS `_source_database_taxonomic_coverage`;
+
 CREATE TABLE `_image_resource` (
   `taxon_id` int(10) unsigned NOT NULL,
   `src` varchar(255) NOT NULL,
