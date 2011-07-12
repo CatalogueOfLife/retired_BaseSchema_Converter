@@ -60,7 +60,8 @@ CREATE TABLE `_source_database_details` (
 `total_number` INT( 10 ) NOT NULL ,
 `abstract` TEXT NOT NULL ,
 `organization` VARCHAR( 255 ) NOT NULL,
-`is_new` BOOL NOT NULL DEFAULT '0'
+`is_new` BOOL NOT NULL DEFAULT '0',
+`taxonomic_coverage` text NOT NULL
 ) ENGINE = MyISAM CHARACTER SET utf8 
 
 ;
