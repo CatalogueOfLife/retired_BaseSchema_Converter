@@ -1,28 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 3.3.9.2
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Jul 01, 2011 at 04:41 PM
--- Server version: 5.5.9
--- PHP Version: 5.2.17
-
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Database: `base_scheme_2011_19`
---
-
---
--- Dumping data for table `__import_image_resource`
---
-
 INSERT INTO `__import_image_resource` VALUES(14, 'http://cdn2.arkive.org/media/EA/EA252419-AA07-4E2F-9969-0A1C8C96C0BF/Presentation.Portlet/Victaphanta-Victaphanta-compacta.jpg', 'http://www.arkive.org/victaphanta/victaphanta-compacta/#src=portletV3api', 170, 147, 'ARKive', '', 'ARKive species - Victaphanta (Victaphanta compacta)', '2011-03-03 15:18:58');
 INSERT INTO `__import_image_resource` VALUES(153, 'http://cdn2.arkive.org/media/91/91A04F7A-55F6-4662-B84F-A276E3CB7C58/Presentation.Portlet/Lord-Howe-Island-land-snail-Placostylus-bivaricosus.jpg', 'http://www.arkive.org/lord-howe-island-land-snail/placostylus-bivaricosus/#src=portletV3api', 170, 205, 'ARKive', '', 'ARKive species - Lord Howe Island land snail (Placostylus bivaricosus)', '2011-03-03 15:19:05');
 INSERT INTO `__import_image_resource` VALUES(165, 'http://cdn2.arkive.org/media/EB/EBE66D18-8CA8-4231-B783-771D2356D5DA/Presentation.Portlet/Allocharopa-Allocharopa-erskinensis.jpg', 'http://www.arkive.org/allocharopa/allocharopa-erskinensis/#src=portletV3api', 170, 161, 'ARKive', '', 'ARKive species - Allocharopa (Allocharopa erskinensis)', '2011-03-03 15:19:06');

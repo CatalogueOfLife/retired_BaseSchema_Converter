@@ -1,28 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 3.3.9.2
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Jul 01, 2011 at 04:37 PM
--- Server version: 5.5.9
--- PHP Version: 5.2.17
-
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Database: `base_scheme_2011_19`
---
-
---
--- Dumping data for table `__import_species_estimate`
---
-
 INSERT INTO `__import_species_estimate` (`rank`, `name`, `last_update`, `source`, `species_estimate`) VALUES('phylum', 'Acanthocephala ', '0000-00-00 00:00:00', 'Brusca R.C. & Brusca G.J. (2003). Invertebrates, 2nd edition. USA: Sinauer Associates Inc. ', 1100);
 INSERT INTO `__import_species_estimate` (`rank`, `name`, `last_update`, `source`, `species_estimate`) VALUES('kingdom', 'Animalia', '0000-00-00 00:00:00', 'Chapman A.D. (2009). Numbers of Living Species in Australia and the World, 2nd edition. Report for the Australian Biological Resources Study Canberra, Australia', 1424153);
 INSERT INTO `__import_species_estimate` (`rank`, `name`, `last_update`, `source`, `species_estimate`) VALUES('phylum', 'Annelida ', '0000-00-00 00:00:00', 'Brusca R.C. & Brusca G.J. (2003). Invertebrates, 2nd edition. USA: Sinauer Associates Inc. ', 16500);
