@@ -290,6 +290,8 @@ CREATE TABLE `region` (
   `original_code` varchar(25) NOT NULL COMMENT 'Original ID or code of the region in the standard referenced in region_standard_id',
   `name` varchar(255) NOT NULL COMMENT 'Region',
   `parent_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Optional parent region',
+  `polygon` longtext NOT NULL,
+  `polygon_rough` longtext NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique` (`region_standard_id`,`original_code`,`name`),
   KEY `region_standard_id` (`region_standard_id`),
