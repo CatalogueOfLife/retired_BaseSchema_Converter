@@ -3,7 +3,8 @@ ALTER TABLE `_source_database_details` DISABLE KEYS;
 INSERT INTO `_source_database_details`
 (`id`, `full_name`, `short_name`, `version`, `release_date`, `authors_editors`,
 `english_name`, `number_of_species`, `number_of_infraspecific_taxon`,
-`number_of_synonyms`, `number_of_common_names`, `abstract`, `organization`, `taxonomic_coverage`)
+`number_of_synonyms`, `number_of_common_names`, `abstract`, `organization`, `taxonomic_coverage`,
+`is_new`, `coverage`, `completeness`, `confidence`)
 
 SELECT
     sd.`id` AS id,
@@ -19,7 +20,11 @@ SELECT
     (SELECT COUNT(*) AS `total` FROM `source_database` AS sd4 RIGHT JOIN `taxon` AS `t` ON sd4.id = t.source_database_id RIGHT JOIN `common_name` AS `cn` ON t.id = cn.taxon_id WHERE (sd4.id = sd.id)) AS number_of_common_names,
     sd.`abstract` AS abstract,
     sd.`organisation` AS organization,
-    sd.`taxonomic_coverage` AS taxonomic_coverage
+    sd.`taxonomic_coverage` AS taxonomic_coverage,
+    sd.`is_new` AS is_new,
+    sd.`coverage` AS coverage,
+    sd.`completeness` AS completeness,
+    sd.`confidence` AS confidence
 
 FROM
     `source_database` AS sd
