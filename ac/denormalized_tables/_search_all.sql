@@ -839,3 +839,4 @@ UPDATE `_search_all` SET
 
 ALTER TABLE `_search_all` ENABLE KEYS;
 
+ALTER TABLE `_search_all` ADD INDEX `id` ( `id` ); 
