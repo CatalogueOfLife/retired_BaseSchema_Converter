@@ -45,12 +45,5 @@ UPDATE `_source_database_details` SET
 `abstract` = TRIM(`abstract`),
 `organization` = TRIM(`organization`);
 
-UPDATE `_source_database_taxonomic_coverage` SET
-
-`kingdom` = TRIM(`kingdom`),
-`phylum` = TRIM(`phylum`),
-`class` = TRIM(`class`),
-`order` = TRIM(`order`);
-
 ALTER TABLE `_source_database_details` ENABLE KEYS;
 
