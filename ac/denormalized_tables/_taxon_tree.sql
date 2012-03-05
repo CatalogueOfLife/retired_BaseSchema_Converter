@@ -57,4 +57,29 @@ UPDATE `_taxon_tree` SET
 `rank` = TRIM(`rank`),
 `lsid` = TRIM(`lsid`);
 
+UPDATE _taxon_tree AS ttt SET total_species = (
+    SELECT COUNT(tne.parent_id) FROM taxon_name_element AS tne
+    WHERE ttt.taxon_id = tne.parent_id
+)
+WHERE ttt.rank = 'genus';
+
+UPDATE _taxon_tree SET total_species = getTotalSpeciesFromChildren(taxon_id)
+WHERE rank = 'family';
+
+UPDATE _taxon_tree SET total_species = getTotalSpeciesFromChildren(taxon_id)
+WHERE rank = 'superfamily';
+
+UPDATE _taxon_tree SET total_species = getTotalSpeciesFromChildren(taxon_id)
+WHERE rank = 'order';
+
+UPDATE _taxon_tree SET total_species = getTotalSpeciesFromChildren(taxon_id)
+WHERE rank = 'class';
+
+UPDATE _taxon_tree
+SET total_species = getTotalSpeciesFromChildren(taxon_id)
+WHERE rank = 'phylum';
+
+UPDATE _taxon_tree SET total_species = getTotalSpeciesFromChildren(taxon_id)
+WHERE rank = 'kingdom';
+
 ALTER TABLE `_taxon_tree` ENABLE KEYS;
