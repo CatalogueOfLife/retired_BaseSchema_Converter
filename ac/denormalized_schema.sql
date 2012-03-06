@@ -205,3 +205,20 @@ CREATE TABLE `__import_species_estimate` (
   `last_update` date NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+DELIMITER //
+DROP FUNCTION IF EXISTS getTotalSpeciesFromChildren //
+CREATE FUNCTION getTotalSpeciesFromChildren(X INT(10))
+  RETURNS INT(10)
+  READS SQL DATA
+  BEGIN
+    DECLARE tot INT;
+    SELECT
+      SUM(total_species) INTO tot
+    FROM
+      _taxon_tree
+    WHERE
+      parent_id = X;
+  RETURN(tot);
+  END //
+DELIMITER ;
+

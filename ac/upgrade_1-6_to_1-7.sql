@@ -63,21 +63,3 @@ ADD `estimate_source` text NOT NULL;
 
 ALTER TABLE `_species_details` 
 ADD `point_of_attachment_id` int(10) unsigned NOT NULL DEFAULT '0';
-
-DELIMITER //
-DROP FUNCTION IF EXISTS getTotalSpeciesFromChildren //
-CREATE FUNCTION getTotalSpeciesFromChildren(X INT(10))
-  RETURNS INT(10)
-  READS SQL DATA
-  BEGIN
-    DECLARE tot INT;
-    SELECT
-      SUM(total_species) INTO tot
-    FROM
-      _taxon_tree
-    WHERE
-      parent_id = X;
-  RETURN(tot);
-  END //
-DELIMITER ;
-
