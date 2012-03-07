@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 06, 2012 at 11:17 AM
+-- Generation Time: Mar 07, 2012 at 09:29 AM
 -- Server version: 5.5.9
 -- PHP Version: 5.2.17
 
@@ -24,7 +24,7 @@ CREATE TABLE `author_string` (
   `string` varchar(255) NOT NULL COMMENT 'Name of author(s), who described the taxon or published the current combination and the year when appropriate.',
   PRIMARY KEY (`id`),
   UNIQUE KEY `string` (`string`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Author citations of taxa and synonyms';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Author citations of taxa and synonyms';
 
 -- --------------------------------------------------------
 
@@ -46,7 +46,7 @@ CREATE TABLE `common_name` (
   KEY `language_iso` (`language_iso`),
   KEY `country_iso` (`country_iso`),
   KEY `region_free_text_id` (`region_free_text_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Common names plus language/country details';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Common names plus language/country details';
 
 -- --------------------------------------------------------
 
@@ -56,11 +56,12 @@ CREATE TABLE `common_name` (
 
 CREATE TABLE `common_name_element` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `transliteration` varchar(255) DEFAULT NULL COMMENT 'Transcription of name in foreign alphabet into English',
   PRIMARY KEY (`id`),
-  KEY `name` (`name`(100),`transliteration`(125))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Common names separated to avoid duplication';
+  KEY `name` (`name`),
+  KEY `transliteration` (`transliteration`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Common names separated to avoid duplication';
 
 -- --------------------------------------------------------
 
@@ -70,7 +71,7 @@ CREATE TABLE `common_name_element` (
 
 CREATE TABLE `country` (
   `iso` char(3) NOT NULL COMMENT 'ISO 3166-1-Alpha-2 code',
-  `name` varchar(100) NOT NULL COMMENT 'Country',
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'Country',
   `standard` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`iso`),
   UNIQUE KEY `name` (`name`)
@@ -140,7 +141,7 @@ CREATE TABLE `hybrid` (
 
 CREATE TABLE `language` (
   `iso` char(3) NOT NULL COMMENT 'ISO 639-2 Alpha-3 code',
-  `name` varchar(100) NOT NULL COMMENT 'Language',
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'Language',
   `standard` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`iso`),
   KEY `name` (`name`)
@@ -190,7 +191,7 @@ CREATE TABLE `reference` (
   KEY `year` (`year`),
   KEY `uri_id` (`uri_id`),
   KEY `complete` (`authors`(100),`year`,`title`(50),`text`(50))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='References used for taxa, common names and synonyms';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='References used for taxa, common names and synonyms';
 
 -- --------------------------------------------------------
 
@@ -258,7 +259,7 @@ CREATE TABLE `region` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `region_standard_id` tinyint(3) unsigned NOT NULL,
   `original_code` varchar(25) NOT NULL COMMENT 'Original ID or code of the region in the standard referenced in region_standard_id',
-  `name` varchar(255) NOT NULL COMMENT 'Region',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'Region',
   `parent_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Optional parent region',
   `polygon` longtext NOT NULL,
   `polygon_rough` longtext NOT NULL,
@@ -281,7 +282,7 @@ CREATE TABLE `region_free_text` (
   `free_text` varchar(12500) COLLATE utf8_bin NOT NULL COMMENT 'Free text description of distribution; provided mainly to store full text descriptions from the Annual Checklist',
   PRIMARY KEY (`id`),
   KEY `free_text` (`free_text`(255))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -338,7 +339,7 @@ CREATE TABLE `scrutiny` (
   UNIQUE KEY `unique` (`specialist_id`,`scrutiny_date`,`original_scrutiny_date`),
   KEY `scrutiny_date` (`scrutiny_date`),
   KEY `specialist_id` (`specialist_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Latest scrutiny date of a taxon';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Latest scrutiny date of a taxon';
 
 -- --------------------------------------------------------
 
@@ -377,7 +378,7 @@ CREATE TABLE `specialist` (
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Specialists who have verified the validity of taxa';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Specialists who have verified the validity of taxa';
 
 -- --------------------------------------------------------
 
@@ -395,7 +396,7 @@ CREATE TABLE `synonym` (
   KEY `taxon_id` (`taxon_id`),
   KEY `author_string_id` (`author_string_id`),
   KEY `scientific_name_status_id` (`scientific_name_status_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Synonym details linked to a valid taxon';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Synonym details linked to a valid taxon';
 
 -- --------------------------------------------------------
 
