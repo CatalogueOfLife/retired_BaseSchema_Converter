@@ -57,6 +57,24 @@ UPDATE `_taxon_tree` SET
 `rank` = TRIM(`rank`),
 `lsid` = TRIM(`lsid`);
 
+DELIMITER //
+DROP FUNCTION IF EXISTS getTotalSpeciesFromChildren //
+CREATE FUNCTION getTotalSpeciesFromChildren(X INT(10))
+  RETURNS INT(10)
+  READS SQL DATA
+  BEGIN
+    DECLARE tot INT;
+    SELECT
+      SUM(total_species) INTO tot
+    FROM
+      _taxon_tree
+    WHERE
+      parent_id = X;
+  RETURN(tot);
+  END //
+DELIMITER ;
+
+
 UPDATE _taxon_tree AS ttt SET total_species = (
     SELECT COUNT(tne.parent_id) FROM taxon_name_element AS tne
     WHERE ttt.taxon_id = tne.parent_id
@@ -83,3 +101,5 @@ UPDATE _taxon_tree SET total_species = getTotalSpeciesFromChildren(taxon_id)
 WHERE rank = 'kingdom';
 
 ALTER TABLE `_taxon_tree` ENABLE KEYS;
+
+DROP FUNCTION IF EXISTS getTotalSpeciesFromChildren;
