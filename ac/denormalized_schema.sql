@@ -161,12 +161,3 @@ CREATE TABLE `_source_database_to_taxon_tree_branch` (
   KEY `taxon_tree_id` (`taxon_tree_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE `__import_species_estimate` (
-  `rank` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `source` varchar(255) NOT NULL,
-  `species_estimate` int(7) NOT NULL,
-  `last_update` date NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
