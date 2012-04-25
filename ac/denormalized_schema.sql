@@ -64,7 +64,7 @@ CREATE TABLE `_source_database_details` (
 `is_new` BOOL NOT NULL DEFAULT '0',
 `taxonomic_coverage` text NOT NULL,
 `coverage` varchar(255) NOT NULL,
-`completeness` tinyint(3) NOT NULL,
+`completeness` varchar(10) NOT NULL,
 `confidence` tinyint(1) NOT NULL
 ) ENGINE = MyISAM CHARACTER SET utf8;
 
