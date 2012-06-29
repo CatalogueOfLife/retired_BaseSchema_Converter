@@ -131,4 +131,3 @@ WHERE sd.`is_new` = 1
 ;
 
 ALTER TABLE `_totals` ENABLE KEYS;
-
