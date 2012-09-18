@@ -109,7 +109,33 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     SELECT -- select all the specific epitets from species
         t1.`id` AS `id`,
         sne_1.`name_element` AS `name_element`,
-        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2))),sne_1.`name_element`) AS `name`,
+        CONCAT_WS(
+        	" ",
+        	IF(t2.taxonomic_rank_id = 96,
+        		CONCAT(
+	        		UCASE(
+	        			SUBSTRING(sne_3.`name_element`, 1, 1)
+	        		),LOWER(
+	        			SUBSTRING(sne_3.`name_element`, 2)
+	        		),
+	        		" (",
+	        		UCASE(
+	        			SUBSTRING(sne_2.`name_element`, 1, 1)
+	        		),LOWER(
+	        			SUBSTRING(sne_2.`name_element`, 2)
+	        		),
+	        		")"
+	        	)
+        		,
+	        	CONCAT(
+	        		UCASE(
+	        			SUBSTRING(sne_2.`name_element`, 1, 1)
+	        		),LOWER(
+	        			SUBSTRING(sne_2.`name_element`, 2)
+	        		)
+	        	)
+	        ),sne_1.`name_element`
+        ) AS `name`,
         rank.`rank` AS `rank`,
         sns1.`id` AS `name_status`,
         aus.`string` AS `name_suffix`,
@@ -151,7 +177,11 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     RIGHT JOIN `scientific_name_element` AS `sne_2` ON
         tne_2.`scientific_name_element_id` = sne_2.`id`
 
-    -- optional joins on name elements to get group
+    -- mandatory join on taxon for genus or subgenus
+    RIGHT JOIN `taxon` AS `t2` ON
+        tne_2.`taxon_id` = t2.`id`
+
+        -- optional joins on name elements to get group
     LEFT JOIN `taxon_name_element` AS `tne_3` ON
         tne_2.`parent_id` = tne_3.`taxon_id`
     LEFT JOIN `scientific_name_element` AS `sne_3` ON
@@ -198,7 +228,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         
     -- selecting only from genus and higher
     WHERE
-        `taxonomic_rank_id` = 83
+        t1.`taxonomic_rank_id` = 83
 
 ;
 
@@ -250,6 +280,10 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     RIGHT JOIN `scientific_name_element` AS `sne_2` ON
         tne_2.`scientific_name_element_id` = sne_2.`id`
 
+    -- mandatory join on taxon for genus or subgenus
+    RIGHT JOIN `taxon` AS `t2` ON
+        tne_2.`taxon_id` = t2.`id`
+
     -- optional joins on name elements to get group
     LEFT JOIN `taxon_name_element` AS `tne_3` ON
         tne_2.`parent_id` = tne_3.`taxon_id`
@@ -297,21 +331,256 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         
     -- selecting only from genus and higher
     WHERE
-        `taxonomic_rank_id` = 83
+        t1.`taxonomic_rank_id` = 83 AND
+        t2.`taxonomic_rank_id` = 20 
 
 ;
 
 INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
-    SELECT -- select all subspecific epitets from subspecies
+    SELECT -- select all the subgenus from species with subgenus
+        t1.`id` AS `id`,
+        sne_2.`name_element` AS `name_element`,
+        CONCAT_WS(
+        	" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2)),
+        	" (",UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2)),")"
+        	),sne_1.`name_element`
+        ) AS `name`,
+        rank.`rank` AS `rank`,
+        sns1.`id` AS `name_status`,
+        aus.`string` AS `name_suffix`,
+        IF (tne_1.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))),
+            IF (tne_2.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2))),
+            IF (tne_3.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),
+            IF (tne_4.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_4.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_4.`name_element`, 2))),
+            IF (tne_5.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_5.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_5.`name_element`, 2))),
+            IF (tne_6.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_6.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_6.`name_element`, 2))),
+            IF (tne_7.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_7.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_7.`name_element`, 2))),
+            IF (tne_8.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_8.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_8.`name_element`, 2))),
+            IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
+            ""
+        ))))))))) AS `kingdom`,
+        db.`abbreviated_name` AS `source_database_name`,
+        db.`id` AS `source_database_id`,
+        "" AS accepted_taxon_id
+
+    FROM
+        `taxon` AS `t1`
+
+    -- mandatory join on ranks
+    RIGHT JOIN `taxonomic_rank` AS `rank` ON
+        t1.`taxonomic_rank_id` = rank.`id`
+
+    -- mandatory join on source databases
+    RIGHT JOIN `source_database` AS `db` ON
+        t1.`source_database_id` = db.`id`
+
+    -- mandatory join on name elements for species epitet
+    RIGHT JOIN `taxon_name_element` AS `tne_1` ON
+        t1.`id` = tne_1.`taxon_id`
+    RIGHT JOIN `scientific_name_element` AS `sne_1` ON
+        tne_1.`scientific_name_element_id` = sne_1.`id`
+    
+    -- mandatory join on name elements for genus
+    RIGHT JOIN `taxon_name_element` AS `tne_2` ON
+        tne_1.`parent_id` = tne_2.`taxon_id`
+    RIGHT JOIN `scientific_name_element` AS `sne_2` ON
+        tne_2.`scientific_name_element_id` = sne_2.`id`
+
+    -- mandatory join on taxon for genus or subgenus
+    RIGHT JOIN `taxon` AS `t2` ON
+        tne_2.`taxon_id` = t2.`id`
+
+    -- optional joins on name elements to get group
+    LEFT JOIN `taxon_name_element` AS `tne_3` ON
+        tne_2.`parent_id` = tne_3.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_3` ON
+        tne_3.`scientific_name_element_id` = sne_3.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_4` ON
+        tne_3.`parent_id` = tne_4.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_4` ON
+        tne_4.`scientific_name_element_id` = sne_4.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_5` ON
+        tne_4.`parent_id` = tne_5.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_5` ON
+        tne_5.`scientific_name_element_id` = sne_5.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_6` ON
+        tne_5.`parent_id` = tne_6.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_6` ON
+        tne_6.`scientific_name_element_id` = sne_6.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_7` ON
+        tne_6.`parent_id` = tne_7.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_7` ON
+        tne_7.`scientific_name_element_id` = sne_7.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_8` ON
+        tne_7.`parent_id` = tne_8.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_8` ON
+        tne_8.`scientific_name_element_id` = sne_8.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_9` ON
+        tne_8.`parent_id` = tne_9.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_9` ON
+        tne_9.`scientific_name_element_id` = sne_9.`id`
+
+    -- mandatory join on taxon detail for taxon
+    RIGHT JOIN `taxon_detail` AS `td1` ON
+        t1.`id` = td1.`taxon_id`
+    -- mandatory join on scientific name status for taxon detail
+    RIGHT JOIN `scientific_name_status` AS `sns1` ON
+        td1.`scientific_name_status_id` = sns1.`id`
+    LEFT JOIN `author_string` AS `aus` ON
+        td1.`author_string_id` = aus.`id`
+        
+    -- selecting only from genus and higher
+    WHERE
+        t1.`taxonomic_rank_id` = 83 AND
+        t2.`taxonomic_rank_id` = 96 
+
+;
+
+
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+-- Filling taxa
+
+    SELECT -- select all the genus from species with subgenus
+        t1.`id` AS `id`,
+        sne_3.`name_element` AS `name_element`,
+        CONCAT_WS(
+        	" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2)),
+        	" (",UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2)),")"
+        	),sne_1.`name_element`
+        ) AS `name`,
+        rank.`rank` AS `rank`,
+        sns1.`id` AS `name_status`,
+        aus.`string` AS `name_suffix`,
+        IF (tne_1.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))),
+            IF (tne_2.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2))),
+            IF (tne_3.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),
+            IF (tne_4.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_4.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_4.`name_element`, 2))),
+            IF (tne_5.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_5.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_5.`name_element`, 2))),
+            IF (tne_6.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_6.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_6.`name_element`, 2))),
+            IF (tne_7.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_7.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_7.`name_element`, 2))),
+            IF (tne_8.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_8.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_8.`name_element`, 2))),
+            IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
+            ""
+        ))))))))) AS `kingdom`,
+        db.`abbreviated_name` AS `source_database_name`,
+        db.`id` AS `source_database_id`,
+        "" AS accepted_taxon_id
+
+    FROM
+        `taxon` AS `t1`
+
+    -- mandatory join on ranks
+    RIGHT JOIN `taxonomic_rank` AS `rank` ON
+        t1.`taxonomic_rank_id` = rank.`id`
+
+    -- mandatory join on source databases
+    RIGHT JOIN `source_database` AS `db` ON
+        t1.`source_database_id` = db.`id`
+
+    -- mandatory join on name elements for species epitet
+    RIGHT JOIN `taxon_name_element` AS `tne_1` ON
+        t1.`id` = tne_1.`taxon_id`
+    RIGHT JOIN `scientific_name_element` AS `sne_1` ON
+        tne_1.`scientific_name_element_id` = sne_1.`id`
+    
+    -- mandatory join on name elements for genus
+    RIGHT JOIN `taxon_name_element` AS `tne_2` ON
+        tne_1.`parent_id` = tne_2.`taxon_id`
+    RIGHT JOIN `scientific_name_element` AS `sne_2` ON
+        tne_2.`scientific_name_element_id` = sne_2.`id`
+
+    -- mandatory join on taxon for genus or subgenus
+    RIGHT JOIN `taxon` AS `t2` ON
+        tne_2.`taxon_id` = t2.`id`
+
+    -- optional joins on name elements to get group
+    LEFT JOIN `taxon_name_element` AS `tne_3` ON
+        tne_2.`parent_id` = tne_3.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_3` ON
+        tne_3.`scientific_name_element_id` = sne_3.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_4` ON
+        tne_3.`parent_id` = tne_4.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_4` ON
+        tne_4.`scientific_name_element_id` = sne_4.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_5` ON
+        tne_4.`parent_id` = tne_5.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_5` ON
+        tne_5.`scientific_name_element_id` = sne_5.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_6` ON
+        tne_5.`parent_id` = tne_6.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_6` ON
+        tne_6.`scientific_name_element_id` = sne_6.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_7` ON
+        tne_6.`parent_id` = tne_7.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_7` ON
+        tne_7.`scientific_name_element_id` = sne_7.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_8` ON
+        tne_7.`parent_id` = tne_8.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_8` ON
+        tne_8.`scientific_name_element_id` = sne_8.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_9` ON
+        tne_8.`parent_id` = tne_9.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_9` ON
+        tne_9.`scientific_name_element_id` = sne_9.`id`
+
+    -- mandatory join on taxon detail for taxon
+    RIGHT JOIN `taxon_detail` AS `td1` ON
+        t1.`id` = td1.`taxon_id`
+    -- mandatory join on scientific name status for taxon detail
+    RIGHT JOIN `scientific_name_status` AS `sns1` ON
+        td1.`scientific_name_status_id` = sns1.`id`
+    LEFT JOIN `author_string` AS `aus` ON
+        td1.`author_string_id` = aus.`id`
+        
+    -- selecting only from genus and higher
+    WHERE
+        t1.`taxonomic_rank_id` = 83 AND
+        t2.`taxonomic_rank_id` = 96 
+
+;
+
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+-- Filling taxa
+
+    SELECT -- select all infraspecific epitets from infaspecies with subgenus
         t1.`id` AS `id`,
         sne_1.`name_element` AS `name_element`,
-        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,
+        CONCAT_WS(
+        	" ",
+        	CONCAT(
+        		UCASE(
+        			SUBSTRING(sne_4.`name_element`, 1, 1)
+        		),LOWER(
+        			SUBSTRING(sne_4.`name_element`, 2)
+        		),
+        		" (",
+        		UCASE(
+        			SUBSTRING(sne_3.`name_element`, 1, 1)
+        		),LOWER(
+        			SUBSTRING(sne_3.`name_element`, 2)
+        		),
+        		")"
+        	),
+        	sne_2.`name_element`,
             IF(
                 sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
                 sne_4.`name_element` = "animalia" OR sne_5.`name_element` = "animalia" OR sne_6.`name_element` = "animalia" OR
-                sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia",
+                sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia" OR
+                sne_10.`name_element` = "animalia",
                 "",rank.`marker_displayed`
             )
         ,sne_1.`name_element`) AS `name`,
@@ -362,6 +631,10 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     RIGHT JOIN `scientific_name_element` AS `sne_3` ON
         tne_3.`scientific_name_element_id` = sne_3.`id`
 
+    -- mandatory join on taxon for genus or subgenus
+    RIGHT JOIN `taxon` AS t3 ON
+    	tne_3.`taxon_id` = t3.`id`
+        
     -- optional joins on name elements to get group
     LEFT JOIN `taxon_name_element` AS `tne_4` ON
         tne_3.`parent_id` = tne_4.`taxon_id`
@@ -393,6 +666,11 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     LEFT JOIN `scientific_name_element` AS `sne_9` ON
         tne_9.`scientific_name_element_id` = sne_9.`id`
 
+    LEFT JOIN `taxon_name_element` AS `tne_10` ON
+        tne_9.`parent_id` = tne_10.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_10` ON
+        tne_10.`scientific_name_element_id` = sne_10.`id`
+
     -- mandatory join on taxon detail for taxon
     RIGHT JOIN `taxon_detail` AS `td1` ON
         t1.`id` = td1.`taxon_id`
@@ -404,24 +682,35 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         
     -- selecting only from genus and higher
     WHERE
-        `taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83)
+        t1.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,96,83) AND
+        t3.`taxonomic_rank_id` = 96
 
 ;
 
 INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
-    SELECT -- select all specific epitets from subspecies
+    SELECT -- select all infaspecific epitets from infraspecies
         t1.`id` AS `id`,
-        sne_2.`name_element` AS `name_element`,
-        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,
+        sne_1.`name_element` AS `name_element`,
+        CONCAT_WS(
+        	" ",
+        	CONCAT(
+        		UCASE(
+        			SUBSTRING(sne_3.`name_element`, 1, 1)
+        		),LOWER(
+        			SUBSTRING(sne_3.`name_element`, 2)
+        		)
+        	),
+        	sne_2.`name_element`,
             IF(
                 sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
                 sne_4.`name_element` = "animalia" OR sne_5.`name_element` = "animalia" OR sne_6.`name_element` = "animalia" OR
-                sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia",
+                sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia" OR
+                sne_10.`name_element` = "animalia",
                 "",rank.`marker_displayed`
             )
-        ,sne_1.`name_element`)  AS `name`,
+        ,sne_1.`name_element`) AS `name`,
         rank.`rank` AS `rank`,
         sns1.`id` AS `name_status`,
         aus.`string` AS `name_suffix`,
@@ -469,6 +758,10 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     RIGHT JOIN `scientific_name_element` AS `sne_3` ON
         tne_3.`scientific_name_element_id` = sne_3.`id`
 
+    -- mandatory join on taxon for genus or subgenus
+    RIGHT JOIN `taxon` AS t3 ON
+    	tne_3.`taxon_id` = t3.`id`
+        
     -- optional joins on name elements to get group
     LEFT JOIN `taxon_name_element` AS `tne_4` ON
         tne_3.`parent_id` = tne_4.`taxon_id`
@@ -500,6 +793,129 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     LEFT JOIN `scientific_name_element` AS `sne_9` ON
         tne_9.`scientific_name_element_id` = sne_9.`id`
 
+    LEFT JOIN `taxon_name_element` AS `tne_10` ON
+        tne_9.`parent_id` = tne_10.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_10` ON
+        tne_10.`scientific_name_element_id` = sne_10.`id`
+
+    -- mandatory join on taxon detail for taxon
+    RIGHT JOIN `taxon_detail` AS `td1` ON
+        t1.`id` = td1.`taxon_id`
+    -- mandatory join on scientific name status for taxon detail
+    RIGHT JOIN `scientific_name_status` AS `sns1` ON
+        td1.`scientific_name_status_id` = sns1.`id`
+    LEFT JOIN `author_string` AS `aus` ON
+        td1.`author_string_id` = aus.`id`
+        
+    -- selecting only from genus and higher
+    WHERE
+        t1.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,96,83) AND
+        t3.`taxonomic_rank_id` = 20
+
+;
+
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+-- Filling taxa
+
+    SELECT -- select all specific epitets from infraspecies
+        t1.`id` AS `id`,
+        sne_2.`name_element` AS `name_element`,
+        CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,
+            IF(
+                sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
+                sne_4.`name_element` = "animalia" OR sne_5.`name_element` = "animalia" OR sne_6.`name_element` = "animalia" OR
+                sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia" OR
+                sne_10.`name_element` = "animalia",
+                "",rank.`marker_displayed`
+            )
+        ,sne_1.`name_element`)  AS `name`,
+        rank.`rank` AS `rank`,
+        sns1.`id` AS `name_status`,
+        aus.`string` AS `name_suffix`,
+        IF (tne_1.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))),
+            IF (tne_2.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2))),
+            IF (tne_3.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),
+            IF (tne_4.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_4.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_4.`name_element`, 2))),
+            IF (tne_5.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_5.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_5.`name_element`, 2))),
+            IF (tne_6.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_6.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_6.`name_element`, 2))),
+            IF (tne_7.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_7.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_7.`name_element`, 2))),
+            IF (tne_8.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_8.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_8.`name_element`, 2))),
+            IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
+            IF (tne_10.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_10.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_10.`name_element`, 2))),
+            ""
+        )))))))))) AS `kingdom`,
+        db.`abbreviated_name` AS `source_database_name`,
+        db.`id` AS `source_database_id`,
+        "" AS accepted_taxon_id
+
+    FROM
+        `taxon` AS `t1`
+
+    -- mandatory join on ranks
+    RIGHT JOIN `taxonomic_rank` AS `rank` ON
+        t1.`taxonomic_rank_id` = rank.`id`
+
+    -- mandatory join on source databases
+    RIGHT JOIN `source_database` AS `db` ON
+        t1.`source_database_id` = db.`id`
+
+    -- mandatory join on name elements for species epitet
+    RIGHT JOIN `taxon_name_element` AS `tne_1` ON
+        t1.`id` = tne_1.`taxon_id`
+    RIGHT JOIN `scientific_name_element` AS `sne_1` ON
+        tne_1.`scientific_name_element_id` = sne_1.`id`
+    
+    -- mandatory join on name elements for species
+    RIGHT JOIN `taxon_name_element` AS `tne_2` ON
+        tne_1.`parent_id` = tne_2.`taxon_id`
+    RIGHT JOIN `scientific_name_element` AS `sne_2` ON
+        tne_2.`scientific_name_element_id` = sne_2.`id`
+
+    -- mandatory join on name elements for genus
+    RIGHT JOIN `taxon_name_element` AS `tne_3` ON
+        tne_2.`parent_id` = tne_3.`taxon_id`
+    RIGHT JOIN `scientific_name_element` AS `sne_3` ON
+        tne_3.`scientific_name_element_id` = sne_3.`id`
+
+      RIGHT JOIN `taxon` AS t3 ON
+      tne_3.`taxon_id` = t3.`id`
+
+    -- optional joins on name elements to get group
+    LEFT JOIN `taxon_name_element` AS `tne_4` ON
+        tne_3.`parent_id` = tne_4.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_4` ON
+        tne_4.`scientific_name_element_id` = sne_4.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_5` ON
+        tne_4.`parent_id` = tne_5.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_5` ON
+        tne_5.`scientific_name_element_id` = sne_5.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_6` ON
+        tne_5.`parent_id` = tne_6.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_6` ON
+        tne_6.`scientific_name_element_id` = sne_6.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_7` ON
+        tne_6.`parent_id` = tne_7.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_7` ON
+        tne_7.`scientific_name_element_id` = sne_7.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_8` ON
+        tne_7.`parent_id` = tne_8.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_8` ON
+        tne_8.`scientific_name_element_id` = sne_8.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_9` ON
+        tne_8.`parent_id` = tne_9.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_9` ON
+        tne_9.`scientific_name_element_id` = sne_9.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_10` ON
+        tne_9.`parent_id` = tne_10.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_10` ON
+        tne_10.`scientific_name_element_id` = sne_10.`id`
+
     -- mandatory join on taxon detail for taxon
     RIGHT JOIN `taxon_detail` AS `td1` ON
         t1.`id` = td1.`taxon_id`
@@ -509,16 +925,152 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     LEFT JOIN `author_string` AS `aus` ON
         td1.`author_string_id` = aus.`id`
 
-    -- selecting only from genus and higher
+    -- selecting infraspecies
     WHERE
-        `taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83)
+        t1.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,96,83) AND
+		t3.`taxonomic_rank_id` = 20
 
 ;
 
 INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
-    SELECT -- select all genus from subspecies
+    SELECT -- select all specific epitets from infraspecies with subgenus
+        t1.`id` AS `id`,
+        sne_2.`name_element` AS `name_element`,
+        CONCAT_WS(
+        	" ",
+        	CONCAT(
+        		UCASE(
+        			SUBSTRING(sne_4.`name_element`, 1, 1)
+        		),LOWER(
+        			SUBSTRING(sne_4.`name_element`, 2)
+        		)
+        	),
+        	CONCAT(
+        		"(",
+        		UCASE(
+        			SUBSTRING(sne_3.`name_element`, 1, 1)
+        		),LOWER(
+        			SUBSTRING(sne_3.`name_element`, 2)
+        		),
+        		")"
+        	),
+        	sne_2.`name_element`,
+            IF(
+                sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
+                sne_4.`name_element` = "animalia" OR sne_5.`name_element` = "animalia" OR sne_6.`name_element` = "animalia" OR
+                sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia" OR
+                sne_10.`name_element` = "animalia",
+                "",rank.`marker_displayed`
+            )
+        ,sne_1.`name_element`)  AS `name`,
+        rank.`rank` AS `rank`,
+        sns1.`id` AS `name_status`,
+        aus.`string` AS `name_suffix`,
+        IF (tne_1.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))),
+            IF (tne_2.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2))),
+            IF (tne_3.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),
+            IF (tne_4.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_4.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_4.`name_element`, 2))),
+            IF (tne_5.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_5.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_5.`name_element`, 2))),
+            IF (tne_6.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_6.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_6.`name_element`, 2))),
+            IF (tne_7.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_7.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_7.`name_element`, 2))),
+            IF (tne_8.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_8.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_8.`name_element`, 2))),
+            IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
+            IF (tne_10.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_10.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_10.`name_element`, 2))),
+            ""
+        )))))))))) AS `kingdom`,
+        db.`abbreviated_name` AS `source_database_name`,
+        db.`id` AS `source_database_id`,
+        "" AS accepted_taxon_id
+
+    FROM
+        `taxon` AS `t1`
+
+    -- mandatory join on ranks
+    RIGHT JOIN `taxonomic_rank` AS `rank` ON
+        t1.`taxonomic_rank_id` = rank.`id`
+
+    -- mandatory join on source databases
+    RIGHT JOIN `source_database` AS `db` ON
+        t1.`source_database_id` = db.`id`
+
+    -- mandatory join on name elements for species epitet
+    RIGHT JOIN `taxon_name_element` AS `tne_1` ON
+        t1.`id` = tne_1.`taxon_id`
+    RIGHT JOIN `scientific_name_element` AS `sne_1` ON
+        tne_1.`scientific_name_element_id` = sne_1.`id`
+    
+    -- mandatory join on name elements for species
+    RIGHT JOIN `taxon_name_element` AS `tne_2` ON
+        tne_1.`parent_id` = tne_2.`taxon_id`
+    RIGHT JOIN `scientific_name_element` AS `sne_2` ON
+        tne_2.`scientific_name_element_id` = sne_2.`id`
+
+    -- mandatory join on name elements for genus
+    RIGHT JOIN `taxon_name_element` AS `tne_3` ON
+        tne_2.`parent_id` = tne_3.`taxon_id`
+    RIGHT JOIN `scientific_name_element` AS `sne_3` ON
+        tne_3.`scientific_name_element_id` = sne_3.`id`
+        
+      RIGHT JOIN `taxon` AS t3 ON
+      tne_3.`taxon_id` = t3.`id`
+
+    -- optional joins on name elements to get group
+    LEFT JOIN `taxon_name_element` AS `tne_4` ON
+        tne_3.`parent_id` = tne_4.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_4` ON
+        tne_4.`scientific_name_element_id` = sne_4.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_5` ON
+        tne_4.`parent_id` = tne_5.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_5` ON
+        tne_5.`scientific_name_element_id` = sne_5.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_6` ON
+        tne_5.`parent_id` = tne_6.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_6` ON
+        tne_6.`scientific_name_element_id` = sne_6.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_7` ON
+        tne_6.`parent_id` = tne_7.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_7` ON
+        tne_7.`scientific_name_element_id` = sne_7.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_8` ON
+        tne_7.`parent_id` = tne_8.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_8` ON
+        tne_8.`scientific_name_element_id` = sne_8.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_9` ON
+        tne_8.`parent_id` = tne_9.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_9` ON
+        tne_9.`scientific_name_element_id` = sne_9.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_10` ON
+        tne_9.`parent_id` = tne_10.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_10` ON
+        tne_10.`scientific_name_element_id` = sne_10.`id`
+
+    -- mandatory join on taxon detail for taxon
+    RIGHT JOIN `taxon_detail` AS `td1` ON
+        t1.`id` = td1.`taxon_id`
+    -- mandatory join on scientific name status for taxon detail
+    RIGHT JOIN `scientific_name_status` AS `sns1` ON
+        td1.`scientific_name_status_id` = sns1.`id`
+    LEFT JOIN `author_string` AS `aus` ON
+        td1.`author_string_id` = aus.`id`
+
+    -- selecting infraspecies
+    WHERE
+        t1.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,96,83) AND
+		t3.`taxonomic_rank_id` = 96
+;
+
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+-- Filling taxa
+
+    SELECT -- select all genus from infraspecies
         t1.`id` AS `id`,
         sne_3.`name_element` AS `name_element`,
         CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,
@@ -576,6 +1128,9 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     RIGHT JOIN `scientific_name_element` AS `sne_3` ON
         tne_3.`scientific_name_element_id` = sne_3.`id`
 
+        RIGHT JOIN `taxon` AS `t3` ON
+        tne_3.`taxon_id` = t3.`id`
+        
     -- optional joins on name elements to get group
     LEFT JOIN `taxon_name_element` AS `tne_4` ON
         tne_3.`parent_id` = tne_4.`taxon_id`
@@ -618,7 +1173,137 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
     -- selecting only from genus and higher
     WHERE
-        `taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83)
+        t1.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83) AND
+        t3.`taxonomic_rank_id` = 20
+
+;
+
+INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+-- Filling taxa
+
+    SELECT -- select all genus from infraspecies with subgenus
+        t1.`id` AS `id`,
+        sne_3.`name_element` AS `name_element`,
+        CONCAT_WS(
+        	" ",
+        	CONCAT(
+        		UCASE(
+        			SUBSTRING(sne_4.`name_element`, 1, 1)
+        		),LOWER(
+        			SUBSTRING(sne_4.`name_element`, 2)
+        		)
+        	),
+        	CONCAT(
+        		"(",
+        		UCASE(
+        			SUBSTRING(sne_3.`name_element`, 1, 1)
+        		),LOWER(
+        			SUBSTRING(sne_3.`name_element`, 2)
+        		),
+        		")"
+        	),
+        	sne_2.`name_element`,
+            IF(
+                sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
+                sne_4.`name_element` = "animalia" OR sne_5.`name_element` = "animalia" OR sne_6.`name_element` = "animalia" OR
+                sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia",
+                "",rank.`marker_displayed`
+            )
+        ,sne_1.`name_element`)  AS `name`,
+        rank.`rank` AS `rank`,
+        sns1.`id` AS `name_status`,
+        aus.`string` AS `name_suffix`,
+        IF (tne_1.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))),
+            IF (tne_2.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2))),
+            IF (tne_3.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),
+            IF (tne_4.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_4.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_4.`name_element`, 2))),
+            IF (tne_5.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_5.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_5.`name_element`, 2))),
+            IF (tne_6.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_6.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_6.`name_element`, 2))),
+            IF (tne_7.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_7.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_7.`name_element`, 2))),
+            IF (tne_8.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_8.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_8.`name_element`, 2))),
+            IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
+            ""
+        ))))))))) AS `kingdom`,
+        db.`abbreviated_name` AS `source_database_name`,
+        db.`id` AS `source_database_id`,
+        "" AS accepted_taxon_id
+
+    FROM
+        `taxon` AS `t1`
+
+    -- mandatory join on ranks
+    RIGHT JOIN `taxonomic_rank` AS `rank` ON
+        t1.`taxonomic_rank_id` = rank.`id`
+
+    -- mandatory join on source databases
+    RIGHT JOIN `source_database` AS `db` ON
+        t1.`source_database_id` = db.`id`
+
+    -- mandatory join on name elements for species epitet
+    RIGHT JOIN `taxon_name_element` AS `tne_1` ON
+        t1.`id` = tne_1.`taxon_id`
+    RIGHT JOIN `scientific_name_element` AS `sne_1` ON
+        tne_1.`scientific_name_element_id` = sne_1.`id`
+    
+    -- mandatory join on name elements for species
+    RIGHT JOIN `taxon_name_element` AS `tne_2` ON
+        tne_1.`parent_id` = tne_2.`taxon_id`
+    RIGHT JOIN `scientific_name_element` AS `sne_2` ON
+        tne_2.`scientific_name_element_id` = sne_2.`id`
+
+    -- mandatory join on name elements for genus
+    RIGHT JOIN `taxon_name_element` AS `tne_3` ON
+        tne_2.`parent_id` = tne_3.`taxon_id`
+    RIGHT JOIN `scientific_name_element` AS `sne_3` ON
+        tne_3.`scientific_name_element_id` = sne_3.`id`
+
+        RIGHT JOIN `taxon` AS `t3` ON
+        tne_3.`taxon_id` = t3.`id`
+        
+    -- optional joins on name elements to get group
+    LEFT JOIN `taxon_name_element` AS `tne_4` ON
+        tne_3.`parent_id` = tne_4.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_4` ON
+        tne_4.`scientific_name_element_id` = sne_4.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_5` ON
+        tne_4.`parent_id` = tne_5.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_5` ON
+        tne_5.`scientific_name_element_id` = sne_5.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_6` ON
+        tne_5.`parent_id` = tne_6.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_6` ON
+        tne_6.`scientific_name_element_id` = sne_6.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_7` ON
+        tne_6.`parent_id` = tne_7.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_7` ON
+        tne_7.`scientific_name_element_id` = sne_7.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_8` ON
+        tne_7.`parent_id` = tne_8.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_8` ON
+        tne_8.`scientific_name_element_id` = sne_8.`id`
+
+    LEFT JOIN `taxon_name_element` AS `tne_9` ON
+        tne_8.`parent_id` = tne_9.`taxon_id`
+    LEFT JOIN `scientific_name_element` AS `sne_9` ON
+        tne_9.`scientific_name_element_id` = sne_9.`id`
+
+    -- mandatory join on taxon detail for taxon
+    RIGHT JOIN `taxon_detail` AS `td1` ON
+        t1.`id` = td1.`taxon_id`
+    -- mandatory join on scientific name status for taxon detail
+    RIGHT JOIN `scientific_name_status` AS `sns1` ON
+        td1.`scientific_name_status_id` = sns1.`id`
+    LEFT JOIN `author_string` AS `aus` ON
+        td1.`author_string_id` = aus.`id`
+
+    -- selecting only from genus and higher
+    WHERE
+        t1.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83) AND
+        t3.`taxonomic_rank_id` = 96
 
 ;
 
