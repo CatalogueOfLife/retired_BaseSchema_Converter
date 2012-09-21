@@ -259,7 +259,7 @@ CREATE TABLE `region` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `region_standard_id` tinyint(3) unsigned NOT NULL,
   `original_code` varchar(25) NOT NULL COMMENT 'Original ID or code of the region in the standard referenced in region_standard_id',
-  `name` varchar(255) NOT NULL COMMENT 'Region',
+  `name` varchar(255)  CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'Region',
   `parent_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Optional parent region',
   `polygon` longtext NOT NULL,
   `polygon_rough` longtext NOT NULL,
