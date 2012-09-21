@@ -56,7 +56,7 @@ CREATE TABLE `common_name` (
 
 CREATE TABLE `common_name_element` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `name` varchar(255) NOT NULL,
   `transliteration` varchar(255) DEFAULT NULL COMMENT 'Transcription of name in foreign alphabet into English',
   PRIMARY KEY (`id`),
   KEY `name` (`name`),
@@ -71,7 +71,7 @@ CREATE TABLE `common_name_element` (
 
 CREATE TABLE `country` (
   `iso` char(3) NOT NULL COMMENT 'ISO 3166-1-Alpha-2 code',
-  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'Country',
+  `name` varchar(100) NOT NULL COMMENT 'Country',
   `standard` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`iso`),
   UNIQUE KEY `name` (`name`)
@@ -141,7 +141,7 @@ CREATE TABLE `hybrid` (
 
 CREATE TABLE `language` (
   `iso` char(3) NOT NULL COMMENT 'ISO 639-2 Alpha-3 code',
-  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'Language',
+  `name` varchar(100) NOT NULL COMMENT 'Language',
   `standard` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`iso`),
   KEY `name` (`name`)
@@ -259,7 +259,7 @@ CREATE TABLE `region` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `region_standard_id` tinyint(3) unsigned NOT NULL,
   `original_code` varchar(25) NOT NULL COMMENT 'Original ID or code of the region in the standard referenced in region_standard_id',
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'Region',
+  `name` varchar(255) NOT NULL COMMENT 'Region',
   `parent_id` smallint(5) unsigned DEFAULT NULL COMMENT 'Optional parent region',
   `polygon` longtext NOT NULL,
   `polygon_rough` longtext NOT NULL,
