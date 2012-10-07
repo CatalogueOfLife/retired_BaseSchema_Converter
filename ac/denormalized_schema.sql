@@ -124,7 +124,8 @@ CREATE TABLE `_search_all` (
 `group` varchar(255) NOT NULL,
 `source_database_name` varchar(255) NOT NULL,
 `source_database_id` int(10) NOT NULL,
-`accepted_taxon_id` int(10) DEFAULT NULL
+`accepted_taxon_id` int(10) DEFAULT NULL,
+KEY `id` (`id`)
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_taxon_tree` (

@@ -1523,5 +1523,3 @@ UPDATE `_search_all` SET
 `source_database_name` = TRIM(`source_database_name`);
 
 ALTER TABLE `_search_all` ENABLE KEYS;
-
-ALTER TABLE `_search_all` ADD INDEX `id` ( `id` ); 
