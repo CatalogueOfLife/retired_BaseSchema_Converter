@@ -1316,7 +1316,10 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
         (
             SELECT
                 CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sysne_g.`name_element`, 1, 1)),
-              LOWER(SUBSTRING(sysne_g.`name_element`, 2))),sysne_s.`name_element`,
+              LOWER(SUBSTRING(sysne_g.`name_element`, 2))),
+              CONCAT("(",UCASE(SUBSTRING(sysne_sg.`name_element`, 1, 1)),
+              LOWER(SUBSTRING(sysne_sg.`name_element`, 2)),")"),
+              sysne_s.`name_element`,
                 IF(
                     sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR  sne_3.`name_element` = "animalia" OR 
                     sne_4.`name_element` = "animalia" OR  sne_5.`name_element` = "animalia" OR  sne_6.`name_element` = "animalia" OR 
@@ -1335,16 +1338,21 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
                 sne_s.`taxonomic_rank_id` = 83
             LEFT JOIN `scientific_name_element` AS `sysne_s` ON
                 sne_s.`scientific_name_element_id` = sysne_s.`id`
+            LEFT JOIN `synonym_name_element` AS `sne_sg` ON
+                s2.`id` = sne_sg.`synonym_id` AND
+                sne_sg.`taxonomic_rank_id` = 96
+            LEFT JOIN `scientific_name_element` AS `sysne_sg` ON
+                sne_sg.`scientific_name_element_id` = sysne_sg.`id`
             LEFT JOIN `synonym_name_element` AS `sne_ss` ON
                 s2.`id` = sne_ss.`synonym_id` AND
-                sne_ss.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83)
+                sne_ss.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83,96)
             LEFT JOIN `scientific_name_element` AS `sysne_ss` ON
                 sne_ss.`scientific_name_element_id` = sysne_ss.`id`
             LEFT JOIN `taxonomic_rank` AS `trank_ss` ON
                 sne_ss.`taxonomic_rank_id` = trank_ss.`id`
             WHERE
                 s2.`id` = s1.`id`
-        ) AS `name`,
+        ) AS count_s2id,
         aus.`string` AS `name_suffix`,
         (
             SELECT
@@ -1352,7 +1360,10 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
                     rank_ss.`rank`,
                     IF(sne_s.`scientific_name_element_id` IS NOT NULL,
                         rank_s.`rank`,
-                        rank_g.`rank`
+                        IF(sne_s.`scientific_name_element_id` IS NOT NULL,
+	                        rank_sg.`rank`,
+    	                    rank_g.`rank`
+    	                )
                     )
                 )
             FROM `synonym` AS `s2`
@@ -1366,9 +1377,14 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
                 sne_s.`taxonomic_rank_id` = 83
             LEFT JOIN `taxonomic_rank` AS `rank_s` ON
                 sne_s.`taxonomic_rank_id` = rank_s.`id`
+            LEFT JOIN `synonym_name_element` AS `sne_sg` ON
+                s2.`id` = sne_sg.`synonym_id` AND
+                sne_sg.`taxonomic_rank_id` = 96
+            LEFT JOIN `taxonomic_rank` AS `rank_sg` ON
+                sne_sg.`taxonomic_rank_id` = rank_sg.`id`
             LEFT JOIN `synonym_name_element` AS `sne_ss` ON
                 s2.`id` = sne_ss.`synonym_id` AND
-                sne_ss.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83)
+                sne_ss.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83,96)
             LEFT JOIN `taxonomic_rank` AS `rank_ss` ON
                 sne_ss.`taxonomic_rank_id` = rank_ss.`id`
             WHERE
@@ -1508,6 +1524,8 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
         s1.`author_string_id` = aus.`id`
         
     WHERE s1.`id` IS NOT NULL
+    
+    ORDER BY count_s2id DESC
 
 ;
 
