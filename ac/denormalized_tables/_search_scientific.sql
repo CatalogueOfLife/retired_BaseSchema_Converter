@@ -1,4 +1,4 @@
- ALTER TABLE `_search_scientific` DISABLE KEYS;
+ALTER TABLE `_search_scientific` DISABLE KEYS;
 
 INSERT INTO `_search_scientific`
 (`id`,`kingdom`,`phylum`,`class`,`order`,`superfamily`,`family`,`genus`,`subgenus`,`species`,`infraspecies`,`infraspecific_marker`,`source_database_id`)
@@ -395,9 +395,9 @@ LEFT JOIN `taxonomic_rank` AS tr14 ON
 t14.`taxonomic_rank_id` = tr14.`id`
 
 LEFT JOIN `taxonomic_rank` AS tr15 ON
-t15.`taxonomic_rank_id` = tr15.`id`
+t15.`taxonomic_rank_id` = tr15.`id`;
 
-;
+
 
 INSERT INTO `_search_scientific`
 (`id`,`kingdom`,`genus`,`subgenus`,`species`,`infraspecies`,`infraspecific_marker`,`author`,`status`,`accepted_species_id`,`accepted_species_name`,`accepted_species_author`,`source_database_id`,`source_database_name`)
@@ -620,12 +620,10 @@ LEFT JOIN `scientific_name_element` AS sne_ss ON
 sne_ss.`id` = syne_ss.`scientific_name_element_id`
 
 LEFT JOIN `taxonomic_rank` AS tr_ss ON
-syne_ss.`taxonomic_rank_id` = tr_ss.`id`
+syne_ss.`taxonomic_rank_id` = tr_ss.`id`;
 
-;
 
 UPDATE `_search_scientific` SET
-
 `kingdom` = TRIM(`kingdom`),
 `phylum` = TRIM(`phylum`),
 `class` = TRIM(`class`),

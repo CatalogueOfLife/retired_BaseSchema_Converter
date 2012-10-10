@@ -32,8 +32,9 @@ CREATE TABLE `_search_scientific` (
 `accepted_species_name` varchar(255) NOT NULL,
 `accepted_species_author` varchar(255) NOT NULL,
 `source_database_id` int(10) NOT NULL,
-`source_database_name` varchar(255) NOT NULL
-) ENGINE = MyISAM DEFAULT CHARSET=utf8;
+`source_database_name` varchar(255) NOT NULL,
+KEY `id` (`id`,`status`)) 
+ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_search_distribution` (
 `distribution` varchar(10000) NOT NULL,
@@ -125,7 +126,7 @@ CREATE TABLE `_search_all` (
 `source_database_name` varchar(255) NOT NULL,
 `source_database_id` int(10) NOT NULL,
 `accepted_taxon_id` int(10) DEFAULT NULL,
-KEY `id` (`id`)
+KEY `id` (`id`,`name_status`)
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_taxon_tree` (
