@@ -1654,7 +1654,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
                 sne_ss.`taxonomic_rank_id` = trank_ss.`id`
             WHERE
                 s2.`id` = s1.`id`
-        ) AS count_s2id,
+        ) AS `name`,
         aus.`string` AS `name_suffix`,
         (
             SELECT
@@ -1741,7 +1741,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
             IF (tne_8.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_8.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_8.`name_element`, 2))),
             IF (tne_9.`parent_id` IS NULL,CONCAT(UCASE(SUBSTRING(sne_9.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_9.`name_element`, 2))),
             ""
-        ))))))))) AS `kingdom`,
+        ))))))))) AS `group`,
         db.`abbreviated_name` AS `source_database_name`,
         db.`id` AS `source_database_id`,
         t_1.`id` AS accepted_taxon_id
@@ -1826,8 +1826,6 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
         s1.`author_string_id` = aus.`id`
         
     WHERE s1.`id` IS NOT NULL
-    
-    ORDER BY count_s2id DESC
 
 ;
 
