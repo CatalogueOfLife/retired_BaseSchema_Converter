@@ -123,13 +123,3 @@ UPDATE `_taxon_tree` SET
 
 ALTER TABLE `_taxon_tree` ENABLE KEYS;
 
-
-/* Section below deletes subgenera from tree as requested. Comment if this has to be reversed
- * http://dev.4d4life.eu:8081/browse/ACI-583 */
-
-UPDATE `_taxon_tree` AS t1
-LEFT JOIN `_taxon_tree` AS t2 ON t2.`taxon_id` = t1.`parent_id`
-SET t1.`parent_id` = t2.`parent_id`
-WHERE t1.`rank` = 'species' AND t2.`rank` = 'subgenus';
-
-DELETE FROM `_taxon_tree` WHERE `rank` = 'subgenus';
