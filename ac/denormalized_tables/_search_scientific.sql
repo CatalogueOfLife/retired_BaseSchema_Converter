@@ -1,3 +1,5 @@
+SET SESSION sql_mode = '';
+
 ALTER TABLE `_search_scientific` DISABLE KEYS;
 
 INSERT INTO `_search_scientific`

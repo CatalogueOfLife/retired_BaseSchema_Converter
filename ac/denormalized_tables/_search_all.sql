@@ -1,3 +1,5 @@
+SET SESSION sql_mode = '';
+
 ALTER TABLE `_search_all` DISABLE KEYS;
 
 INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)

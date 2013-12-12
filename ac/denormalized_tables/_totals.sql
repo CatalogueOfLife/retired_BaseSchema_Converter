@@ -1,3 +1,5 @@
+SET SESSION sql_mode = '';
+
 ALTER TABLE `_totals` DISABLE KEYS;
 
 INSERT INTO `_totals` (`total`,`description`)

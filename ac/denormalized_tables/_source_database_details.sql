@@ -1,3 +1,5 @@
+SET SESSION sql_mode = '';
+
 ALTER TABLE `_source_database_details` DISABLE KEYS;
 
 INSERT INTO `_source_database_details`

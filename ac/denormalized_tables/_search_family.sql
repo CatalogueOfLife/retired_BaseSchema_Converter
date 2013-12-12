@@ -1,3 +1,5 @@
+SET SESSION sql_mode = '';
+
 INSERT INTO `_search_family` (`id`,`kingdom`,`phylum`,`class`,`order`,`superfamily`,`family`)
 
 SELECT

@@ -1,3 +1,5 @@
+SET SESSION sql_mode = '';
+
 ALTER TABLE `_taxon_tree` ADD INDEX `parent_id` ( `parent_id` ); 
 
 UPDATE _taxon_tree AS ttt SET total_species = (

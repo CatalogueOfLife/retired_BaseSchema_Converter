@@ -1,3 +1,5 @@
+SET SESSION sql_mode = '';
+
 ALTER TABLE `_search_distribution` DISABLE KEYS;
 
 INSERT INTO `_search_distribution` (`distribution`,`accepted_species_id`,`name`,`author`,`rank`,`kingdom`,`source_database_id`,`source_database_name`)

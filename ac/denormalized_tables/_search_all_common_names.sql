@@ -1,3 +1,5 @@
+SET SESSION sql_mode = '';
+
 SELECT
     cn.`id` AS `id`,
     "" AS `name_element`,

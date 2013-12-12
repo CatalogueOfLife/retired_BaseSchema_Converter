@@ -1,3 +1,5 @@
+SET SESSION sql_mode = '';
+
 ALTER TABLE `_taxon_tree` DISABLE KEYS;
 
 INSERT INTO `_taxon_tree` (`taxon_id`, `rank`, `lsid`, `number_of_children`)

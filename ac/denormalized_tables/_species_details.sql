@@ -1,3 +1,5 @@
+SET SESSION sql_mode = '';
+
 ALTER TABLE `_species_details` DISABLE KEYS;
 
 INSERT INTO `_species_details`
