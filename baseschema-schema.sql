@@ -353,7 +353,7 @@ CREATE TABLE `source_database` (
   `abbreviated_name` varchar(50) DEFAULT NULL COMMENT 'Abbreviated name of the source database',
   `group_name_in_english` varchar(255) DEFAULT NULL COMMENT 'Name in English of the group(s) treated in the database',
   `authors_and_editors` varchar(255) DEFAULT NULL COMMENT 'Optional author(s) and editor(s) of the source database',
-  `organisation` varchar(255) DEFAULT NULL COMMENT 'Optional organisation which has compiled or is owning the source database',
+  `organisation` varchar(500) DEFAULT NULL COMMENT 'Optional organisation which has compiled or is owning the source database',
   `contact_person` varchar(255) DEFAULT NULL COMMENT 'Optional contact person of the source database',
   `version` varchar(25) DEFAULT NULL COMMENT 'Optional version number of the source database',
   `release_date` date DEFAULT NULL COMMENT 'Optional most recent release date of the source database',
