@@ -182,7 +182,7 @@ CREATE TABLE `lifezone_to_taxon_detail` (
 CREATE TABLE `reference` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `authors` varchar(255) DEFAULT NULL COMMENT 'Complete author string',
-  `year` varchar(25) DEFAULT NULL COMMENT 'Year(s) of publication',
+  `year` varchar(75) DEFAULT NULL COMMENT 'Year(s) of publication',
   `title` varchar(1500) DEFAULT NULL COMMENT 'Title of the publication',
   `text` varchar(1500) DEFAULT NULL COMMENT 'Additional information pertaining to the publication',
   `uri_id` int(10) unsigned DEFAULT NULL COMMENT 'Link to downloadable version',
