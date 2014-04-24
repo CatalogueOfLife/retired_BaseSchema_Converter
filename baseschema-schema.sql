@@ -279,7 +279,7 @@ CREATE TABLE `region` (
 
 CREATE TABLE `region_free_text` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `free_text` varchar(12500) COLLATE utf8_bin NOT NULL COMMENT 'Free text description of distribution; provided mainly to store full text descriptions from the Annual Checklist',
+  `free_text` TEXT COLLATE utf8_bin NOT NULL COMMENT 'Free text description of distribution; provided mainly to store full text descriptions from the Annual Checklist',
   PRIMARY KEY (`id`),
   KEY `free_text` (`free_text`(255))
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -375,7 +375,7 @@ CREATE TABLE `source_database` (
 
 CREATE TABLE `specialist` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
+  `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Specialists who have verified the validity of taxa';

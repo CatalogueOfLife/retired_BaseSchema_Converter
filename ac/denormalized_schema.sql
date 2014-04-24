@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS `_image_resource`;
+DROP TABLE IF EXISTS `_natural_keys`;
 DROP TABLE IF EXISTS `_search_all`;
 DROP TABLE IF EXISTS `_search_distribution`;
 DROP TABLE IF EXISTS `_search_family`;
@@ -33,11 +34,11 @@ CREATE TABLE `_search_scientific` (
 `accepted_species_author` varchar(255) NOT NULL,
 `source_database_id` int(10) NOT NULL,
 `source_database_name` varchar(255) NOT NULL,
-KEY `id` (`id`,`status`)) 
+KEY `id` (`id`,`status`))
 ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_search_distribution` (
-`distribution` varchar(10000) NOT NULL,
+`distribution` TEXT NOT NULL,
 `accepted_species_id` int(10) NOT NULL,
 `name` varchar(255) NOT NULL,
 `author` varchar(255) NOT NULL,
@@ -161,5 +162,17 @@ CREATE TABLE `_source_database_to_taxon_tree_branch` (
   `source_database_id` int(10) NOT NULL,
   `taxon_tree_id` int(10) NOT NULL,
   KEY `taxon_tree_id` (`taxon_tree_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `_natural_keys` (
+  `id` int(11) NOT NULL,
+  `hash` varchar(32) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `author` varchar(255) DEFAULT NULL,
+  `name_code` varchar(500) DEFAULT NULL,
+  `accepted` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `hash` (`hash`),
+  KEY `name` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
