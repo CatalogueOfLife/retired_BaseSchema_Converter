@@ -164,15 +164,14 @@ CREATE TABLE `_source_database_to_taxon_tree_branch` (
   KEY `taxon_tree_id` (`taxon_tree_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE `_natural_keys` (
+CREATE TABLE IF NOT EXISTS `_natural_keys` (
   `id` int(11) NOT NULL,
   `hash` varchar(32) NOT NULL,
   `name` varchar(255) NOT NULL,
   `author` varchar(255) DEFAULT NULL,
   `name_code` varchar(500) DEFAULT NULL,
   `accepted` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
   KEY `hash` (`hash`),
-  KEY `name` (`name`)
+  KEY `name` (`name`),
+  KEY `id` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
