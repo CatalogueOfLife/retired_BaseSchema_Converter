@@ -45,7 +45,7 @@ SELECT
     "synonymic_species" AS description
 
 FROM
-    `_search_all` 
+    `_search_all`
 
 WHERE
     `name_status` IN (2,3,5) AND
@@ -59,7 +59,7 @@ SELECT
     "synonymic_infraspecies" AS description
 
 FROM
-    `_search_all` 
+    `_search_all`
 
 WHERE
     `name_status` IN (2,3,5) AND
@@ -131,5 +131,39 @@ FROM
 
 WHERE sd.`is_new` = 1
 ;
+
+INSERT INTO `_totals` (`total`,`description`)
+
+SELECT
+    COUNT(t.id) AS total,
+    "extinct_species" AS description
+
+FROM
+    `taxon` AS t
+
+LEFT JOIN
+	`taxon_detail` AS t2 ON t.id = t2.taxon_id
+
+WHERE
+    t.`taxonomic_rank_id` = 83 AND t2.`is_extinct` = 1
+;
+
+
+INSERT INTO `_totals` (`total`,`description`)
+
+SELECT
+    COUNT(t.id) AS total,
+    "extinct_infraspecies" AS description
+
+FROM
+    `taxon` AS t
+
+LEFT JOIN
+	`taxon_detail` AS t2 ON t.id = t2.taxon_id
+
+WHERE
+    t.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83) AND t2.`is_extinct` = 1
+;
+
 
 ALTER TABLE `_totals` ENABLE KEYS;

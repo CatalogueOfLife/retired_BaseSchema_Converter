@@ -1,6 +1,6 @@
 SET SESSION sql_mode = '';
 
-ALTER TABLE `_taxon_tree` ADD INDEX `parent_id` ( `parent_id` ); 
+ALTER TABLE `_taxon_tree` ADD INDEX `parent_id` ( `parent_id`, `is_extinct` );
 
 UPDATE _taxon_tree AS ttt SET total_species = (
     SELECT COUNT(tne.parent_id) FROM taxon_name_element AS tne
