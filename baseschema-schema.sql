@@ -361,7 +361,7 @@ CREATE TABLE `source_database` (
   `taxonomic_coverage` text,
   `is_new` tinyint(1) NOT NULL,
   `coverage` varchar(255) DEFAULT NULL,
-  `completeness` tinyint(3) DEFAULT NULL,
+  `completeness` varchar(10) DEFAULT NULL,
   `confidence` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`,`abbreviated_name`)
