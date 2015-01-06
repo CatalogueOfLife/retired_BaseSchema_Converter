@@ -1658,9 +1658,9 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
 
     SELECT
         s1.`id` AS `id`,
-        td1.`has_preholocene` as `has_preholocene`,
-        td1.`has_modern` as `has_modern`,
-        td1.`is_extinct` as `is_extinct`,
+        td_1.`has_preholocene` as `has_preholocene`,
+        td_1.`has_modern` as `has_modern`,
+        td_1.`is_extinct` as `is_extinct`,
         sysne_1.`name_element` AS `name_element`,
         (
             SELECT
