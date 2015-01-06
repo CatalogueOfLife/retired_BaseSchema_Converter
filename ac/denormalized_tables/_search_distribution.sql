@@ -2,18 +2,21 @@ SET SESSION sql_mode = '';
 
 ALTER TABLE `_search_distribution` DISABLE KEYS;
 
-INSERT INTO `_search_distribution` (`distribution`,`accepted_species_id`,`name`,`author`,`rank`,`kingdom`,`source_database_id`,`source_database_name`)
+INSERT INTO `_search_distribution` (`distribution`,`has_preholocene`, `has_modern`, `is_extinct`, `accepted_species_id`,`name`,`author`,`rank`,`kingdom`,`source_database_id`,`source_database_name`)
 
 SELECT
 
-rg.name AS distribution,
-ds.taxon_detail_id AS accepted_species_id,
-"" AS name,
-aus.string AS author,
-t1.`taxonomic_rank_id` AS rank,
-"" AS kingdom,
-t1.source_database_id AS source_database_id,
-sd.abbreviated_name AS source_database_name
+rg.name AS `distribution`,
+td.`has_preholocene` as `has_preholocene`,
+td.`has_modern` as `has_modern`,
+td.`is_extinct` as `is_extinct`,
+ds.taxon_detail_id AS `accepted_species_id`,
+"" AS `name`,
+aus.string AS `author`,
+t1.`taxonomic_rank_id` AS `rank`,
+"" AS `kingdom`,
+t1.source_database_id AS `source_database_id`,
+sd.abbreviated_name AS `source_database_name`
 
 FROM `distribution` AS ds
 
@@ -34,11 +37,14 @@ t1.source_database_id = sd.id
 
 ;
 
-INSERT INTO `_search_distribution` (`distribution`,`accepted_species_id`,`name`,`author`,`rank`,`kingdom`,`source_database_id`,`source_database_name`)
+INSERT INTO `_search_distribution` (`distribution`,`has_preholocene`, `has_modern`, `is_extinct`, `accepted_species_id`, `name`, `author`,`rank`,`kingdom`,`source_database_id`,`source_database_name`)
 
 SELECT
 
 rft.free_text AS distribution,
+td.`has_preholocene` as `has_preholocene`,
+td.`has_modern` as `has_modern`,
+td.`is_extinct` as `is_extinct`,
 ds.taxon_detail_id AS accepted_species_id,
 "" AS name,
 aus.string AS author,

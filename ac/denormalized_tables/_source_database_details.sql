@@ -4,9 +4,9 @@ ALTER TABLE `_source_database_details` DISABLE KEYS;
 
 INSERT INTO `_source_database_details`
 (`id`, `full_name`, `short_name`, `version`, `release_date`, `authors_editors`,
-`english_name`, `number_of_species`, `number_of_infraspecific_taxon`,
-`number_of_synonyms`, `number_of_common_names`, `abstract`, `organization`, `taxonomic_coverage`,
-`is_new`, `coverage`, `completeness`, `confidence`)
+`english_name`, `number_of_species`, `number_of_infraspecific_taxon`, number_of_extinct_species,
+number_of_extinct_infraspecific_taxon,`number_of_synonyms`, `number_of_common_names`, `abstract`,
+`organization`, `taxonomic_coverage`, `is_new`, `coverage`, `completeness`, `confidence`)
 
 SELECT
     sd.`id` AS id,

@@ -37,8 +37,9 @@ CREATE TABLE `_search_scientific` (
 	`has_preholocene` smallint(1) NOT NULL DEFAULT '0',
 	`has_modern` smallint(1) NOT NULL DEFAULT '1',
 	`is_extinct` smallint(1) NOT NULL DEFAULT '0',
-	KEY `id` (`id`,`status`))
-ENGINE = MyISAM DEFAULT CHARSET=utf8;
+	PRIMARY KEY (`id`),
+	KEY `status` (`status`)
+) ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_search_distribution` (
 	`distribution` TEXT NOT NULL,
@@ -75,7 +76,8 @@ CREATE TABLE `_source_database_details` (
 	`taxonomic_coverage` text NOT NULL,
 	`coverage` varchar(255) NOT NULL,
 	`completeness` varchar(10) NOT NULL,
-	`confidence` tinyint(1) NOT NULL
+	`confidence` tinyint(1) NOT NULL,
+	PRIMARY KEY (`id`)
 ) ENGINE = MyISAM CHARACTER SET utf8;
 
 CREATE TABLE `_species_details` (
@@ -122,7 +124,8 @@ CREATE TABLE `_species_details` (
 	`point_of_attachment_id` int(10) unsigned NOT NULL DEFAULT '0',
 	`has_preholocene` smallint(1) NOT NULL DEFAULT '0',
 	`has_modern` smallint(1) NOT NULL DEFAULT '1',
-	`is_extinct` smallint(1) NOT NULL DEFAULT '0'
+	`is_extinct` smallint(1) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`taxon_id`)
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_search_all` (
@@ -141,7 +144,9 @@ CREATE TABLE `_search_all` (
 	`has_preholocene` smallint(1) NOT NULL DEFAULT '0',
 	`has_modern` smallint(1) NOT NULL DEFAULT '1',
 	`is_extinct` smallint(1) NOT NULL DEFAULT '0',
-	KEY `id` (`id`,`name_status`)
+	KEY (`id`),
+	KEY `name_status` (`name_status`),
+	KEY `temp` (`id`, `name_status`)
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_taxon_tree` (
@@ -156,7 +161,8 @@ CREATE TABLE `_taxon_tree` (
 	`estimate_source` text NOT NULL,
 	`has_preholocene` smallint(1) NOT NULL DEFAULT '0',
 	`has_modern` smallint(1) NOT NULL DEFAULT '1',
-	`is_extinct` smallint(1) NOT NULL DEFAULT '0'
+	`is_extinct` smallint(1) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`taxon_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_totals` (
@@ -189,6 +195,6 @@ CREATE TABLE IF NOT EXISTS `_natural_keys` (
   `name_code` varchar(500) DEFAULT NULL,
   `accepted` tinyint(1) NOT NULL DEFAULT '1',
   KEY `hash` (`hash`),
-  KEY `name` (`name`),
-  KEY `id` (`id`)
+  KEY `id` (`id`),
+  KEY `name` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

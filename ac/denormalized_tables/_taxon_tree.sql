@@ -24,24 +24,18 @@ LEFT JOIN `uri` AS `uri` ON
 
 WHERE t_1.`id` IS NOT NULL
 GROUP BY t_1.`id`
-
 ;
 
-UPDATE _taxon_tree AS ttt SET name=(
-    SELECT
-        tsa.name
-    FROM
-        _search_all AS tsa
+ALTER TABLE `_taxon_tree` ENABLE KEYS;
 
-    WHERE
-        tsa.id = ttt.taxon_id AND
-        (
-            tsa.name_status = 1 OR
-            tsa.name_status = 4 OR
-            tsa.name_status = 0
-        )
-    LIMIT 0,1
-);
+
+UPDATE `_taxon_tree` AS t1, `_search_all` AS t2
+SET
+	t1.`name` = t2.`name`
+WHERE
+	t1.`taxon_id` = t2.`id` AND
+	t2.`name_status` IN (0, 1, 4)
+;
 
 UPDATE _taxon_tree AS ttt SET parent_id=(
     SELECT
@@ -59,6 +53,12 @@ UPDATE `_taxon_tree` SET
 `rank` = TRIM(`rank`),
 `lsid` = TRIM(`lsid`);
 
-ALTER TABLE `_taxon_tree` ENABLE KEYS;
-
-
+/* Fossils  */
+UPDATE `_taxon_tree` AS t1, `taxon_detail` AS t2
+SET
+	t1.`has_preholocene` = t2.`has_preholocene`,
+	t1.`has_modern` =  t2.`has_modern`,
+	t1.`is_extinct` = t2.`is_extinct`
+WHERE
+	t1.`taxon_id` = t2.`taxon_id` AND
+	(t2.`has_preholocene` = 1 OR t2.`has_modern` = 0 OR t2.`is_extinct` = 1)

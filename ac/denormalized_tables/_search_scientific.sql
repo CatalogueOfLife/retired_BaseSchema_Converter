@@ -430,7 +430,7 @@ sne_ss.`name_element` AS infraspecies,
 IF(
     sne1.`name_element` = "animalia" OR sne2.`name_element` = "animalia" OR sne3.`name_element` = "animalia" OR
     sne4.`name_element` = "animalia" OR sne5.`name_element` = "animalia" OR sne6.`name_element` = "animalia" OR
-    sne7.`name_element` = "animalia" OR sne8.`name_element` = "animalia" OR sne9.`name_element` = "animalia", 
+    sne7.`name_element` = "animalia" OR sne8.`name_element` = "animalia" OR sne9.`name_element` = "animalia",
     "",tr_ss.`marker_displayed`) AS infraspecific_marker,
 aus.`string` AS author,
 s.`scientific_name_status_id` AS status,
@@ -643,4 +643,17 @@ UPDATE `_search_scientific` SET
 `source_database_name` = TRIM(`source_database_name`);
 
 ALTER TABLE `_search_scientific` ENABLE KEYS;
+
+
+
+/* Set fossil flags */
+UPDATE
+	`_search_scientific` AS t1, `taxon_detail` AS t2
+SET
+	t1.`has_preholocene` = t2.`has_preholocene`,
+	t1.`has_modern` =  t2.`has_modern`,
+	t1.`is_extinct` = t2.`is_extinct`
+WHERE
+	t1.`id` = t2.`taxon_id` AND
+	(t2.`has_preholocene` = 1 OR t2.`has_modern` = 0 OR t2.`is_extinct` = 1)
 

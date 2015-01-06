@@ -33,12 +33,15 @@ INSERT INTO `_species_details`
 `source_database_short_name`,
 `source_database_release_date`,
 `scrutiny_date`,
-`specialist`
+`specialist`,
+`has_preholocene`,
+`has_modern`,
+`is_extinct`
 )
 
 SELECT
     td.`taxon_id` AS taxon_id,
-    
+
 IF(t1.`taxonomic_rank_id` = 54, t1.`id`,
  IF(t2.`taxonomic_rank_id` = 54, t2.`id`,
   IF(t3.`taxonomic_rank_id` = 54, t3.`id`,
@@ -367,19 +370,22 @@ IF(t1.`taxonomic_rank_id` NOT IN (54,76,6,72,112,17,20,96,83), sne1.`name_elemen
     db.`abbreviated_name` AS source_database_short_name,
     db.`version` AS source_database_version,
     sc.`original_scrutiny_date` AS scrutiny_date,
-    sp.`name` AS specialist
-    
+    sp.`name` AS specialist,
+    td.`has_preholocene`,
+    td.`has_modern`,
+    td.`is_extinct`
+
 FROM `taxon_detail` AS td
 
 LEFT JOIN `author_string` AS aus ON
     td.`author_string_id` = aus.`id`
-    
+
 LEFT JOIN `scrutiny` AS sc ON
     td.`scrutiny_id` = sc.`id`
-    
+
 LEFT JOIN `specialist` AS sp ON
     sc.`specialist_id` = sp.`id`
-    
+
 RIGHT JOIN `taxon` AS t1 ON
     td.`taxon_id` = t1.`id`
 
@@ -514,13 +520,15 @@ tne15.`scientific_name_element_id` = sne15.`id`
 
 LEFT JOIN `taxon` AS t15 ON
 tne15.`taxon_id` = t15.`id`
-    
+
 RIGHT JOIN `source_database` AS db ON
     t1.`source_database_id` = db.`id`
-    
-WHERE td.`taxon_id` IS NOT NULL
 
+WHERE td.`taxon_id` IS NOT NULL
 ;
+
+
+ALTER TABLE `_species_details` ENABLE KEYS;
 
 UPDATE `_species_details` AS dss SET
 `kingdom_lsid` = (SELECT `resource_identifier` AS kingdom_lsid
@@ -605,6 +613,4 @@ UPDATE `_species_details` SET
 `source_database_short_name` = TRIM(`source_database_short_name`),
 `scrutiny_date` = TRIM(`scrutiny_date`),
 `specialist` = TRIM(`specialist`);
-
-ALTER TABLE `_species_details` ENABLE KEYS;
 

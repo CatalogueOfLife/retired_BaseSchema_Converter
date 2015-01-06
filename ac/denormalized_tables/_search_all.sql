@@ -2,11 +2,14 @@ SET SESSION sql_mode = '';
 
 ALTER TABLE `_search_all` DISABLE KEYS;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all the names from genus and higher
         t1.`id` AS `id`,
+        0,
+        1,
+        0,
         sne_1.`name_element` AS `name_element`,
         CONCAT(UCASE(SUBSTRING(sne_1.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_1.`name_element`, 2))) AS `name`,
         rank.`rank` AS `rank`,
@@ -105,11 +108,14 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all the subgenus from subgenus
         t1.`id` AS `id`,
+        0,
+        1,
+        0,
         sne_1.`name_element` AS `name_element`,
         CONCAT(
         	UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2)),
@@ -196,11 +202,14 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         `taxonomic_rank_id` = 96
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all the genus from subgenus
         t1.`id` AS `id`,
+        0,
+        1,
+        0,
         sne_2.`name_element` AS `name_element`,
         CONCAT(
         	UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2)),
@@ -288,11 +297,14 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 ;
 
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all the subgenus from subgenus
         t1.`id` AS `id`,
+        td1.`has_preholocene` as `has_preholocene`,
+        td1.`has_modern` as `has_modern`,
+        td1.`is_extinct` as `is_extinct`,
         sne_2.`name_element` AS `name_element`,
         CONCAT_WS(
         	" ",
@@ -345,7 +357,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         t1.`id` = tne_1.`taxon_id`
     RIGHT JOIN `scientific_name_element` AS `sne_1` ON
         tne_1.`scientific_name_element_id` = sne_1.`id`
-    
+
     -- mandatory join on name elements for genus
     RIGHT JOIN `taxon_name_element` AS `tne_2` ON
         tne_1.`parent_id` = tne_2.`taxon_id`
@@ -400,18 +412,21 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         td1.`scientific_name_status_id` = sns1.`id`
     LEFT JOIN `author_string` AS `aus` ON
         td1.`author_string_id` = aus.`id`
-        
+
     -- selecting only from subgenus
     WHERE
         t1.`taxonomic_rank_id` = 96
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all the specific epitets from species
         t1.`id` AS `id`,
+        td1.`has_preholocene` as `has_preholocene`,
+        td1.`has_modern` as `has_modern`,
+        td1.`is_extinct` as `is_extinct`,
         sne_1.`name_element` AS `name_element`,
         CONCAT_WS(
         	" ",
@@ -474,7 +489,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         t1.`id` = tne_1.`taxon_id`
     RIGHT JOIN `scientific_name_element` AS `sne_1` ON
         tne_1.`scientific_name_element_id` = sne_1.`id`
-    
+
     -- mandatory join on name elements for genus
     RIGHT JOIN `taxon_name_element` AS `tne_2` ON
         tne_1.`parent_id` = tne_2.`taxon_id`
@@ -529,18 +544,21 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         td1.`scientific_name_status_id` = sns1.`id`
     LEFT JOIN `author_string` AS `aus` ON
         td1.`author_string_id` = aus.`id`
-        
+
     -- selecting only from genus and higher
     WHERE
         t1.`taxonomic_rank_id` = 83
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all the genus from species
         t1.`id` AS `id`,
+        td1.`has_preholocene` as `has_preholocene`,
+        td1.`has_modern` as `has_modern`,
+        td1.`is_extinct` as `is_extinct`,
         sne_2.`name_element` AS `name_element`,
         CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2))),sne_1.`name_element`) AS `name`,
         rank.`rank` AS `rank`,
@@ -577,7 +595,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         t1.`id` = tne_1.`taxon_id`
     RIGHT JOIN `scientific_name_element` AS `sne_1` ON
         tne_1.`scientific_name_element_id` = sne_1.`id`
-    
+
     -- mandatory join on name elements for genus
     RIGHT JOIN `taxon_name_element` AS `tne_2` ON
         tne_1.`parent_id` = tne_2.`taxon_id`
@@ -632,19 +650,22 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         td1.`scientific_name_status_id` = sns1.`id`
     LEFT JOIN `author_string` AS `aus` ON
         td1.`author_string_id` = aus.`id`
-        
+
     -- selecting only from genus and higher
     WHERE
         t1.`taxonomic_rank_id` = 83 AND
-        t2.`taxonomic_rank_id` = 20 
+        t2.`taxonomic_rank_id` = 20
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all the subgenus from species with subgenus
         t1.`id` AS `id`,
+        td1.`has_preholocene` as `has_preholocene`,
+        td1.`has_modern` as `has_modern`,
+        td1.`is_extinct` as `is_extinct`,
         sne_2.`name_element` AS `name_element`,
         CONCAT_WS(
         	" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2)),
@@ -685,7 +706,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         t1.`id` = tne_1.`taxon_id`
     RIGHT JOIN `scientific_name_element` AS `sne_1` ON
         tne_1.`scientific_name_element_id` = sne_1.`id`
-    
+
     -- mandatory join on name elements for genus
     RIGHT JOIN `taxon_name_element` AS `tne_2` ON
         tne_1.`parent_id` = tne_2.`taxon_id`
@@ -740,20 +761,23 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         td1.`scientific_name_status_id` = sns1.`id`
     LEFT JOIN `author_string` AS `aus` ON
         td1.`author_string_id` = aus.`id`
-        
+
     -- selecting only from genus and higher
     WHERE
         t1.`taxonomic_rank_id` = 83 AND
-        t2.`taxonomic_rank_id` = 96 
+        t2.`taxonomic_rank_id` = 96
 
 ;
 
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all the genus from species with subgenus
         t1.`id` AS `id`,
+        td1.`has_preholocene` as `has_preholocene`,
+        td1.`has_modern` as `has_modern`,
+        td1.`is_extinct` as `is_extinct`,
         sne_3.`name_element` AS `name_element`,
         CONCAT_WS(
         	" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2)),
@@ -794,7 +818,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         t1.`id` = tne_1.`taxon_id`
     RIGHT JOIN `scientific_name_element` AS `sne_1` ON
         tne_1.`scientific_name_element_id` = sne_1.`id`
-    
+
     -- mandatory join on name elements for genus
     RIGHT JOIN `taxon_name_element` AS `tne_2` ON
         tne_1.`parent_id` = tne_2.`taxon_id`
@@ -849,19 +873,22 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         td1.`scientific_name_status_id` = sns1.`id`
     LEFT JOIN `author_string` AS `aus` ON
         td1.`author_string_id` = aus.`id`
-        
+
     -- selecting only from genus and higher
     WHERE
         t1.`taxonomic_rank_id` = 83 AND
-        t2.`taxonomic_rank_id` = 96 
+        t2.`taxonomic_rank_id` = 96
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all infraspecific epitets from infaspecies with subgenus
         t1.`id` AS `id`,
+        td1.`has_preholocene` as `has_preholocene`,
+        td1.`has_modern` as `has_modern`,
+        td1.`is_extinct` as `is_extinct`,
         sne_1.`name_element` AS `name_element`,
         CONCAT_WS(
         	" ",
@@ -922,7 +949,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         t1.`id` = tne_1.`taxon_id`
     RIGHT JOIN `scientific_name_element` AS `sne_1` ON
         tne_1.`scientific_name_element_id` = sne_1.`id`
-    
+
     -- mandatory join on name elements for species
     RIGHT JOIN `taxon_name_element` AS `tne_2` ON
         tne_1.`parent_id` = tne_2.`taxon_id`
@@ -938,7 +965,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     -- mandatory join on taxon for genus or subgenus
     RIGHT JOIN `taxon` AS t3 ON
     	tne_3.`taxon_id` = t3.`id`
-        
+
     -- optional joins on name elements to get group
     LEFT JOIN `taxon_name_element` AS `tne_4` ON
         tne_3.`parent_id` = tne_4.`taxon_id`
@@ -983,7 +1010,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         td1.`scientific_name_status_id` = sns1.`id`
     LEFT JOIN `author_string` AS `aus` ON
         td1.`author_string_id` = aus.`id`
-        
+
     -- selecting only from genus and higher
     WHERE
         t1.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,96,83) AND
@@ -991,11 +1018,14 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all infaspecific epitets from infraspecies
         t1.`id` AS `id`,
+        td1.`has_preholocene` as `has_preholocene`,
+        td1.`has_modern` as `has_modern`,
+        td1.`is_extinct` as `is_extinct`,
         sne_1.`name_element` AS `name_element`,
         CONCAT_WS(
         	" ",
@@ -1049,7 +1079,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         t1.`id` = tne_1.`taxon_id`
     RIGHT JOIN `scientific_name_element` AS `sne_1` ON
         tne_1.`scientific_name_element_id` = sne_1.`id`
-    
+
     -- mandatory join on name elements for species
     RIGHT JOIN `taxon_name_element` AS `tne_2` ON
         tne_1.`parent_id` = tne_2.`taxon_id`
@@ -1065,7 +1095,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
     -- mandatory join on taxon for genus or subgenus
     RIGHT JOIN `taxon` AS t3 ON
     	tne_3.`taxon_id` = t3.`id`
-        
+
     -- optional joins on name elements to get group
     LEFT JOIN `taxon_name_element` AS `tne_4` ON
         tne_3.`parent_id` = tne_4.`taxon_id`
@@ -1110,7 +1140,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         td1.`scientific_name_status_id` = sns1.`id`
     LEFT JOIN `author_string` AS `aus` ON
         td1.`author_string_id` = aus.`id`
-        
+
     -- selecting only from genus and higher
     WHERE
         t1.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,96,83) AND
@@ -1118,11 +1148,14 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all specific epitets from infraspecies
         t1.`id` AS `id`,
+        td1.`has_preholocene` as `has_preholocene`,
+        td1.`has_modern` as `has_modern`,
+        td1.`is_extinct` as `is_extinct`,
         sne_2.`name_element` AS `name_element`,
         CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,
             IF(
@@ -1168,7 +1201,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         t1.`id` = tne_1.`taxon_id`
     RIGHT JOIN `scientific_name_element` AS `sne_1` ON
         tne_1.`scientific_name_element_id` = sne_1.`id`
-    
+
     -- mandatory join on name elements for species
     RIGHT JOIN `taxon_name_element` AS `tne_2` ON
         tne_1.`parent_id` = tne_2.`taxon_id`
@@ -1236,11 +1269,14 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all specific epitets from infraspecies with subgenus
         t1.`id` AS `id`,
+        td1.`has_preholocene` as `has_preholocene`,
+        td1.`has_modern` as `has_modern`,
+        td1.`is_extinct` as `is_extinct`,
         sne_2.`name_element` AS `name_element`,
         CONCAT_WS(
         	" ",
@@ -1304,7 +1340,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         t1.`id` = tne_1.`taxon_id`
     RIGHT JOIN `scientific_name_element` AS `sne_1` ON
         tne_1.`scientific_name_element_id` = sne_1.`id`
-    
+
     -- mandatory join on name elements for species
     RIGHT JOIN `taxon_name_element` AS `tne_2` ON
         tne_1.`parent_id` = tne_2.`taxon_id`
@@ -1316,7 +1352,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         tne_2.`parent_id` = tne_3.`taxon_id`
     RIGHT JOIN `scientific_name_element` AS `sne_3` ON
         tne_3.`scientific_name_element_id` = sne_3.`id`
-        
+
       RIGHT JOIN `taxon` AS t3 ON
       tne_3.`taxon_id` = t3.`id`
 
@@ -1371,11 +1407,14 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 		t3.`taxonomic_rank_id` = 96
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all genus from infraspecies
         t1.`id` AS `id`,
+        td1.`has_preholocene` as `has_preholocene`,
+        td1.`has_modern` as `has_modern`,
+        td1.`is_extinct` as `is_extinct`,
         sne_3.`name_element` AS `name_element`,
         CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,
             IF(
@@ -1419,7 +1458,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         t1.`id` = tne_1.`taxon_id`
     RIGHT JOIN `scientific_name_element` AS `sne_1` ON
         tne_1.`scientific_name_element_id` = sne_1.`id`
-    
+
     -- mandatory join on name elements for species
     RIGHT JOIN `taxon_name_element` AS `tne_2` ON
         tne_1.`parent_id` = tne_2.`taxon_id`
@@ -1434,7 +1473,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
         RIGHT JOIN `taxon` AS `t3` ON
         tne_3.`taxon_id` = t3.`id`
-        
+
     -- optional joins on name elements to get group
     LEFT JOIN `taxon_name_element` AS `tne_4` ON
         tne_3.`parent_id` = tne_4.`taxon_id`
@@ -1482,11 +1521,14 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `rank`, `name_status`, `name_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling taxa
 
     SELECT -- select all genus from infraspecies with subgenus
         t1.`id` AS `id`,
+        td1.`has_preholocene` as `has_preholocene`,
+        td1.`has_modern` as `has_modern`,
+        td1.`is_extinct` as `is_extinct`,
         sne_3.`name_element` AS `name_element`,
         CONCAT_WS(
         	" ",
@@ -1548,7 +1590,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
         t1.`id` = tne_1.`taxon_id`
     RIGHT JOIN `scientific_name_element` AS `sne_1` ON
         tne_1.`scientific_name_element_id` = sne_1.`id`
-    
+
     -- mandatory join on name elements for species
     RIGHT JOIN `taxon_name_element` AS `tne_2` ON
         tne_1.`parent_id` = tne_2.`taxon_id`
@@ -1563,7 +1605,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
         RIGHT JOIN `taxon` AS `t3` ON
         tne_3.`taxon_id` = t3.`id`
-        
+
     -- optional joins on name elements to get group
     LEFT JOIN `taxon_name_element` AS `tne_4` ON
         tne_3.`parent_id` = tne_4.`taxon_id`
@@ -1611,11 +1653,14 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `rank`, `name_status`, 
 
 ;
 
-INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, `name_status`, `name_status_suffix`, `name_status_suffix_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
+INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `name_suffix`, `rank`, `name_status`, `name_status_suffix`, `name_status_suffix_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling synonyms
 
     SELECT
         s1.`id` AS `id`,
+        td1.`has_preholocene` as `has_preholocene`,
+        td1.`has_modern` as `has_modern`,
+        td1.`is_extinct` as `is_extinct`,
         sysne_1.`name_element` AS `name_element`,
         (
             SELECT
@@ -1625,8 +1670,8 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
               LOWER(SUBSTRING(sysne_sg.`name_element`, 2)),")"),
               sysne_s.`name_element`,
                 IF(
-                    sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR  sne_3.`name_element` = "animalia" OR 
-                    sne_4.`name_element` = "animalia" OR  sne_5.`name_element` = "animalia" OR  sne_6.`name_element` = "animalia" OR 
+                    sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR  sne_3.`name_element` = "animalia" OR
+                    sne_4.`name_element` = "animalia" OR  sne_5.`name_element` = "animalia" OR  sne_6.`name_element` = "animalia" OR
                     sne_7.`name_element` = "animalia" OR  sne_8.`name_element` = "animalia" OR  sne_9.`name_element` = "animalia",
                     "", trank_ss.`marker_displayed`
                 )
@@ -1711,8 +1756,8 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
             sne_2.`name_element`
           ),
             IF(
-                    sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR  sne_3.`name_element` = "animalia" OR 
-                    sne_4.`name_element` = "animalia" OR  sne_5.`name_element` = "animalia" OR  sne_6.`name_element` = "animalia" OR 
+                    sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR  sne_3.`name_element` = "animalia" OR
+                    sne_4.`name_element` = "animalia" OR  sne_5.`name_element` = "animalia" OR  sne_6.`name_element` = "animalia" OR
                     sne_7.`name_element` = "animalia" OR  sne_8.`name_element` = "animalia" OR  sne_9.`name_element` = "animalia",
                 "", rank.`marker_displayed`
             ),
@@ -1826,7 +1871,7 @@ INSERT INTO `_search_all` (`id`, `name_element`, `name`, `name_suffix`, `rank`, 
         td_1.`author_string_id` = aus_1.`id`
     LEFT JOIN `author_string` AS aus ON
         s1.`author_string_id` = aus.`id`
-        
+
     WHERE s1.`id` IS NOT NULL
 
 ;
