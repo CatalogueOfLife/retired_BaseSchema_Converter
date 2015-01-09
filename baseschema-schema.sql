@@ -334,7 +334,7 @@ CREATE TABLE `scrutiny` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `scrutiny_date` date DEFAULT NULL COMMENT 'Most recent date a taxon name was verified; must parse correctly',
   `original_scrutiny_date` varchar(100) DEFAULT NULL COMMENT 'Date as used in the original database; may be incomplete',
-  `specialist_id` int(10) unsigned NOT NULL COMMENT 'Link to the specialist who examined the validity of a taxon',
+  `specialist_id` int(10) unsigned DEFAULT NULL COMMENT 'Link to the specialist who examined the validity of a taxon; may be null',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique` (`specialist_id`,`scrutiny_date`,`original_scrutiny_date`),
   KEY `scrutiny_date` (`scrutiny_date`),
