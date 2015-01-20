@@ -1740,6 +1740,7 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
                 s2.`id` = s1.`id`
         ) AS `rank`,
         sns1.`id` AS `name_status`,
+        /*
         CONCAT_WS(" ",
           IF(t_3.`taxonomic_rank_id` = 20,
             CONCAT(
@@ -1755,12 +1756,38 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
             ),
             sne_2.`name_element`
           ),
-            IF(
-                    sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR  sne_3.`name_element` = "animalia" OR
-                    sne_4.`name_element` = "animalia" OR  sne_5.`name_element` = "animalia" OR  sne_6.`name_element` = "animalia" OR
-                    sne_7.`name_element` = "animalia" OR  sne_8.`name_element` = "animalia" OR  sne_9.`name_element` = "animalia",
-                "", rank.`marker_displayed`
+		IF(
+		        sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR  sne_3.`name_element` = "animalia" OR
+		        sne_4.`name_element` = "animalia" OR  sne_5.`name_element` = "animalia" OR  sne_6.`name_element` = "animalia" OR
+		        sne_7.`name_element` = "animalia" OR  sne_8.`name_element` = "animalia" OR  sne_9.`name_element` = "animalia",
+		    "", rank.`marker_displayed`
+		),
+
+          sne_1.`name_element`) AS `name_status_suffix`,
+          */
+        CONCAT(
+          IF(t_3.`taxonomic_rank_id` = 20,
+            CONCAT(
+              UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),
+              LOWER(SUBSTRING(sne_3.`name_element`, 2)),
+              " "
             ),
+            ""
+          ),
+          IF(t_2.`taxonomic_rank_id` = 20,
+            CONCAT(
+              UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),
+              LOWER(SUBSTRING(sne_2.`name_element`, 2)),
+              " "
+            ),
+            sne_2.`name_element`
+          ),
+		IF(
+		        sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR  sne_3.`name_element` = "animalia" OR
+		        sne_4.`name_element` = "animalia" OR  sne_5.`name_element` = "animalia" OR  sne_6.`name_element` = "animalia" OR
+		        sne_7.`name_element` = "animalia" OR  sne_8.`name_element` = "animalia" OR  sne_9.`name_element` = "animalia",
+		    "", CONCAT(rank.`marker_displayed`, " ")
+		),
 
           sne_1.`name_element`) AS `name_status_suffix`,
           /*
