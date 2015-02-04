@@ -52,7 +52,8 @@ CREATE TABLE `_search_distribution` (
 	`source_database_name` varchar(255) NOT NULL,
 	`has_preholocene` smallint(1) NOT NULL DEFAULT '0',
 	`has_modern` smallint(1) NOT NULL DEFAULT '1',
-	`is_extinct` smallint(1) NOT NULL DEFAULT '0'
+	`is_extinct` smallint(1) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`accepted_species_id`),
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_source_database_details` (
@@ -146,7 +147,7 @@ CREATE TABLE `_search_all` (
 	`is_extinct` smallint(1) NOT NULL DEFAULT '0',
 	KEY (`id`),
 	KEY `name_status` (`name_status`),
-	KEY `temp` (`id`, `name_status`)
+	KEY `delete_me` (`id`, `name_status`)
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_taxon_tree` (
@@ -194,6 +195,7 @@ CREATE TABLE IF NOT EXISTS `_natural_keys` (
   `author` varchar(255) DEFAULT NULL,
   `name_code` varchar(500) DEFAULT NULL,
   `accepted` tinyint(1) NOT NULL DEFAULT '1',
+  `status` tinyint(1) NOT NULL,
   KEY `hash` (`hash`),
   KEY `id` (`id`),
   KEY `name` (`name`)

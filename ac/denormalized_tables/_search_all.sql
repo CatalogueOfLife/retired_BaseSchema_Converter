@@ -781,7 +781,7 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
         sne_3.`name_element` AS `name_element`,
         CONCAT_WS(
         	" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2)),
-        	" (",UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2)),")"
+        	"(",UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2)),")"
         	),sne_1.`name_element`
         ) AS `name`,
         rank.`rank` AS `rank`,
@@ -908,10 +908,12 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
         	),
         	sne_2.`name_element`,
             IF(
-                sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
+                (sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
                 sne_4.`name_element` = "animalia" OR sne_5.`name_element` = "animalia" OR sne_6.`name_element` = "animalia" OR
                 sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia" OR
-                sne_10.`name_element` = "animalia",
+                sne_10.`name_element` = "animalia") AND
+		        rank.`marker_displayed` IS NOT NULL AND
+		        rank.`marker_displayed` != "",
                 "",rank.`marker_displayed`
             )
         ,sne_1.`name_element`) AS `name`,
@@ -1038,10 +1040,12 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
         	),
         	sne_2.`name_element`,
             IF(
-                sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
+                (sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
                 sne_4.`name_element` = "animalia" OR sne_5.`name_element` = "animalia" OR sne_6.`name_element` = "animalia" OR
                 sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia" OR
-                sne_10.`name_element` = "animalia",
+                sne_10.`name_element` = "animalia") AND
+		        rank.`marker_displayed` IS NOT NULL AND
+		        rank.`marker_displayed` != "",
                 "",rank.`marker_displayed`
             )
         ,sne_1.`name_element`) AS `name`,
@@ -1159,10 +1163,12 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
         sne_2.`name_element` AS `name_element`,
         CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,
             IF(
-                sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
+                (sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
                 sne_4.`name_element` = "animalia" OR sne_5.`name_element` = "animalia" OR sne_6.`name_element` = "animalia" OR
                 sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia" OR
-                sne_10.`name_element` = "animalia",
+                sne_10.`name_element` = "animalia") AND
+		        rank.`marker_displayed` IS NOT NULL AND
+		        rank.`marker_displayed` != "",
                 "",rank.`marker_displayed`
             )
         ,sne_1.`name_element`)  AS `name`,
@@ -1298,10 +1304,12 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
         	),
         	sne_2.`name_element`,
             IF(
-                sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
+                (sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
                 sne_4.`name_element` = "animalia" OR sne_5.`name_element` = "animalia" OR sne_6.`name_element` = "animalia" OR
                 sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia" OR
-                sne_10.`name_element` = "animalia",
+                sne_10.`name_element` = "animalia") AND
+		        rank.`marker_displayed` IS NOT NULL AND
+		        rank.`marker_displayed` != "",
                 "",rank.`marker_displayed`
             )
         ,sne_1.`name_element`)  AS `name`,
@@ -1418,9 +1426,11 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
         sne_3.`name_element` AS `name_element`,
         CONCAT_WS(" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2))),sne_2.`name_element`,
             IF(
-                sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
+                (sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
                 sne_4.`name_element` = "animalia" OR sne_5.`name_element` = "animalia" OR sne_6.`name_element` = "animalia" OR
-                sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia",
+                sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia") AND
+		        rank.`marker_displayed` IS NOT NULL AND
+		        rank.`marker_displayed` != "",
                 "",rank.`marker_displayed`
             )
         ,sne_1.`name_element`)  AS `name`,
@@ -1550,9 +1560,11 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
         	),
         	sne_2.`name_element`,
             IF(
-                sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
+                (sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR sne_3.`name_element` = "animalia" OR
                 sne_4.`name_element` = "animalia" OR sne_5.`name_element` = "animalia" OR sne_6.`name_element` = "animalia" OR
-                sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia",
+                sne_7.`name_element` = "animalia" OR sne_8.`name_element` = "animalia" OR sne_9.`name_element` = "animalia") AND
+		        rank.`marker_displayed` IS NOT NULL AND
+		        rank.`marker_displayed` != "",
                 "",rank.`marker_displayed`
             )
         ,sne_1.`name_element`)  AS `name`,
@@ -1656,7 +1668,7 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
 INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, `name_element`, `name`, `name_suffix`, `rank`, `name_status`, `name_status_suffix`, `name_status_suffix_suffix`, `group`, `source_database_name`,`source_database_id`,`accepted_taxon_id`)
 -- Filling synonyms
 
-    SELECT
+SELECT
         s1.`id` AS `id`,
         td_1.`has_preholocene` as `has_preholocene`,
         td_1.`has_modern` as `has_modern`,
@@ -1669,38 +1681,38 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
               CONCAT("(",UCASE(SUBSTRING(sysne_sg.`name_element`, 1, 1)),
               LOWER(SUBSTRING(sysne_sg.`name_element`, 2)),")"),
               sysne_s.`name_element`,
-                IF(
+              IF(
                     sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR  sne_3.`name_element` = "animalia" OR
                     sne_4.`name_element` = "animalia" OR  sne_5.`name_element` = "animalia" OR  sne_6.`name_element` = "animalia" OR
                     sne_7.`name_element` = "animalia" OR  sne_8.`name_element` = "animalia" OR  sne_9.`name_element` = "animalia",
                     "", trank_ss.`marker_displayed`
-                )
-            ,sysne_ss.`name_element`)
-            FROM `synonym` AS `s2`
-            RIGHT JOIN `synonym_name_element` AS `sne_g` ON
-                s2.`id` = sne_g.`synonym_id` AND
-                sne_g.`taxonomic_rank_id` IN (54,76,6,72,17,112,20)
-            RIGHT JOIN `scientific_name_element` AS `sysne_g` ON
-                sne_g.`scientific_name_element_id` = sysne_g.`id`
-            LEFT JOIN `synonym_name_element` AS `sne_s` ON
-                s2.`id` = sne_s.`synonym_id` AND
-                sne_s.`taxonomic_rank_id` = 83
-            LEFT JOIN `scientific_name_element` AS `sysne_s` ON
-                sne_s.`scientific_name_element_id` = sysne_s.`id`
-            LEFT JOIN `synonym_name_element` AS `sne_sg` ON
-                s2.`id` = sne_sg.`synonym_id` AND
-                sne_sg.`taxonomic_rank_id` = 96
-            LEFT JOIN `scientific_name_element` AS `sysne_sg` ON
-                sne_sg.`scientific_name_element_id` = sysne_sg.`id`
-            LEFT JOIN `synonym_name_element` AS `sne_ss` ON
-                s2.`id` = sne_ss.`synonym_id` AND
-                sne_ss.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83,96)
-            LEFT JOIN `scientific_name_element` AS `sysne_ss` ON
-                sne_ss.`scientific_name_element_id` = sysne_ss.`id`
-            LEFT JOIN `taxonomic_rank` AS `trank_ss` ON
-                sne_ss.`taxonomic_rank_id` = trank_ss.`id`
-            WHERE
-                s2.`id` = s1.`id`
+				)
+				,sysne_ss.`name_element`)
+				FROM `synonym` AS `s2`
+				RIGHT JOIN `synonym_name_element` AS `sne_g` ON
+					s2.`id` = sne_g.`synonym_id` AND
+					sne_g.`taxonomic_rank_id` IN (54,76,6,72,17,112,20)
+				RIGHT JOIN `scientific_name_element` AS `sysne_g` ON
+					sne_g.`scientific_name_element_id` = sysne_g.`id`
+				LEFT JOIN `synonym_name_element` AS `sne_s` ON
+					s2.`id` = sne_s.`synonym_id` AND
+					sne_s.`taxonomic_rank_id` = 83
+				LEFT JOIN `scientific_name_element` AS `sysne_s` ON
+					sne_s.`scientific_name_element_id` = sysne_s.`id`
+				LEFT JOIN `synonym_name_element` AS `sne_sg` ON
+					s2.`id` = sne_sg.`synonym_id` AND
+					sne_sg.`taxonomic_rank_id` = 96
+				LEFT JOIN `scientific_name_element` AS `sysne_sg` ON
+					sne_sg.`scientific_name_element_id` = sysne_sg.`id`
+				LEFT JOIN `synonym_name_element` AS `sne_ss` ON
+					s2.`id` = sne_ss.`synonym_id` AND
+					sne_ss.`taxonomic_rank_id` NOT IN (54,76,6,72,17,112,20,83,96)
+				LEFT JOIN `scientific_name_element` AS `sysne_ss` ON
+					sne_ss.`scientific_name_element_id` = sysne_ss.`id`
+				LEFT JOIN `taxonomic_rank` AS `trank_ss` ON
+					sne_ss.`taxonomic_rank_id` = trank_ss.`id`
+				WHERE
+					s2.`id` = s1.`id`
         ) AS `name`,
         aus.`string` AS `name_suffix`,
         (
@@ -1710,7 +1722,7 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
                     IF(sne_s.`scientific_name_element_id` IS NOT NULL,
                         rank_s.`rank`,
                         IF(sne_s.`scientific_name_element_id` IS NOT NULL,
-	                        rank_sg.`rank`,
+	                    rank_sg.`rank`,
     	                    rank_g.`rank`
     	                )
                     )
@@ -1740,56 +1752,52 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
                 s2.`id` = s1.`id`
         ) AS `rank`,
         sns1.`id` AS `name_status`,
-        /*
+
         CONCAT_WS(" ",
+          IF(t_4.`taxonomic_rank_id` = 20,
+            CONCAT(
+              UCASE(SUBSTRING(sne_4.`name_element`, 1, 1)),
+              LOWER(SUBSTRING(sne_4.`name_element`, 2))
+            ),
+            NULL
+          ),
           IF(t_3.`taxonomic_rank_id` = 20,
             CONCAT(
               UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),
               LOWER(SUBSTRING(sne_3.`name_element`, 2))
             ),
-            ""
-          ),
+			  IF(t_3.`taxonomic_rank_id` = 96,
+				CONCAT("(",
+				  UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),
+				  LOWER(SUBSTRING(sne_3.`name_element`, 2)),
+				  ")"
+				),
+            NULL
+          )),
           IF(t_2.`taxonomic_rank_id` = 20,
             CONCAT(
               UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),
               LOWER(SUBSTRING(sne_2.`name_element`, 2))
             ),
-            sne_2.`name_element`
-          ),
-		IF(
-		        sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR  sne_3.`name_element` = "animalia" OR
+			  IF(t_2.`taxonomic_rank_id` = 96,
+				CONCAT("(",
+				  UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),
+				  LOWER(SUBSTRING(sne_2.`name_element`, 2)),
+				  ")"
+				),
+            	sne_2.`name_element`
+          )),
+		 IF(
+		        (sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR  sne_3.`name_element` = "animalia" OR
 		        sne_4.`name_element` = "animalia" OR  sne_5.`name_element` = "animalia" OR  sne_6.`name_element` = "animalia" OR
-		        sne_7.`name_element` = "animalia" OR  sne_8.`name_element` = "animalia" OR  sne_9.`name_element` = "animalia",
+		        sne_7.`name_element` = "animalia" OR  sne_8.`name_element` = "animalia" OR  sne_9.`name_element` = "animalia") AND
+		        rank.`marker_displayed` IS NOT NULL AND
+		        rank.`marker_displayed` != "",
 		    "", rank.`marker_displayed`
-		),
+		 ),
 
-          sne_1.`name_element`) AS `name_status_suffix`,
-          */
-        CONCAT(
-          IF(t_3.`taxonomic_rank_id` = 20,
-            CONCAT(
-              UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),
-              LOWER(SUBSTRING(sne_3.`name_element`, 2)),
-              " "
-            ),
-            ""
-          ),
-          IF(t_2.`taxonomic_rank_id` = 20,
-            CONCAT(
-              UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),
-              LOWER(SUBSTRING(sne_2.`name_element`, 2)),
-              " "
-            ),
-            sne_2.`name_element`
-          ),
-		IF(
-		        sne_1.`name_element` = "animalia" OR sne_2.`name_element` = "animalia" OR  sne_3.`name_element` = "animalia" OR
-		        sne_4.`name_element` = "animalia" OR  sne_5.`name_element` = "animalia" OR  sne_6.`name_element` = "animalia" OR
-		        sne_7.`name_element` = "animalia" OR  sne_8.`name_element` = "animalia" OR  sne_9.`name_element` = "animalia",
-		    "", CONCAT(rank.`marker_displayed`, " ")
-		),
+         sne_1.`name_element`) AS `name_status_suffix`,
 
-          sne_1.`name_element`) AS `name_status_suffix`,
           /*
            *     -- 54  kingdom
                 -- 76  phylum
@@ -1798,6 +1806,7 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
                 -- 17  family
                 -- 112 superfamily
                 -- 20  genus
+		-- 96 subgenus
                 -- 83  species
                 -- 19  form
                 -- 104 subspecies
@@ -1866,6 +1875,8 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
         tne_3.`parent_id` = tne_4.`taxon_id`
     LEFT JOIN `scientific_name_element` AS `sne_4` ON
         tne_4.`scientific_name_element_id` = sne_4.`id`
+    LEFT JOIN `taxon` AS `t_4` ON
+        tne_4.`taxon_id` = t_4.`id`
 
     LEFT JOIN `taxon_name_element` AS `tne_5` ON
         tne_4.`parent_id` = tne_5.`taxon_id`
@@ -1900,7 +1911,6 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
         s1.`author_string_id` = aus.`id`
 
     WHERE s1.`id` IS NOT NULL
-
 ;
 
 UPDATE `_search_all` SET
@@ -1909,7 +1919,7 @@ UPDATE `_search_all` SET
 `name` = REPLACE(TRIM(`name`),'  ',' '),
 `name_suffix` = TRIM(`name_suffix`),
 `rank` = TRIM(`rank`),
-`name_status_suffix` = TRIM(`name_status_suffix`),
+`name_status_suffix` = REPLACE(TRIM(`name_status_suffix`), '  ', ' '),
 `name_status_suffix_suffix` = TRIM(`name_status_suffix_suffix`),
 `group` = TRIM(`group`),
 `source_database_name` = TRIM(`source_database_name`);
