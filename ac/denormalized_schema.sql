@@ -53,7 +53,7 @@ CREATE TABLE `_search_distribution` (
 	`has_preholocene` smallint(1) NOT NULL DEFAULT '0',
 	`has_modern` smallint(1) NOT NULL DEFAULT '1',
 	`is_extinct` smallint(1) NOT NULL DEFAULT '0',
-	PRIMARY KEY (`accepted_species_id`),
+	KEY (`accepted_species_id`)
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_source_database_details` (
