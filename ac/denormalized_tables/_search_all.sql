@@ -781,7 +781,7 @@ INSERT INTO `_search_all` (`id`, `has_preholocene`, `has_modern`, `is_extinct`, 
         sne_3.`name_element` AS `name_element`,
         CONCAT_WS(
         	" ",CONCAT(UCASE(SUBSTRING(sne_3.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_3.`name_element`, 2)),
-        	"(",UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2)),")"
+        	" (",UCASE(SUBSTRING(sne_2.`name_element`, 1, 1)),LOWER(SUBSTRING(sne_2.`name_element`, 2)),")"
         	),sne_1.`name_element`
         ) AS `name`,
         rank.`rank` AS `rank`,
