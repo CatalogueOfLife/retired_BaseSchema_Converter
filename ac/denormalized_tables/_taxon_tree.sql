@@ -42,7 +42,6 @@ UPDATE _taxon_tree AS ttt SET parent_id=(
         tne_1.`parent_id` AS `parent_id`
     FROM
         taxon_name_element AS tne_1
-
     WHERE
         tne_1.taxon_id = ttt.taxon_id
 );
