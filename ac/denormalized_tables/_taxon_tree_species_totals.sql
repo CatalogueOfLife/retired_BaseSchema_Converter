@@ -1,7 +1,5 @@
 SET SESSION sql_mode = '';
 
-ALTER TABLE `_taxon_tree` ADD INDEX `parent_id` (`parent_id`, `is_extinct`);
-
 UPDATE _taxon_tree
 SET total_species = number_of_children
 WHERE rank = 'genus';
