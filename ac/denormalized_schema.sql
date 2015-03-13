@@ -157,13 +157,16 @@ CREATE TABLE `_taxon_tree` (
 	`parent_id` int(10) NOT NULL,
 	`lsid` varchar(255) NOT NULL,
 	`number_of_children` int(10) NOT NULL,
-	`total_species_estimation` int(7) NOT NULL,
-	`total_species` int(7) NOT NULL,
+	`number_of_children_extant` int(10) NOT NULL,
+	`total_species_estimation` int(10) NOT NULL,
+	`total_species` int(10) NOT NULL,
+	`total_species_extant` int(10) NOT NULL,
 	`estimate_source` text NOT NULL,
 	`has_preholocene` smallint(1) NOT NULL DEFAULT '0',
 	`has_modern` smallint(1) NOT NULL DEFAULT '1',
 	`is_extinct` smallint(1) NOT NULL DEFAULT '0',
-	PRIMARY KEY (`taxon_id`)
+	PRIMARY KEY (`taxon_id`),
+	KEY `parent_id` (`parent_id`, `is_extinct`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `_totals` (
