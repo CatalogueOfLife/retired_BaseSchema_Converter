@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS `_source_database_to_taxon_tree_branch`;
 DROP TABLE IF EXISTS `_species_details`;
 DROP TABLE IF EXISTS `_taxon_tree`;
 DROP TABLE IF EXISTS `_totals`;
+DROP TABLE IF EXISTS `_credits`;
 DROP TABLE IF EXISTS `__import_image_resource`;
 DROP TABLE IF EXISTS `__import_source_database_qualifiers`;
 DROP TABLE IF EXISTS `__import_species_estimate`;
@@ -219,4 +220,15 @@ CREATE TABLE IF NOT EXISTS `_natural_keys` (
   KEY `hash` (`hash`),
   KEY `id` (`id`),
   KEY `name` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `_credits` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `organisation` varchar(255) NOT NULL,
+  `authors_editors` varchar(1000) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `issn` varchar(20) NOT NULL,
+  `current` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
