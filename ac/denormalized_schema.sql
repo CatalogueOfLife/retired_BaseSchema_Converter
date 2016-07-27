@@ -230,5 +230,6 @@ CREATE TABLE IF NOT EXISTS `_credits` (
   `title` varchar(255) NOT NULL,
   `issn` varchar(20) NOT NULL,
   `current` tinyint(1) NOT NULL DEFAULT '0',
+  `edition` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
