@@ -225,6 +225,7 @@ CREATE TABLE IF NOT EXISTS `_natural_keys` (
 
 CREATE TABLE IF NOT EXISTS `_credits` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(10) NOT NULL,
   `organisation` varchar(255) NOT NULL,
   `authors_editors` varchar(1000) NOT NULL,
   `title` varchar(255) NOT NULL,
