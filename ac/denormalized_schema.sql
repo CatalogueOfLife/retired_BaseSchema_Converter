@@ -226,11 +226,8 @@ CREATE TABLE IF NOT EXISTS `_natural_keys` (
 CREATE TABLE IF NOT EXISTS `_credits` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(10) NOT NULL,
-  `organisation` varchar(255) NOT NULL,
-  `authors_editors` varchar(1000) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `issn` varchar(20) NOT NULL,
   `current` tinyint(1) NOT NULL DEFAULT '0',
   `edition` varchar(50) DEFAULT NULL,
+  `citation` varchar(750)  DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
