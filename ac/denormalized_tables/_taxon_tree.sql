@@ -2,11 +2,10 @@ SET SESSION sql_mode = '';
 
 ALTER TABLE `_taxon_tree` DISABLE KEYS;
 
-INSERT INTO `_taxon_tree` (`taxon_id`, `rank`, `lsid`, `number_of_children`)
+INSERT INTO `_taxon_tree` (`taxon_id`, `rank`, `number_of_children`)
 SELECT
     t_1.`id` AS `taxon_id`,
     rank.`rank` AS `rank`,
-    IF(MAX(uri.`resource_identifier`) LIKE 'urn:lsid:%',MAX(uri.`resource_identifier`),NULL)AS `lsid`,
     COUNT(children.`parent_id`) AS `number_of_children`
 FROM
     `taxon` AS `t_1`
