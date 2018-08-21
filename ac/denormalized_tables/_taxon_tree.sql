@@ -54,9 +54,10 @@ UPDATE `_taxon_tree` SET
 /* Fossils  */
 UPDATE `_taxon_tree` AS t1, `taxon_detail` AS t2
 SET
-	t1.`has_preholocene` = t2.`has_preholocene`,
-	t1.`has_modern` =  t2.`has_modern`,
-	t1.`is_extinct` = t2.`is_extinct`
+    t1.`has_preholocene` = t2.`has_preholocene`,
+    t1.`has_modern` =  t2.`has_modern`,
+    t1.`is_extinct` = t2.`is_extinct`
 WHERE
-	t1.`taxon_id` = t2.`taxon_id` AND
-	(t2.`has_preholocene` = 1 OR t2.`has_modern` = 0 OR t2.`is_extinct` = 1)
+    t1.`taxon_id` = t2.`taxon_id` AND
+    (t2.`has_preholocene` = 1 OR t2.`has_modern` = 0 OR t2.`is_extinct` = 1)
+

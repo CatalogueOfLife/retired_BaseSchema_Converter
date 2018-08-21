@@ -21,7 +21,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 CREATE TABLE `author_string` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `string` varchar(255) NOT NULL COMMENT 'Name of author(s), who described the taxon or published the current combination and the year when appropriate.',
+  `string` varchar(500) NOT NULL COMMENT 'Name of author(s), who described the taxon or published the current combination and the year when appropriate.',
   PRIMARY KEY (`id`),
   UNIQUE KEY `string` (`string`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Author citations of taxa and synonyms';

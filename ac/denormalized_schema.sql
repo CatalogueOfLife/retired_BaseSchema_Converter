@@ -76,7 +76,7 @@ CREATE TABLE `_source_database_details` (
 	`short_name` VARCHAR(255) NOT NULL ,
 	`version` VARCHAR(255) NOT NULL ,
 	`release_date` DATE NOT NULL ,
-	`authors_editors` VARCHAR(255) NOT NULL ,
+	`authors_editors` VARCHAR(500) NOT NULL ,
 	`english_name` VARCHAR(255) NOT NULL ,
 	`number_of_species` INT(10) NOT NULL ,
 	`number_of_infraspecific_taxon` INT(10) NOT NULL ,
