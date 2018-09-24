@@ -527,7 +527,7 @@ RIGHT JOIN `source_database` AS db ON
 WHERE td.`taxon_id` IS NOT NULL
 ;
 
-
+/*
 ALTER TABLE `_species_details` ENABLE KEYS;
 
 UPDATE `_species_details` AS dss SET
@@ -613,4 +613,4 @@ UPDATE `_species_details` SET
 `source_database_short_name` = TRIM(`source_database_short_name`),
 `scrutiny_date` = TRIM(`scrutiny_date`),
 `specialist` = TRIM(`specialist`);
-
+*/
