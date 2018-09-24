@@ -527,4 +527,90 @@ RIGHT JOIN `source_database` AS db ON
 WHERE td.`taxon_id` IS NOT NULL
 ;
 
+
 ALTER TABLE `_species_details` ENABLE KEYS;
+
+UPDATE `_species_details` AS dss SET
+`kingdom_lsid` = (SELECT `resource_identifier` AS kingdom_lsid
+    FROM `uri` AS kingdom_uri, `uri_to_taxon` AS kingdom_utt
+    WHERE kingdom_uri.`uri_scheme_id` = 9 AND
+    kingdom_uri.`id` = kingdom_utt.`uri_id` AND
+    kingdom_utt.`taxon_id` = dss.kingdom_id),
+`phylum_lsid` = (SELECT `resource_identifier` AS phylum_lsid
+    FROM `uri` AS phylum_uri, `uri_to_taxon` AS phylum_utt
+    WHERE phylum_uri.`uri_scheme_id` = 9 AND
+    phylum_uri.`id` = phylum_utt.`uri_id` AND
+    phylum_utt.`taxon_id` = dss.phylum_id),
+`class_lsid` = (SELECT `resource_identifier` AS class_lsid
+    FROM `uri` AS class_uri, `uri_to_taxon` AS class_utt
+    WHERE class_uri.`uri_scheme_id` = 9 AND
+    class_uri.`id` = class_utt.`uri_id` AND
+    class_utt.`taxon_id` = dss.class_id),
+`order_lsid` = (SELECT `resource_identifier` AS order_lsid
+    FROM `uri` AS order_uri, `uri_to_taxon` AS order_utt
+    WHERE order_uri.`uri_scheme_id` = 9 AND
+    order_uri.`id` = order_utt.`uri_id` AND
+    order_utt.`taxon_id` = dss.order_id),
+`superfamily_lsid` = (SELECT `resource_identifier` AS superfamily_lsid
+    FROM `uri` AS superfamily_uri, `uri_to_taxon` AS superfamily_utt
+    WHERE superfamily_uri.`uri_scheme_id` = 9 AND
+    superfamily_uri.`id` = superfamily_utt.`uri_id` AND
+    superfamily_utt.`taxon_id` = dss.superfamily_id),
+`family_lsid` = (SELECT `resource_identifier` AS family_lsid
+    FROM `uri` AS family_uri, `uri_to_taxon` AS family_utt
+    WHERE family_uri.`uri_scheme_id` = 9 AND
+    family_uri.`id` = family_utt.`uri_id` AND
+    family_utt.`taxon_id` = dss.family_id),
+`genus_lsid` = (SELECT `resource_identifier` AS genus_lsid
+    FROM `uri` AS genus_uri, `uri_to_taxon` AS genus_utt
+    WHERE genus_uri.`uri_scheme_id` = 9 AND
+    genus_uri.`id` = genus_utt.`uri_id` AND
+    genus_utt.`taxon_id` = dss.genus_id),
+`subgenus_lsid` = (SELECT `resource_identifier` AS subgenus_lsid
+    FROM `uri` AS subgenus_uri, `uri_to_taxon` AS subgenus_utt
+    WHERE subgenus_uri.`uri_scheme_id` = 9 AND
+    subgenus_uri.`id` = subgenus_utt.`uri_id` AND
+    subgenus_utt.`taxon_id` = dss.subgenus_id),
+`species_lsid` = (SELECT `resource_identifier` AS species_lsid
+    FROM `uri` AS species_uri, `uri_to_taxon` AS species_utt
+    WHERE species_uri.`uri_scheme_id` = 9 AND
+    species_uri.`id` = species_utt.`uri_id` AND
+    species_utt.`taxon_id` = dss.species_id),
+`infraspecies_lsid` = (SELECT `resource_identifier` AS infraspecies_lsid
+    FROM `uri` AS infraspecies_uri, `uri_to_taxon` AS infraspecies_utt
+    WHERE infraspecies_uri.`uri_scheme_id` = 9 AND
+    infraspecies_uri.`id` = infraspecies_utt.`uri_id` AND
+    infraspecies_utt.`taxon_id` = dss.infraspecies_id),
+`infraspecific_marker` = (SELECT IF(dss.`kingdom_name` = "animalia","",rank.`marker_displayed`) AS infraspecific_marker
+    FROM `taxon` AS t, `taxonomic_rank` AS rank WHERE t.`id` = dss.`infraspecies_id` AND t.`taxonomic_rank_id` = rank.`id`)
+;
+
+UPDATE `_species_details` SET
+
+`kingdom_lsid` = TRIM(`kingdom_lsid`),
+`kingdom_name` = TRIM(`kingdom_name`),
+`phylum_lsid` = TRIM(`phylum_lsid`),
+`phylum_name` = TRIM(`phylum_name`),
+`class_lsid` = TRIM(`class_lsid`),
+`class_name` = TRIM(`class_name`),
+`order_lsid` = TRIM(`order_lsid`),
+`order_name` = TRIM(`order_name`),
+`superfamily_lsid` = TRIM(`superfamily_lsid`),
+`superfamily_name` = TRIM(`superfamily_name`),
+`family_lsid` = TRIM(`family_lsid`),
+`family_name` = TRIM(`family_name`),
+`genus_lsid` = TRIM(`genus_lsid`),
+`genus_name` = TRIM(`genus_name`),
+`subgenus_lsid` = TRIM(`subgenus_lsid`),
+`subgenus_name` = TRIM(`subgenus_name`),
+`species_lsid` = TRIM(`species_lsid`),
+`species_name` = TRIM(`species_name`),
+`infraspecies_lsid` = TRIM(`infraspecies_lsid`),
+`infraspecies_name` = TRIM(`infraspecies_name`),
+`infraspecific_marker` = TRIM(`infraspecific_marker`),
+`author` = TRIM(`author`),
+`additional_data` = TRIM(`additional_data`),
+`source_database_short_name` = TRIM(`source_database_short_name`),
+`scrutiny_date` = TRIM(`scrutiny_date`),
+`specialist` = TRIM(`specialist`);
+
