@@ -140,6 +140,7 @@ CREATE TABLE `_species_details` (
 	`has_preholocene` smallint(1) NOT NULL DEFAULT '0',
 	`has_modern` smallint(1) NOT NULL DEFAULT '1',
 	`is_extinct` smallint(1) NOT NULL DEFAULT '0',
+    `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (`taxon_id`)
 ) ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
