@@ -527,6 +527,16 @@ RIGHT JOIN `source_database` AS db ON
 WHERE td.`taxon_id` IS NOT NULL
 ;
 
+ALTER TABLE `_species_details` ENABLE KEYS;
+
+UPDATE `_species_details` AS t1
+LEFT JOIN taxon as t2 ON t1.taxon_id = t2.id
+LEFT JOIN taxonomic_rank as t3 ON t2.taxonomic_rank_id = t3.id
+SET t1.infraspecific_marker = t3.marker_displayed
+WHERE t1.kingdom_name != 'Animalia' AND
+t3.marker_displayed IS NOT NULL;
+
+
 /*
 ALTER TABLE `_species_details` ENABLE KEYS;
 
