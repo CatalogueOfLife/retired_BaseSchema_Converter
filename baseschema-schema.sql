@@ -306,7 +306,7 @@ CREATE TABLE `region_standard` (
 
 CREATE TABLE `scientific_name_element` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name_element` varchar(100) NOT NULL COMMENT 'Basic element of a scientific name; e.g. the epithet argentatus as used in Larus argentatus argenteus',
+  `name_element` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'Basic element of a scientific name; e.g. the epithet argentatus as used in Larus argentatus argenteus',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_element` (`name_element`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Individual elements used to generate a scientific name';
