@@ -430,7 +430,8 @@ CREATE TABLE `taxon` (
   `original_id` varchar(100) DEFAULT NULL COMMENT 'ACEF name code',
   PRIMARY KEY (`id`),
   KEY `taxonomic_rank_id` (`taxonomic_rank_id`),
-  KEY `source_database_id` (`source_database_id`)
+  KEY `source_database_id` (`source_database_id`),
+  KEY `original_id` (`original_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Scientific name elements and hierarchy of a taxon';
 
 -- --------------------------------------------------------
