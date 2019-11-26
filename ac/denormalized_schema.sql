@@ -215,14 +215,14 @@ CREATE TABLE IF NOT EXISTS `_natural_keys` (
   `hash` varchar(32) NOT NULL,
   `name` varchar(255) NOT NULL,
   `author` varchar(255) DEFAULT NULL,
-  `name_code` varchar(500) DEFAULT NULL,
+  `name_code` varchar(32) DEFAULT NULL,
   `accepted` tinyint(1) NOT NULL DEFAULT '1',
   `status` tinyint(1) NOT NULL,
   KEY `hash` (`hash`),
   KEY `id` (`id`),
+  KEY `name_code` (`name_code`),
   KEY `name` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 
 CREATE TABLE IF NOT EXISTS `_credits` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
